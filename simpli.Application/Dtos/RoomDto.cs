@@ -1,6 +1,6 @@
-namespace simpli.Domain;
+namespace simpli.Domain.Entities;
 
-public class Room
+public class RoomDto
 {
   public int Id { get; set; }
   public string? RoomNumber { get; set; }

@@ -2,10 +2,27 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "Riok.Mapperly/5.0.0-next.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Riok.Mapperly.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Riok.Mapperly.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/_._": {}
+        }
+      },
       "simpli.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Riok.Mapperly": "5.0.0-next.3",
           "simpli.Domain": "1.0.0"
         },
         "compile": {
@@ -41,6 +58,30 @@
     }
   },
   "libraries": {
+    "Riok.Mapperly/5.0.0-next.3": {
+      "sha512": "g0o9LEAUaR4i+xtP4AiGgl9PGIpwCQ+9ZpC9qe39lBFMLJzEf2h2N5WoFu2FC9VjiT0amv74SWs5KrR3rnQ/8A==",
+      "type": "package",
+      "path": "riok.mapperly/5.0.0-next.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "analyzers/roslyn4.11/dotnet/cs/Riok.Mapperly.Abstractions.dll",
+        "analyzers/roslyn4.11/dotnet/cs/Riok.Mapperly.dll",
+        "analyzers/roslyn4.14/dotnet/cs/Riok.Mapperly.Abstractions.dll",
+        "analyzers/roslyn4.14/dotnet/cs/Riok.Mapperly.dll",
+        "analyzers/roslyn4.8/dotnet/cs/Riok.Mapperly.Abstractions.dll",
+        "analyzers/roslyn4.8/dotnet/cs/Riok.Mapperly.dll",
+        "analyzers/roslyn5.0/dotnet/cs/Riok.Mapperly.Abstractions.dll",
+        "analyzers/roslyn5.0/dotnet/cs/Riok.Mapperly.dll",
+        "build/Riok.Mapperly.targets",
+        "lib/netstandard2.0/Riok.Mapperly.Abstractions.dll",
+        "lib/netstandard2.0/Riok.Mapperly.Abstractions.xml",
+        "logo.png",
+        "riok.mapperly.5.0.0-next.3.nupkg.sha512",
+        "riok.mapperly.nuspec"
+      ]
+    },
     "simpli.Application/1.0.0": {
       "type": "project",
       "path": "../simpli.Application/simpli.Application.csproj",

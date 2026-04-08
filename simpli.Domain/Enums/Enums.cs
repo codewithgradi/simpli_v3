@@ -1,22 +1,22 @@
-enum VisitorStatus
+public enum VisitorStatus
 {
   CheckedIn,
   CheckedOut
 }
-enum Gender
+public enum Gender
 {
   Male,
   Female
 }
-enum ReasonForVisit
+public enum ReasonForVisit
 {
   Delivery, Meeting, Maintenance, Personal
 }
-enum RoomStatus
+public enum RoomStatus
 {
   Available, Occupied, Maintenance
 }
-enum RoomType
+public enum RoomType
 {
   Suite,
   Standard,

@@ -1,6 +1,6 @@
-namespace simpli.Domain;
+namespace simpli.Domain.Entities;
 
-public class Visitor
+public class VisitorDto
 {
   public int Id { get; set; }
   public string? FirstName { get; set; }

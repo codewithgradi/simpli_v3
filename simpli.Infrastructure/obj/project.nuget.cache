@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "JLiqXs6wR8c=",
+  "dgSpecHash": "sT38EgjHiMg=",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\riok.mapperly\\5.0.0-next.3\\riok.mapperly.5.0.0-next.3.nupkg.sha512"
+  ],
   "logs": []
 }

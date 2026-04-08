@@ -1,8 +1,8 @@
-namespace simpli.Domain;
+namespace simpli.Domain.Entities;
 
-public class Visitor
+public class CreateVisitorDto
 {
-  public int Id { get; set; }
+
   public string? FirstName { get; set; }
   public string? LastName { get; set; }
   public string? IdNumber { get; set; }
@@ -14,10 +14,4 @@ public class Visitor
   public VisitorStatus Status { get; set; } = VisitorStatus.CheckedIn;
   public DateTime CreatedAt { get; set; } = DateTime.Now;
   public Gender Gender { get; set; }
-  public string? PassCode { get; set; }
-
-  public Room? Room { get; set; }
-  public Company? Company { get; set; }
-  public int CompanyId { get; set; }
-  public int RoomID { get; set; }
 }

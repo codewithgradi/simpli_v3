@@ -1,6 +1,6 @@
-namespace simpli.Domain;
+namespace simpli.Domain.Entities;
 
-public class Company
+class CompanyDto
 {
   public int Id { get; set; }
   public string? CompanyName { get; set; }
@@ -18,14 +18,4 @@ public class Company
   public List<Room>? Rooms { get; set; }
   public List<Visitor>? Visitors { get; set; }
 
-}
-
-public class AddressContent
-{
-  public string? StreetNumber { get; set; }
-  public string? StreetName { get; set; }
-  public string? City { get; set; }
-  public string? Country { get; set; }
-  public string? Website { get; set; }
-  public string? OperatingHours { get; set; }
 }

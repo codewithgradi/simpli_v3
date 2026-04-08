@@ -1,6 +1,6 @@
-namespace simpli.Domain;
+namespace simpli.Domain.Entities;
 
-public class Notification
+public class NotificationDto
 {
   public int Id { get; set; }
   public string? VisitorName { get; set; }

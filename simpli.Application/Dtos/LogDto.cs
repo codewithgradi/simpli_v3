@@ -1,16 +1,10 @@
-namespace simpli.Domain;
+namespace simpli.Domain.Entities;
 
-public class Log
+public class LogDto
 {
   public int Id { get; set; }
   public int AdminId { get; set; }
   public string? TargetId { get; set; }
   public AdminAction? Action { get; set; }
   public DateTime Date { get; set; }
-}
-
-public class AdminAction
-{
-  public DateTime Date { get; set; }
-  public string? Action { get; set; }
 }
