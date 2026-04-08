@@ -1,0 +1,27 @@
+namespace simpli.Domain;
+
+class Company
+{
+  public int Id { get; set; }
+  public string? CompanyName { get; set; }
+  public string? Email { get; set; }
+  public string? Password { get; set; }
+  public string? RegistrationNumber { get; set; }
+  public string? ContactNumber { get; set; }
+  public bool isProfileComplete { get; set; }
+  public bool isDeleted { get; set; }
+  public string? Rooms { get; set; }
+  public string? Notifications { get; set; }
+  public AddressContent? Address { get; set; }
+  public DateTime CreatedAt { get; set; }
+}
+
+class AddressContent
+{
+  public string? StreetNumber { get; set; }
+  public string? StreetName { get; set; }
+  public string? City { get; set; }
+  public string? Country { get; set; }
+  public string? Website { get; set; }
+  public string? OperatingHours { get; set; }
+}
