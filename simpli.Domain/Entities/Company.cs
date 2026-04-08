@@ -10,10 +10,14 @@ class Company
   public string? ContactNumber { get; set; }
   public bool isProfileComplete { get; set; }
   public bool isDeleted { get; set; }
-  public string? Rooms { get; set; }
   public string? Notifications { get; set; }
   public AddressContent? Address { get; set; }
   public DateTime CreatedAt { get; set; }
+
+
+  public List<Room>? Rooms { get; set; }
+  public List<Visitor>? Visitors { get; set; }
+
 }
 
 class AddressContent
