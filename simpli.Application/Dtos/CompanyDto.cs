@@ -1,6 +1,6 @@
 namespace simpli.Domain.Entities;
 
-class CompanyDto
+public class CompanyDto
 {
   public int Id { get; set; }
   public string? CompanyName { get; set; }
