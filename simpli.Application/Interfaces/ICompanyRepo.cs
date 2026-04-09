@@ -1,7 +1,7 @@
 using simpli.Application;
 using simpli.Domain.Entities;
 
-interface ICompanyRepo
+public interface ICompanyRepo
 {
     Task<List<VisitorDto>> GetMyVisitors(int companyId); 
     Task<CompanyDto> GetCompanyProfile (int companyId);

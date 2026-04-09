@@ -1,6 +1,6 @@
 using simpli.Domain.Entities;
 
-interface INotification
+public interface INotification
 {
     Task<List<NotificationDto>> GetAllNotifications(int company);
     Task  MarkAllRead(int companyId);
