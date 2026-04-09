@@ -1,4 +1,3 @@
-using simpli.Application.Dtos;
 namespace simpli.Domain.Entities;
 
 using Riok.Mapperly.Abstractions;

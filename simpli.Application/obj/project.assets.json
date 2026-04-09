@@ -68,19 +68,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "/home/codespace/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj",
+      "projectUniqueName": "/workspaces/simpli_v3/simpli.Application/simpli.Application.csproj",
       "projectName": "simpli.Application",
-      "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\obj\\",
+      "projectPath": "/workspaces/simpli_v3/simpli.Application/simpli.Application.csproj",
+      "packagesPath": "/home/codespace/.nuget/packages/",
+      "outputPath": "/workspaces/simpli_v3/simpli.Application/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/codespace/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -92,8 +92,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\User\\Desktop\\simpli\\simpli.Domain\\simpli.Domain.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Domain\\simpli.Domain.csproj"
+            "/workspaces/simpli_v3/simpli.Domain/simpli.Domain.csproj": {
+              "projectPath": "/workspaces/simpli_v3/simpli.Domain/simpli.Domain.csproj"
             }
           }
         }
@@ -135,7 +135,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

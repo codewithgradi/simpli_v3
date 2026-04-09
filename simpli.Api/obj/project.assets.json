@@ -76,19 +76,6 @@
         "runtime": {
           "bin/placeholder/simpli.Domain.dll": {}
         }
-      },
-      "simpli.Infrastructure/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "simpli.Application": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/simpli.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/simpli.Infrastructure.dll": {}
-        }
       }
     }
   },
@@ -162,34 +149,28 @@
       "type": "project",
       "path": "../simpli.Domain/simpli.Domain.csproj",
       "msbuildProject": "../simpli.Domain/simpli.Domain.csproj"
-    },
-    "simpli.Infrastructure/1.0.0": {
-      "type": "project",
-      "path": "../simpli.Infrastructure/simpli.Infrastructure.csproj",
-      "msbuildProject": "../simpli.Infrastructure/simpli.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Microsoft.AspNetCore.OpenApi >= 10.0.1",
-      "simpli.Application >= 1.0.0",
-      "simpli.Infrastructure >= 1.0.0"
+      "simpli.Application >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "/home/codespace/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli\\simpli.Api\\simpli.Api.csproj",
+      "projectUniqueName": "/workspaces/simpli_v3/simpli.Api/simpli.Api.csproj",
       "projectName": "simpli.Api",
-      "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Api\\simpli.Api.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Api\\obj\\",
+      "projectPath": "/workspaces/simpli_v3/simpli.Api/simpli.Api.csproj",
+      "packagesPath": "/home/codespace/.nuget/packages/",
+      "outputPath": "/workspaces/simpli_v3/simpli.Api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/codespace/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -201,11 +182,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj"
-            },
-            "C:\\Users\\User\\Desktop\\simpli\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Infrastructure\\simpli.Infrastructure.csproj"
+            "/workspaces/simpli_v3/simpli.Application/simpli.Application.csproj": {
+              "projectPath": "/workspaces/simpli_v3/simpli.Application/simpli.Application.csproj"
             }
           }
         }
@@ -250,7 +228,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
