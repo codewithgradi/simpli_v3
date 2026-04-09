@@ -10,4 +10,5 @@ public partial class RoomMappers
   public partial RoomDto MapToDto(Room room);
   public partial Room MapToEntity(RoomDto dto);
   public partial RoomDto MapFromCreate(CreateRoomDto dto);
+  public partial RoomDto MapToRoomDtoFromUpdate (UpdateRoomDto dto);
 }

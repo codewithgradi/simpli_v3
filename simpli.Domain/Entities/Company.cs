@@ -10,7 +10,7 @@ public class Company
   public string? ContactNumber { get; set; }
   public bool isProfileComplete { get; set; }
   public bool isDeleted { get; set; }
-  public string? Notifications { get; set; }
+  public List<Notification>? Notifications { get; set; }
   public AddressContent? Address { get; set; }
   public DateTime CreatedAt { get; set; }
 

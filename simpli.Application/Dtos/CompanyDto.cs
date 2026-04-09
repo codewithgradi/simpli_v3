@@ -10,12 +10,12 @@ public class CompanyDto
   public string? ContactNumber { get; set; }
   public bool isProfileComplete { get; set; }
   public bool isDeleted { get; set; }
-  public string? Notifications { get; set; }
+  public List<NotificationDto>? Notifications { get; set; }
   public AddressContent? Address { get; set; }
   public DateTime CreatedAt { get; set; }
 
 
-  public List<Room>? Rooms { get; set; }
-  public List<Visitor>? Visitors { get; set; }
+  public List<RoomDto>? Rooms { get; set; }
+  public List<VisitorDto>? Visitors { get; set; }
 
 }
