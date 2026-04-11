@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\simpli\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {}
+    "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj": {
+    "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj",
         "projectName": "simpli.Application",
-        "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -20,14 +20,15 @@
           "net10.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/codewithgradi/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\User\\Desktop\\simpli\\simpli.Domain\\simpli.Domain.csproj": {
-                "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Domain\\simpli.Domain.csproj"
+              "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj"
               }
             }
           }
@@ -347,14 +348,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Desktop\\simpli\\simpli.Domain\\simpli.Domain.csproj": {
+    "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli\\simpli.Domain\\simpli.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj",
         "projectName": "simpli.Domain",
-        "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Domain\\simpli.Domain.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Domain\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -363,7 +364,8 @@
           "net10.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/codewithgradi/index.json": {}
         },
         "frameworks": {
           "net10.0": {
@@ -386,6 +388,12 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -680,14 +688,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Desktop\\simpli\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {
+    "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
         "projectName": "simpli.Infrastructure",
-        "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -696,14 +704,15 @@
           "net10.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/codewithgradi/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj": {
-                "projectPath": "C:\\Users\\User\\Desktop\\simpli\\simpli.Application\\simpli.Application.csproj"
+              "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj"
               }
             }
           }
@@ -723,6 +732,24 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

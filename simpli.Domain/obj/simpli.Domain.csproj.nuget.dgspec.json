@@ -1,26 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/simpli_v3/simpli.Domain/simpli.Domain.csproj": {}
+    "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj": {}
   },
   "projects": {
-    "/workspaces/simpli_v3/simpli.Domain/simpli.Domain.csproj": {
+    "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/simpli_v3/simpli.Domain/simpli.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj",
         "projectName": "simpli.Domain",
-        "projectPath": "/workspaces/simpli_v3/simpli.Domain/simpli.Domain.csproj",
-        "packagesPath": "/home/codespace/.nuget/packages/",
-        "outputPath": "/workspaces/simpli_v3/simpli.Domain/obj/",
+        "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\simpli.Domain.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/codespace/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/codewithgradi/index.json": {}
         },
         "frameworks": {
           "net10.0": {
@@ -43,6 +44,12 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -59,7 +66,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
