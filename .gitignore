@@ -6,6 +6,7 @@
 
 #
 Migrations/
+nuget.config
 obj/
 # dotenv files
 .env
