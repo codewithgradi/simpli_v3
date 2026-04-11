@@ -14,4 +14,5 @@ public class OtherSettings
 {
     public string? Env { get; set; }
     public string? FrontEndurl { get; set; }
+    public string? PAT { get; set; }
 }
