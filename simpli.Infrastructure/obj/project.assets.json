@@ -207,12 +207,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -329,12 +329,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -604,10 +604,14 @@
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Design.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Design.dll": {}
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Design.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/net10.0/Microsoft.EntityFrameworkCore.Design.props": {}
@@ -1126,14 +1130,10 @@
       "Microsoft.VisualStudio.SolutionPersistence/1.0.52": {
         "type": "package",
         "compile": {
-          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {
-            "related": ".xml"
-          }
+          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {}
         },
         "runtime": {
-          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {
-            "related": ".xml"
-          }
+          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {}
         }
       },
       "Mono.TextTemplating/3.0.0": {
@@ -1154,14 +1154,10 @@
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         }
       },
       "Riok.Mapperly/5.0.0-next.3": {
@@ -1200,14 +1196,10 @@
       "System.CodeDom/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.CodeDom.dll": {}
         },
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.CodeDom.dll": {}
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -1235,14 +1227,10 @@
       "System.Composition.AttributedModel/9.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Composition.AttributedModel.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.AttributedModel.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.AttributedModel.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.AttributedModel.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1254,14 +1242,10 @@
           "System.Composition.AttributedModel": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.Convention.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Convention.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Convention.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Convention.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1273,14 +1257,10 @@
           "System.Composition.Runtime": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.Hosting.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Hosting.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Hosting.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Hosting.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1289,14 +1269,10 @@
       "System.Composition.Runtime/9.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Composition.Runtime.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Runtime.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Runtime.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Runtime.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1310,14 +1286,10 @@
           "System.Composition.Runtime": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.TypedParts.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.TypedParts.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.TypedParts.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.TypedParts.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1457,9 +1429,6 @@
       "simpli.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.5"
-        },
         "compile": {
           "bin/placeholder/simpli.Domain.dll": {}
         },
@@ -4174,6 +4143,7 @@
       "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
+        "C:\\Users\\User\\Desktop\\simpli_v3\\NuGet.Config",
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
@@ -4181,6 +4151,7 @@
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.pkg.github.com/codewithgradi/index.json": {},
         "https://nuget.pkg.github.com/codewithgradi/index.json": {}
       },
       "frameworks": {
