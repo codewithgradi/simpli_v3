@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using simpli.Infrastructure;
 
-public class AppDbContext : IdentityDbContext<AppUser>
+
+public class AppDbContext : IdentityDbContext<IdentityUser>
 {
   public AppDbContext(DbContextOptions<AppDbContext> options)
    :
