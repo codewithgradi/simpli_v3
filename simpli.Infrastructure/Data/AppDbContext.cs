@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using simpli.Domain;
 
 
 public class AppDbContext : IdentityDbContext<IdentityUser>
@@ -9,6 +10,14 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
    :
    base(options)
   { }
+
+  //tables
+  public DbSet<Notification> Notifications { get; set; }
+  public DbSet<Company> Companies { get; set; }
+  public DbSet<Log> Logs { get; set; }
+  public DbSet<Room> Rooms { get; set; }
+  public DbSet<Visitor> Visitors { get; set; }
+
   protected override void OnModelCreating(ModelBuilder builder)
   {
     base.OnModelCreating(builder);
