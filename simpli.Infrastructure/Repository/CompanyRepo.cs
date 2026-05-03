@@ -1,5 +1,6 @@
 
 
+using Microsoft.EntityFrameworkCore;
 using simpli.Application;
 using simpli.Domain.Entities;
 
@@ -12,7 +13,7 @@ public class CompanyRepo : ICompanyRepo
     }
     public Task<bool> CompanyExists(int companyId)
     {
-        throw new NotImplementedException();
+        return _context.Companies.AnyAsync(x => x.Id == companyId);
     }
 
     public Task<CompanyDto> GetCompanyProfile(int companyId)
