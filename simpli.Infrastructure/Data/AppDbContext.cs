@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using simpli.Domain;
 
 
-public class AppDbContext : IdentityDbContext<IdentityUser>
+public class AppDbContext : IdentityDbContext<AppUser>
 {
   public AppDbContext(DbContextOptions<AppDbContext> options)
    :
