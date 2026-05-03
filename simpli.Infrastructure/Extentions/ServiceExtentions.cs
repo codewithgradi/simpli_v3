@@ -32,7 +32,7 @@ public static class ServiceExtentions
   }
   public static IServiceCollection IdentityConfigurationsScope(this IServiceCollection services)
   {
-    services.AddIdentityCore<IdentityUser>()
+    services.AddIdentityCore<AppUser>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddApiEndpoints();
 
