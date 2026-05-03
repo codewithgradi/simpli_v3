@@ -34,5 +34,7 @@ public static class ServiceExtentions
     services.AddAuthentication()
     .AddBearerToken(IdentityConstants.BearerScheme);
 
+    services.AddAuthorization();
   }
+
 }
