@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using simpli.Application;
 namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
@@ -50,6 +50,12 @@ public static class ServiceExtentions
 
     services.Configure<OtherSettings>
     (configuration.GetSection("OtherSettings"));
+
+    services.AddScoped<ICompanyRepo, CompanyRepo>();
+    services.AddScoped<INotification, NotificationRepo>();
+    services.AddScoped<IRoomRepo, RoomRepo>();
+    services.AddScoped<IStatsRepo, StatsRepo>();
+    services.AddScoped<IVisitorRepo, VisitorRepo>();
 
     return services;
   }
