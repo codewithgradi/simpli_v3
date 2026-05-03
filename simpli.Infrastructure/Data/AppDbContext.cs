@@ -21,5 +21,8 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
   protected override void OnModelCreating(ModelBuilder builder)
   {
     base.OnModelCreating(builder);
+
+    //Applies the rules in ./confirgurations to db here
+    builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
   }
 }
