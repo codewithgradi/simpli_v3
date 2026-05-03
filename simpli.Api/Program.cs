@@ -1,7 +1,15 @@
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
+using simpli.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+.EnvironmentConfig(builder.Configuration)
+.ConfigureSqlDB(builder.Configuration)
+.IdentityConfigurationsScope()
+.AllowCors();
+
 
 var app = builder.Build();
 
@@ -15,7 +23,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
 app.UseAuthorization();
+
+//Mapping from scalar UI
 app.MapIdentityApi<IdentityUser>();
 
 app.Run();

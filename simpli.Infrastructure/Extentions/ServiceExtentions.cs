@@ -3,9 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+namespace simpli.Infrastructure;
+
 public static class ServiceExtentions
 {
-  public static void ConfigureSqlDB(IServiceCollection services, IConfiguration config)
+  public static IServiceCollection ConfigureSqlDB(this IServiceCollection services,
+   IConfiguration config)
   {
     var connectionStrings = new ConnnectionStrings();
     config.GetSection("ConnectionStrings").Bind(connectionStrings);
@@ -24,8 +27,10 @@ public static class ServiceExtentions
         opt.UseSqlServer(config.GetConnectionString("ProdDB"));
       }
     });
+
+    return services;
   }
-  public static void IdentityConfigurationsScope(IServiceCollection services)
+  public static IServiceCollection IdentityConfigurationsScope(this IServiceCollection services)
   {
     services.AddIdentityCore<IdentityUser>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -35,6 +40,33 @@ public static class ServiceExtentions
     .AddBearerToken(IdentityConstants.BearerScheme);
 
     services.AddAuthorization();
+
+    return services;
+  }
+  public static IServiceCollection EnvironmentConfig(this IServiceCollection services, IConfiguration configuration)
+  {
+    services.Configure<ConnnectionStrings>
+    (configuration.GetSection("ConnectionStrings"));
+
+    services.Configure<OtherSettings>
+    (configuration.GetSection("OtherSettings"));
+
+    return services;
   }
 
+  public static IServiceCollection AllowCors(this IServiceCollection services)
+  {
+    services.AddCors(opt =>
+    {
+      opt.AddPolicy("AllowNextJs", builder =>
+      {
+        builder.WithOrigins(["http://localhost:3000", "Prod frontend here"])
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+      });
+    });
+
+    return services;
+  }
 }
