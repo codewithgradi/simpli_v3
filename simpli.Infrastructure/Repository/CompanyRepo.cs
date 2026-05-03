@@ -5,6 +5,11 @@ using simpli.Domain.Entities;
 
 public class CompanyRepo : ICompanyRepo
 {
+    private AppDbContext _context;
+    public CompanyRepo(AppDbContext context)
+    {
+        _context = context;
+    }
     public Task<bool> CompanyExists(int companyId)
     {
         throw new NotImplementedException();
