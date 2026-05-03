@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using simpli.Infrastructure;
 
 public class AppDbContext : IdentityDbContext<AppUser>
 {
