@@ -17,7 +17,6 @@ public class Company
 
   public List<Room>? Rooms { get; set; }
   public List<Visitor>? Visitors { get; set; }
-  public AppUser? AppUser { get; set; }
 
 }
 

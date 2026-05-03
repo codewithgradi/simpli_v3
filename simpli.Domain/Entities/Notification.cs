@@ -8,6 +8,6 @@ public class Notification
   public VisitorStatus Status { get; set; }
   public DateTime CreatedAt { get; set; }
 
-  public List<Company>? Companies { get; set; }
+  public Company? Company { get; set; }
   public int CompanyId { get; set; }
 }
