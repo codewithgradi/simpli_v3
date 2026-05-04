@@ -7,24 +7,28 @@ namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
 {
+  public static IServiceCollection LoadEnvironment(this IServiceCollection services, IConfiguration configuration)
+  {
+    DotNetEnv.Env.Load();
+    var connectionStrings = new ConnnectionStrings();
+    configuration.GetSection("ConnectionStrings").Bind(connectionStrings);
+    services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
+    return services;
+  }
   public static IServiceCollection ConfigureSqlDB(this IServiceCollection services,
    IConfiguration config)
   {
-    var connectionStrings = new ConnnectionStrings();
-    config.GetSection("ConnectionStrings").Bind(connectionStrings);
 
-    var otherSettings = new OtherSettings();
-    config.GetSection("OtherSettings").Bind(otherSettings);
-
+    var envType = config["OtherSettings:CurrentEnviroment"];
     services.AddDbContext<AppDbContext>(opt =>
     {
-      if (otherSettings.Env == "dev")
+      if (envType == "dev")
       {
-        opt.UseSqlServer(config.GetConnectionString("DevDB"));
+        opt.UseSqlServer(config["ConnectionStrings:DevDB"]);
       }
-      else if (otherSettings.Env == "prod")
+      else if (envType == "prod")
       {
-        opt.UseSqlServer(config.GetConnectionString("ProdDB"));
+        opt.UseSqlServer(config["ConnectionStrings:ProdDB"]);
       }
     });
 
@@ -43,14 +47,10 @@ public static class ServiceExtentions
 
     return services;
   }
-  public static IServiceCollection EnvironmentConfig(this IServiceCollection services, IConfiguration configuration)
+  public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
   {
-    services.Configure<ConnnectionStrings>
-    (configuration.GetSection("ConnectionStrings"));
-
-    services.Configure<OtherSettings>
-    (configuration.GetSection("OtherSettings"));
-
+    services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
+    services.Configure<OtherSettings>(configuration.GetSection("OtherSettings"));
     services.AddScoped<ICompanyRepo, CompanyRepo>();
     services.AddScoped<INotification, NotificationRepo>();
     services.AddScoped<IRoomRepo, RoomRepo>();
@@ -76,12 +76,4 @@ public static class ServiceExtentions
     return services;
   }
 
-  public static IServiceCollection AddEnvVariables(this IServiceCollection services, IConfiguration configuration)
-  {
-    DotNetEnv.Env.Load();
-    var connectionStrings = new ConnnectionStrings();
-    configuration.GetSection("ConnectionStrings").Bind(connectionStrings);
-    services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
-    return services;
-  }
 }

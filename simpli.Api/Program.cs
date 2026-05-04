@@ -4,9 +4,12 @@ using simpli.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DotNetEnv.Env.Load();
+
 builder.Services
-.EnvironmentConfig(builder.Configuration)
+.LoadEnvironment(builder.Configuration)
 .ConfigureSqlDB(builder.Configuration)
+.AddInfrastructureServices(builder.Configuration)
 .IdentityConfigurationsScope()
 .AllowCors();
 
