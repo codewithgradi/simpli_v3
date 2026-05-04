@@ -22,11 +22,14 @@ public class NotificationRepo : INotification
         return await _mapper.ProjectToDto(
             _context.Notifications.AsNoTracking()
             .Where(x => x.CompanyId == companyID))
+            .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
     }
 
-    public Task MarkAllRead(int companyId)
+    public async Task MarkAllRead(int companyId)
     {
-        throw new NotImplementedException();
+        await _context.Notifications
+        .Where(x => x.CompanyId == companyId)
+        .ExecuteUpdateAsync(setters => setters.SetProperty(r => r.IsRead, true));
     }
 }
