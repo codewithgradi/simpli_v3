@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using simpli.Application;
+using simpli.Application.Dtos;
 namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
@@ -59,7 +60,6 @@ public static class ServiceExtentions
 
     return services;
   }
-
   public static IServiceCollection AllowCors(this IServiceCollection services)
   {
     services.AddCors(opt =>
@@ -75,5 +75,9 @@ public static class ServiceExtentions
 
     return services;
   }
-
+  public static IServiceCollection AddMappers(this IServiceCollection services)
+  {
+    services.AddSingleton<VisitorMappers>();
+    return services;
+  }
 }
