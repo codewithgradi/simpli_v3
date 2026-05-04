@@ -10,9 +10,11 @@ public class NotificationRepo : INotification
         _context = context;
         _mapper = mapper;
     }
-    public Task ClearAllNotifications(int companyId)
+    public async Task ClearAllNotifications(int companyId)
     {
-        throw new NotImplementedException();
+        await _context.Notifications
+        .Where(x => x.CompanyId == companyId)
+       .ExecuteDeleteAsync();
     }
 
     public async Task<List<NotificationMessageDto>> GetAllNotifications(int companyID)
