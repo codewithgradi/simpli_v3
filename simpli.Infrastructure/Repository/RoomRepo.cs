@@ -17,14 +17,10 @@ public class RoomRepo : IRoomRepo
         throw new NotImplementedException();
     }
 
-    public Task DeleteRoom(int rommId)
+    public async Task<List<RoomDto>> GetAllRooms(int companyId)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<RoomDto>> GetAllRooms(int companyId)
-    {
-        throw new NotImplementedException();
+        return await _mapper.ProjectToRoomDto(_context.Rooms.AsNoTracking())
+        .ToListAsync();
     }
 
     public async Task<RoomDto> GetRoom(int roomId)
