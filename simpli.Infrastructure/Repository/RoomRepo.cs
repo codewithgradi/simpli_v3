@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using simpli.Application;
 using simpli.Application.Dtos;
 using simpli.Domain.Entities;
@@ -31,9 +32,9 @@ public class RoomRepo : IRoomRepo
         throw new NotImplementedException();
     }
 
-    public Task<bool> RoomExists(int companyId, int roomId)
+    public async Task<bool> RoomExists(int companyId, int roomId)
     {
-        throw new NotImplementedException();
+        return await _context.Rooms.AnyAsync();
     }
 
     public Task<RoomDto> UpdateRoom(UpdateRoomDto dto, int roomId, int companyId)
