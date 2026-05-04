@@ -12,9 +12,12 @@ public class RoomRepo : IRoomRepo
         _context = context;
         _mapper = mapper;
     }
-    public Task<RoomDto> CreateRoom(CreateRoomDto dto, int companyId)
+    public async Task<RoomDto> CreateRoom(CreateRoomDto dto, int companyId)
     {
-        throw new NotImplementedException();
+        var room = _mapper.MapFromCreate(dto);
+        room.CompanyId = companyId;
+        await _context.SaveChangesAsync();
+        return _mapper.MapToDto(room);
     }
 
     public async Task<List<RoomDto>> GetAllRooms(int companyId)

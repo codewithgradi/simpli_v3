@@ -9,7 +9,7 @@ public partial class RoomMappers
 {
   public partial RoomDto MapToDto(Room room);
   public partial Room MapToEntity(RoomDto dto);
-  public partial RoomDto MapFromCreate(CreateRoomDto dto);
+  public partial Room MapFromCreate(CreateRoomDto dto);
   public partial RoomDto MapToRoomDtoFromUpdate(UpdateRoomDto dto);
   public partial IQueryable<RoomDto> ProjectToRoomDto(IQueryable<Room> rooms);
 }

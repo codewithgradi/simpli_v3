@@ -8,7 +8,6 @@ public class RoomDto
   public RoomType Type { get; set; } = RoomType.Standard;
   public RoomStatus Status = RoomStatus.Available;
   public int NumberOfTimesBooked { get; set; } = 0;
-
   public Company? Company { get; set; }
   public int CompanyId { get; set; }
 
