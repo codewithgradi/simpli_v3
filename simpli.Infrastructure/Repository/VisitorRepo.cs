@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using simpli.Application.Dtos;
+using simpli.Domain;
 using simpli.Domain.Entities;
 
 public class VisitorRepo : IVisitorRepo
@@ -32,6 +34,14 @@ public class VisitorRepo : IVisitorRepo
 
         visitor.Status = VisitorStatus.CheckedOut;
         room.Status = RoomStatus.Available;
+    }
+
+    public async Task<List<CheckInDto>> GetAllVisitors()
+    {
+        return await _mapper
+        .ProjectToCheckInDto
+        (_context.Visitors.AsNoTracking())
+        .ToListAsync();
     }
 
     public async Task<VisitorDto> GetVisitor(int id)
