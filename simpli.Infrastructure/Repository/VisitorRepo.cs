@@ -25,7 +25,7 @@ public class VisitorRepo : IVisitorRepo
 
     public async Task CheckOut(CheckOutDto dto, int id)
     {
-        var visitor = await _context.Visitors.FindAsync(id);
+        var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.Id == id);
         if (visitor == null || dto == null) return;
 
         var room = await _context.Rooms.FindAsync(dto.roomId);
@@ -46,7 +46,7 @@ public class VisitorRepo : IVisitorRepo
 
     public async Task<VisitorDto> GetVisitor(int id)
     {
-        var visitor = await _context.Visitors.FindAsync(id);
+        var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.Id == id);
         if (visitor == null) return null;
         return _mapper.MapToDto(visitor);
     }

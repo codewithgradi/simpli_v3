@@ -25,7 +25,7 @@ public class RoomRepo : IRoomRepo
 
     public async Task<RoomDto> GetRoom(int roomId)
     {
-        var room = await _context.Rooms.FindAsync(roomId);
+        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == roomId);
         if (room == null) return null;
         return _mapper.MapToDto(room);
 
@@ -36,8 +36,17 @@ public class RoomRepo : IRoomRepo
         return await _context.Rooms.AnyAsync();
     }
 
-    public Task<RoomDto> UpdateRoom(UpdateRoomDto dto, int roomId, int companyId)
+    public async Task<RoomDto> UpdateRoom(UpdateRoomDto dto, int roomId, int companyId)
     {
-        throw new NotImplementedException();
+        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == roomId);
+        if (room == null) return null;
+
+        room.Floor = dto.Floor;
+        room.RoomNumber = dto.RoomNumber;
+        room.Type = dto.Type;
+        room.Status = dto.Status;
+
+        await _context.SaveChangesAsync();
+        return _mapper.MapToDto(room);
     }
 }

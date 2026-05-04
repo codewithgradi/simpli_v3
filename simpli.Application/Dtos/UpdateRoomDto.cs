@@ -4,14 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 public class UpdateRoomDto
 {
-  [Required]
-  public string? CompanyName { get; set; }
-  [Required]
-  [EmailAddress]
-  public string? Email { get; set; }
-  [Required]
-  public string? ContactNumber { get; set; }
-  [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
-  public string? Password { get; set; }
-
+  public string? RoomNumber { get; set; }
+  public int Floor { get; set; }
+  public RoomType Type { get; set; }
+  public RoomStatus Status { get; set; }
 }
