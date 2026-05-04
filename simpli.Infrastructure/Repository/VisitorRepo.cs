@@ -10,9 +10,15 @@ public class VisitorRepo : IVisitorRepo
         _context = context;
         _mapper = mapper;
     }
-    public Task<VisitorDto> CheckIn(CheckInDto dto, int companyId, int roomId)
+    public async Task CheckIn(CheckInDto dto, int companyId, int roomId)
     {
-        throw new NotImplementedException();
+        var visitor = _mapper.MapToEntityFromCeckIn(dto);
+        if (companyId == null || roomId == null) return;
+        visitor.CompanyId = companyId;
+        visitor.RoomID = roomId;
+
+        _context.Visitors.Add(visitor);
+        await _context.SaveChangesAsync();
     }
 
     public async Task CheckOut(CheckOutDto dto, int id)
