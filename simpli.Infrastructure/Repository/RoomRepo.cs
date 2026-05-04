@@ -1,8 +1,16 @@
 using simpli.Application;
+using simpli.Application.Dtos;
 using simpli.Domain.Entities;
 
 public class RoomRepo : IRoomRepo
 {
+    private readonly AppDbContext _context;
+    private readonly RoomMappers _mapper;
+    public RoomRepo(AppDbContext context, RoomMappers mapper)
+    {
+        _context = context;
+        _mapper = mapper;
+    }
     public Task<RoomDto> CreateRoom(CreateRoomDto dto, int companyId)
     {
         throw new NotImplementedException();
