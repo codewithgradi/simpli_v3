@@ -15,9 +15,17 @@ public class VisitorRepo : IVisitorRepo
         throw new NotImplementedException();
     }
 
-    public Task CheckOut(CheckOutDto dto)
+    public async Task CheckOut(CheckOutDto dto, int id)
     {
-        throw new NotImplementedException();
+        var visitor = await _context.Visitors.FindAsync(id);
+        if (visitor == null || dto == null) return;
+
+        var room = await _context.Rooms.FindAsync(dto.roomId);
+        if (room == null) return;
+        if (visitor.PassCode != dto.Passcode) return;
+
+        visitor.Status = VisitorStatus.CheckedOut;
+        room.Status = RoomStatus.Available;
     }
 
     public async Task<VisitorDto> GetVisitor(int id)
