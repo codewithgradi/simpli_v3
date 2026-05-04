@@ -75,4 +75,13 @@ public static class ServiceExtentions
 
     return services;
   }
+
+  public static IServiceCollection AddEnvVariables(this IServiceCollection services, IConfiguration configuration)
+  {
+    DotNetEnv.Env.Load();
+    var connectionStrings = new ConnnectionStrings();
+    configuration.GetSection("ConnectionStrings").Bind(connectionStrings);
+    services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
+    return services;
+  }
 }

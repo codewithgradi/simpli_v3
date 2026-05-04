@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using simpli.Domain;
-
 namespace simpli.Infrastructure.Configuration;
-
 
 public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 {
