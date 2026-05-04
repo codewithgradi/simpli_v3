@@ -23,7 +23,9 @@ public class RoomRepo : IRoomRepo
 
     public async Task<List<RoomDto>> GetAllRooms(int companyId)
     {
-        return await _mapper.ProjectToRoomDto(_context.Rooms.AsNoTracking())
+        return await _mapper.ProjectToRoomDto(
+            _context.Rooms.AsNoTracking().Where(x => x.CompanyId == companyId)
+            )
         .ToListAsync();
     }
 

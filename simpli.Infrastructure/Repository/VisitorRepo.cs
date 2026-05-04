@@ -36,11 +36,12 @@ public class VisitorRepo : IVisitorRepo
         room.Status = RoomStatus.Available;
     }
 
-    public async Task<List<CheckInDto>> GetAllVisitors()
+    public async Task<List<CheckInDto>> GetAllVisitors(int companyID)
     {
         return await _mapper
         .ProjectToCheckInDto
-        (_context.Visitors.AsNoTracking())
+        (_context.Visitors.AsNoTracking().Where(x => x.CompanyId == companyID)
+       )
         .ToListAsync();
     }
 
