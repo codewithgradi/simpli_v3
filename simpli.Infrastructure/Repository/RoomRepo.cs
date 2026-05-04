@@ -16,6 +16,7 @@ public class RoomRepo : IRoomRepo
     {
         var room = _mapper.MapFromCreate(dto);
         room.CompanyId = companyId;
+        _context.Rooms.Add(room);
         await _context.SaveChangesAsync();
         return _mapper.MapToDto(room);
     }
@@ -36,7 +37,7 @@ public class RoomRepo : IRoomRepo
 
     public async Task<bool> RoomExists(int companyId, int roomId)
     {
-        return await _context.Rooms.AnyAsync();
+        return await _context.Rooms.AnyAsync(x => x.Id == roomId && x.CompanyId == companyId);
     }
 
     public async Task<RoomDto> UpdateRoom(UpdateRoomDto dto, int roomId, int companyId)
