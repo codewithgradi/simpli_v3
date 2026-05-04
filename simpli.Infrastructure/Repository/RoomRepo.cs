@@ -27,9 +27,12 @@ public class RoomRepo : IRoomRepo
         throw new NotImplementedException();
     }
 
-    public Task<RoomDto> GetRoom(int companyId, int roomId)
+    public async Task<RoomDto> GetRoom(int roomId)
     {
-        throw new NotImplementedException();
+        var room = await _context.Rooms.FindAsync(roomId);
+        if (room == null) return null;
+        return _mapper.MapToDto(room);
+
     }
 
     public async Task<bool> RoomExists(int companyId, int roomId)
