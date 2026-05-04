@@ -24,14 +24,18 @@ public class RoomRepo : IRoomRepo
     public async Task<List<RoomDto>> GetAllRooms(int companyId)
     {
         return await _mapper.ProjectToRoomDto(
-            _context.Rooms.AsNoTracking().Where(x => x.CompanyId == companyId)
+            _context.Rooms.AsNoTracking()
+            .Where(x => x.CompanyId == companyId)
             )
         .ToListAsync();
     }
 
-    public async Task<RoomDto> GetRoom(int roomId)
+    public async Task<RoomDto?> GetRoom(int roomId)
     {
-        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == roomId);
+        var room = await _context.Rooms
+        .AsNoTracking()
+        .FirstOrDefaultAsync(x => x.Id == roomId);
+
         if (room == null) return null;
         return _mapper.MapToDto(room);
 
@@ -44,7 +48,7 @@ public class RoomRepo : IRoomRepo
 
     public async Task<RoomDto> UpdateRoom(UpdateRoomDto dto, int roomId, int companyId)
     {
-        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == roomId);
+        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == roomId && companyId == x.CompanyId);
         if (room == null) return null;
 
         room.Floor = dto.Floor;
