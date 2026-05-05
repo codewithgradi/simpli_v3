@@ -78,6 +78,9 @@ public static class ServiceExtentions
   public static IServiceCollection AddMappers(this IServiceCollection services)
   {
     services.AddSingleton<VisitorMappers>();
+    services.AddSingleton<CompanyMappers>();
+    services.AddSingleton<NotificationMappers>();
+    services.AddSingleton<RoomMappers>();
     return services;
   }
 }
