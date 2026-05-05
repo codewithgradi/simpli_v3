@@ -2,23 +2,28 @@
 
 using Microsoft.EntityFrameworkCore;
 using simpli.Application;
+using simpli.Application.Dtos;
 using simpli.Domain.Entities;
 
 public class CompanyRepo : ICompanyRepo
 {
     private AppDbContext _context;
-    public CompanyRepo(AppDbContext context)
+    private CompanyMappers _mapper;
+    public CompanyRepo(AppDbContext context, CompanyMappers mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
     public Task<bool> CompanyExists(int companyId)
     {
         return _context.Companies.AnyAsync(x => x.Id == companyId);
     }
 
-    public Task<CompanyDto> GetCompanyProfile(int companyId)
+    public async Task<CompanyDto> GetCompanyProfile(int companyId)
     {
-        throw new NotImplementedException();
+        var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
+        if (company == null) return null;
+        return _mapper.MapToDtoFromGet(company);
     }
 
     public Task<List<VisitorDto>> GetMyVisitors(int companyId)
