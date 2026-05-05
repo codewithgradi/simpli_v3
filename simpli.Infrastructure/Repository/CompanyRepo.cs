@@ -26,10 +26,6 @@ public class CompanyRepo : ICompanyRepo
         return _mapper.MapToDtoFromGet(company);
     }
 
-    public Task<List<VisitorDto>> GetMyVisitors(int companyId)
-    {
-        throw new NotImplementedException();
-    }
 
     public Task ReactivateProfile(int companyId)
     {
