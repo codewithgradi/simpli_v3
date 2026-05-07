@@ -42,8 +42,12 @@ public class CompanyRepo : ICompanyRepo
         throw new NotImplementedException();
     }
 
-    public Task UpdateExistingCompanyPassword(UpdateCompanyPasswordDto dto)
+    public async Task UpdateExistingCompanyPassword(int id, UpdateCompanyPasswordDto dto)
     {
-        throw new NotImplementedException();
+        var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == id);
+        if (company == null) return;
+        if (dto.CurrentPassword != company.Password || dto.ConfirmedPassword != dto.CurrentPassword) return;
+
+
     }
 }
