@@ -13,6 +13,7 @@ public class Company
   public List<Notification>? Notifications { get; set; }
   public AddressContent? Address { get; set; }
   public DateTime CreatedAt { get; set; }
+  public string? Website { get; set; }
   public int? AppUserId { get; set; }
 
   public List<Room>? Rooms { get; set; }

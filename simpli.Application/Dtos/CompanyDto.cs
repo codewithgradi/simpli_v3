@@ -10,6 +10,8 @@ public class CompanyDto
   public string? ContactNumber { get; set; }
   public bool isProfileComplete { get; set; }
   public bool isDeleted { get; set; }
+  public string? Website { get; set; }
+
   public List<NotificationDto>? Notifications { get; set; }
   public AddressContent? Address { get; set; }
   public DateTime CreatedAt { get; set; }
