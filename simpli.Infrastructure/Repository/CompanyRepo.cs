@@ -27,9 +27,12 @@ public class CompanyRepo : ICompanyRepo
     }
 
 
-    public Task ReactivateProfile(int companyId)
+    public async Task ReactivateProfile(int companyId)
     {
-        throw new NotImplementedException();
+        var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
+        if (company == null) return;
+        company.isDeleted = false;
+        await _context.SaveChangesAsync();
     }
 
     public async Task SoftDeleteCompanyProfile(int companyId)
