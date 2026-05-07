@@ -32,9 +32,12 @@ public class CompanyRepo : ICompanyRepo
         throw new NotImplementedException();
     }
 
-    public Task SoftDeleteCompanyProfile(int companyId)
+    public async Task SoftDeleteCompanyProfile(int companyId)
     {
-        throw new NotImplementedException();
+        var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
+        if (company == null) return;
+        company.isDeleted = true;
+        await _context.SaveChangesAsync();
     }
 
     public Task<CompanyDto> UpdateCompanyProfile(UpdateCompanyProfileDto dto)
