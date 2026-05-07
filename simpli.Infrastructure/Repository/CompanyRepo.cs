@@ -45,9 +45,11 @@ public class CompanyRepo : ICompanyRepo
     public async Task UpdateExistingCompanyPassword(int id, UpdateCompanyPasswordDto dto)
     {
         var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == id);
-        if (company == null) return;
-        if (dto.CurrentPassword != company.Password || dto.ConfirmedPassword != dto.CurrentPassword) return;
+        if (company == null || dto.CurrentPassword != company.Password) return;
+        if (dto.ConfirmedPassword != dto.NewPassword) return;
 
+        company.Password = dto.NewPassword;
+        await _context.SaveChangesAsync();
 
     }
 }
