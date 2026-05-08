@@ -7,8 +7,8 @@ using simpli.Domain.Entities;
 
 public class CompanyRepo : ICompanyRepo
 {
-    private AppDbContext _context;
-    private CompanyMappers _mapper;
+    private readonly AppDbContext _context;
+    private readonly CompanyMappers _mapper;
     public CompanyRepo(AppDbContext context, CompanyMappers mapper)
     {
         _context = context;
