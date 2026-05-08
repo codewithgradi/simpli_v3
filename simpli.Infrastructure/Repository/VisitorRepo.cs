@@ -18,6 +18,7 @@ public class VisitorRepo : IVisitorRepo
         if (companyId == null || roomId == null) return;
         visitor.CompanyId = companyId;
         visitor.RoomID = roomId;
+        visitor.PassCode = Utils.GeneratePasscode();
 
         _context.Visitors.Add(visitor);
         await _context.SaveChangesAsync();
