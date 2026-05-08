@@ -24,9 +24,9 @@ public class VisitorRepo : IVisitorRepo
         await _context.SaveChangesAsync();
     }
 
-    public async Task CheckOut(CheckOutDto dto, int id)
+    public async Task CheckOut(CheckOutDto dto)
     {
-        var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.Id == id);
+        var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.PassCode == dto.Passcode);
         if (visitor == null || dto == null) return;
 
         var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == dto.roomId);
