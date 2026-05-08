@@ -29,6 +29,16 @@ public class RoomRepo : IRoomRepo
             )
         .ToListAsync();
     }
+    public async Task<int?> GetRoomIdByRoomNumber(int companyId, string roomNo)
+    {
+        var room = await _context.Rooms
+        .FirstOrDefaultAsync(
+            x => x.CompanyId == companyId
+        && x.RoomNumber == roomNo
+        );
+        if (room == null) return null;
+        return room.Id;
+    }
 
     public async Task<RoomDto?> GetRoom(int roomId)
     {
@@ -59,4 +69,6 @@ public class RoomRepo : IRoomRepo
         await _context.SaveChangesAsync();
         return _mapper.MapToDto(room);
     }
+
+
 }

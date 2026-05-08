@@ -8,5 +8,6 @@ public interface IRoomRepo
     Task<List<RoomDto>> GetAllRooms(int companyId);
     Task<RoomDto> GetRoom(int roomId);
     Task<bool> RoomExists(int companyId, int roomId);
+    Task<int?> GetRoomIdByRoomNumber(int companyId, string roomNum);
 
 }
