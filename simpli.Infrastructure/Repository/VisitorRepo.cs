@@ -28,11 +28,12 @@ public class VisitorRepo : IVisitorRepo
         var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.Id == id);
         if (visitor == null || dto == null) return;
 
-        var room = await _context.Rooms.FindAsync(dto.roomId);
+        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == dto.roomId);
         if (room == null) return;
         if (visitor.PassCode != dto.Passcode) return;
 
         visitor.Status = VisitorStatus.CheckedOut;
+        visitor.CheckOutTime = DateTime.Now;
         room.Status = RoomStatus.Available;
     }
 
