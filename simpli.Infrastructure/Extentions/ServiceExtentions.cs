@@ -50,6 +50,7 @@ public static class ServiceExtentions
   }
   public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
   {
+    services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, AdditionalUserClaimsPrincipalFactory>();
     services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
     services.Configure<OtherSettings>(configuration.GetSection("OtherSettings"));
     services.AddScoped<ICompanyRepo, CompanyRepo>();
