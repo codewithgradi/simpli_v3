@@ -3,14 +3,13 @@ using QRCoder;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Utils;
-using System.Drawing; // Required for custom colors
-
+using System.Drawing;
 
 public static class Utils
 {
   public static async Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string passCode)
   {
-    // 1. Generate the QR Code with your specific colors
+    // 1. Generate the QR Code with  specific colors
     using var qrGenerator = new QRCodeGenerator();
     var qrCodeData = qrGenerator.CreateQrCode(passCode, QRCodeGenerator.ECCLevel.Q);
 
@@ -69,5 +68,4 @@ public static class Utils
     int passcode = RandomNumberGenerator.GetInt32(10000, 100000);
     return passcode.ToString();
   }
-  public static void SendEmail() { }
 }
