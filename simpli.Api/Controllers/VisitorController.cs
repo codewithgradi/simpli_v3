@@ -31,6 +31,8 @@ namespace simpli.Api.Controllers
         return BadRequest("Could not check in");
       }
     }
+
+    [HttpPost("check-out")]
     public async Task<IActionResult> CheckOut([FromBody] CheckOutDto outDto)
     {
       try
