@@ -33,7 +33,15 @@ namespace simpli.Api.Controllers
     }
     public async Task<IActionResult> CheckOut([FromBody] CheckOutDto outDto)
     {
-      await _visitorRepo.CheckOut()
+      try
+      {
+        await _visitorRepo.CheckOut(outDto);
+        return Ok("Checked out successfully");
+      }
+      catch
+      {
+        return BadRequest("Error accessing DB , Could not check out.");
+      }
     }
 
   }

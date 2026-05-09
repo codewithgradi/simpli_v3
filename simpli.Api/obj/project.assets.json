@@ -66,14 +66,10 @@
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Humanizer.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Humanizer.dll": {}
         },
         "runtime": {
-          "lib/net6.0/Humanizer.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Humanizer.dll": {}
         }
       },
       "MailKit/4.16.0": {
@@ -162,13 +158,11 @@
       "Microsoft.Build.Framework/18.0.2": {
         "type": "package",
         "compile": {
-          "ref/net10.0/Microsoft.Build.Framework.dll": {
-            "related": ".xml"
-          }
+          "ref/net10.0/Microsoft.Build.Framework.dll": {}
         },
         "runtime": {
           "lib/net10.0/Microsoft.Build.Framework.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         }
       },
@@ -186,12 +180,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -306,12 +300,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -366,12 +360,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -685,10 +679,14 @@
       "Microsoft.Extensions.DependencyModel/10.0.5": {
         "type": "package",
         "compile": {
-          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {}
+          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {}
+          "lib/net10.0/Microsoft.Extensions.DependencyModel.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -999,10 +997,14 @@
       "System.CodeDom/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.CodeDom.dll": {}
+          "lib/net6.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {}
+          "lib/net6.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -1030,10 +1032,14 @@
       "System.Composition.AttributedModel/9.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Composition.AttributedModel.dll": {}
+          "lib/net9.0/System.Composition.AttributedModel.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net9.0/System.Composition.AttributedModel.dll": {}
+          "lib/net9.0/System.Composition.AttributedModel.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1045,10 +1051,14 @@
           "System.Composition.AttributedModel": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.Convention.dll": {}
+          "lib/net9.0/System.Composition.Convention.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Convention.dll": {}
+          "lib/net9.0/System.Composition.Convention.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1253,7 +1263,7 @@
           "bin/placeholder/simpli.Domain.dll": {}
         }
       },
-      "simpli.Infrastructure/1.0.0": {
+      "simpli.infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
@@ -1268,10 +1278,10 @@
           "simpli.Application": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/simpli.Infrastructure.dll": {}
+          "bin/placeholder/simpli.infrastructure.dll": {}
         },
         "runtime": {
-          "bin/placeholder/simpli.Infrastructure.dll": {}
+          "bin/placeholder/simpli.infrastructure.dll": {}
         }
       }
     }
@@ -3589,10 +3599,10 @@
       "path": "../simpli.Domain/simpli.Domain.csproj",
       "msbuildProject": "../simpli.Domain/simpli.Domain.csproj"
     },
-    "simpli.Infrastructure/1.0.0": {
+    "simpli.infrastructure/1.0.0": {
       "type": "project",
-      "path": "../simpli.Infrastructure/simpli.Infrastructure.csproj",
-      "msbuildProject": "../simpli.Infrastructure/simpli.Infrastructure.csproj"
+      "path": "../simpli.infrastructure/simpli.infrastructure.csproj",
+      "msbuildProject": "../simpli.infrastructure/simpli.infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3600,7 +3610,7 @@
       "Microsoft.AspNetCore.OpenApi >= 10.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.5",
       "simpli.Application >= 1.0.0",
-      "simpli.Infrastructure >= 1.0.0"
+      "simpli.infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3634,8 +3644,8 @@
             "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj": {
               "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj"
             },
-            "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj"
+            "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj"
             }
           }
         }

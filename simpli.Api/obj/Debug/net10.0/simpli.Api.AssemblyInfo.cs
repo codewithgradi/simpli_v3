@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("simpli.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+34132ed9377badb4c264f7143f885e7fe97850d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c18b3ae6c7039d0850a11e45f841ef5a758123af")]
 [assembly: System.Reflection.AssemblyProductAttribute("simpli.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("simpli.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
