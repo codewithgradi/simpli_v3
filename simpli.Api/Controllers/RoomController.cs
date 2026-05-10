@@ -8,10 +8,16 @@ namespace simpli.Api.Controllers
   [ApiController]
   public class RoomController : ControllerBase
   {
+    private readonly IRoomRepo _roomRepo;
+    public RoomController(IRoomRepo roomRepo)
+    {
+      _roomRepo = roomRepo;
+    }
     [Authorize]
     [HttpGet("{companyId:int}")]
     public async Task<IActionResult> GetAllRooms([FromRoute] int companyId)
     {
+
 
     }
 
