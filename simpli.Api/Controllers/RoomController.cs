@@ -17,7 +17,9 @@ namespace simpli.Api.Controllers
     [HttpGet("{companyId:int}")]
     public async Task<IActionResult> GetAllRooms([FromRoute] int companyId)
     {
-
+      var rooms = await _roomRepo.GetAllRooms(companyId);
+      if (rooms == null) return BadRequest("Error");
+      return Ok(rooms);
 
     }
 
