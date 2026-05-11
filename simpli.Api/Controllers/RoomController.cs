@@ -25,8 +25,10 @@ namespace simpli.Api.Controllers
 
     [Authorize]
     [HttpGet("{roomNo:int}")]
-    public async Task<IActionResult> GetRoom([FromRoute] int roomNo)
+    public async Task<IActionResult> GetRoom([FromQuery] RoomQuery query)
     {
+      var room = await _roomRepo.GetRoomIdByRoomNumber(query.CompanyId, query.RoomNo);
+      if (room == null) return BadRequest("Missing company id or room number.")
 
     }
 
