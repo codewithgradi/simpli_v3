@@ -24,12 +24,14 @@ namespace simpli.Api.Controllers
     }
 
     [Authorize]
-    [HttpGet("{roomNo:int}")]
+    [HttpGet]
     public async Task<IActionResult> GetRoom([FromQuery] RoomQuery query)
     {
-      var room = await _roomRepo.GetRoomIdByRoomNumber(query.CompanyId, query.RoomNo);
-      if (room == null) return BadRequest("Missing company id or room number.")
-
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      if (companyId == null) return Unauthorized("No company in session.");
+      var room = await _roomRepo.GetRoom(companyId, query.RoomNo);
+      if (room == null) return Unauthorized("Missing company id or room number.");
+      return Ok(room);
     }
 
     [Authorize]
