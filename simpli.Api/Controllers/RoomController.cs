@@ -37,9 +37,20 @@ namespace simpli.Api.Controllers
     [Authorize]
     [HttpPost("{companyId:int}")]
     public async Task<IActionResult> CreateRoom(
-      [FromBody] CreateRoomDto roomDto,
-      [FromRoute] int companyId)
+      [FromBody] CreateRoomDto roomDto)
     {
+      try
+      {
+        var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
+        if (companyId == null) return Unauthorized("No company in session");
+        var room = await _roomRepo.CreateRoom(roomDto, companyId);
+        if (room == null) return BadRequest("Could not create room");
+        return Ok(room);
+      }
+      catch
+      {
+        return BadRequest("Bad Request!");
+      }
 
     }
 

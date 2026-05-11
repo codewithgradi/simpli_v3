@@ -16,7 +16,7 @@ public class RoomRepo : IRoomRepo
     {
         var room = _mapper.MapFromCreate(dto);
         room.CompanyId = companyId;
-        _context.Rooms.Add(room);
+        _context.Rooms.AddAsync(room);
         await _context.SaveChangesAsync();
         return _mapper.MapToDto(room);
     }

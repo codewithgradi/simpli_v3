@@ -26,6 +26,13 @@ public class CompanyRepo : ICompanyRepo
         return _mapper.MapToDtoFromGet(company);
     }
 
+    public async Task<CompanyDto> CreateCompany(CreateCompanyDto companyDto)
+    {
+        var company = _mapper.MapToEntityFromCreate(companyDto);
+        _context.Companies.Add(company);
+        await _context.SaveChangesAsync();
+        return _mapper.MapToDto(company);
+    }
 
     public async Task ReactivateProfile(int companyId)
     {
