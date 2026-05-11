@@ -35,7 +35,7 @@ namespace simpli.Api.Controllers
     }
 
     [Authorize]
-    [HttpPost("{companyId:int}")]
+    [HttpPost]
     public async Task<IActionResult> CreateRoom(
       [FromBody] CreateRoomDto roomDto)
     {
@@ -55,13 +55,24 @@ namespace simpli.Api.Controllers
     }
 
     [Authorize]
-    [HttpPut("{companyId:int}")]
+    [HttpPut]
     public async Task<IActionResult> UpdateRoom(
       [FromBody] UpdateRoomDto updateRoom,
-      [FromRoute] int companyId,
-      int roomId
+      [FromQuery] UpdateRoomQuery query
     )
     {
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      if (companyId == null) return Unauthorized("Invalid session");
+      try
+      {
+        var room = await _roomRepo.UpdateRoom(updateRoom, query.RoomId, query.CompanyID);
+        if (room == null) return BadRequest("Could not Update room");
+        return NoContent();
+      }
+      catch
+      {
+        return BadRequest("Errors updating room");
+      }
 
     }
 
