@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application;
 using simpli.Domain.Entities;
+
+//accesssed by companies
 namespace simpli.Api.Controllers
 {
   [Route("/api/[controller]")]
