@@ -67,6 +67,17 @@ namespace simpli.Api.Controllers
       if (company == null) return BadRequest("Could not update profile");
       return NoContent();
     }
+    [Authorize]
+    [HttpPut("soft-delete")]
+    public async Task<IActionResult> UpdateProfile()
+    {
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      if (companyId == null) return Unauthorized("Invalid Session");
+      var company = await _companyRepo.SoftDeleteCompanyProfile(companyId);
+      if (company == null) return BadRequest("Could not delete profile.");
+      return NoContent()
+    }
+
 
 
 
