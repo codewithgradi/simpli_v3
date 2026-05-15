@@ -38,6 +38,13 @@ public class NotificationRepo : INotification
             .ToListAsync();
     }
 
+    public async Task<NotificationDto> GetNotification(int id)
+    {
+        var notif = await _context.Notifications.FirstOrDefaultAsync(x => x.Id == id);
+        if (notif == null) return null;
+        return _mapper.MapToDto(notif);
+    }
+
     public async Task MarkAllRead(int companyId)
     {
         await _context.Notifications
