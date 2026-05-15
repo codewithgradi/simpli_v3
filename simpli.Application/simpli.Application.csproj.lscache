@@ -59,6 +59,7 @@ Dtos/
  CheckOutDto.cs
  CompanyDto.cs
  CreateCompanyDto.cs
+ CreateNotificationDto.cs
  CreateRoomDto.cs
  CreateVisitorDto.cs
  LogCompanydto.cs
