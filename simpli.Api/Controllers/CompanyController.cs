@@ -50,9 +50,8 @@ namespace simpli.Api.Controllers
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
       if (companyId == null) return Unauthorized("Invalid Session");
-      var company = await _companyRepo
+      await _companyRepo
       .UpdateExistingCompanyPassword(companyId, dto);
-      if (company == null) return BadRequest("Could not update password");
       return NoContent();
     }
 
@@ -85,10 +84,6 @@ namespace simpli.Api.Controllers
       await _companyRepo.ReactivateProfile(companyId);
       return NoContent();
     }
-
-
-
-
 
   }
 }
