@@ -75,8 +75,10 @@ namespace simpli.Api.Controllers
       if (companyId == null) return Unauthorized("Invalid Session");
       var company = await _companyRepo.SoftDeleteCompanyProfile(companyId);
       if (company == null) return BadRequest("Could not delete profile.");
-      return NoContent()
+      return NoContent();
     }
+    [Authorize]
+    [HttpPut("reactivate")]
 
 
 
