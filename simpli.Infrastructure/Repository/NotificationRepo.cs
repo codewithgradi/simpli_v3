@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using simpli.Application.Dtos;
 using simpli.Domain.Entities;
 
 public class NotificationRepo : INotification
@@ -17,9 +18,15 @@ public class NotificationRepo : INotification
        .ExecuteDeleteAsync();
     }
 
-    public Task<NotificationDto> CreateNotification(int companyID)
+    public async Task<NotificationDto> CreateNotification(CreateNotificationDto dto)
     {
-
+        var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == dto.CompanyId);
+        if (company == null) return null;
+        var entity = _mapper.MapToDtoFromCreate(dto);
+        var notification = await _context.Notifications.AddAsync(entity);
+        if (notification == null) return null;
+        await _context.SaveChangesAsync();
+        return _mapper.MapToDto(entity);
     }
 
     public async Task<List<NotificationMessageDto>> GetAllNotifications(int companyID)
