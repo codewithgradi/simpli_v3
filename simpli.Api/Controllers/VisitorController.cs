@@ -1,6 +1,7 @@
 
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using simpli.Application.Dtos;
 using simpli.Domain.Entities;
 
 namespace simpli.Api.Controllers
@@ -11,9 +12,11 @@ namespace simpli.Api.Controllers
   {
     private readonly IVisitorRepo _visitorRepo;
     private readonly IRoomRepo _roomRepo;
-    public VisitorController(IVisitorRepo visitorRepo)
+    private readonly VisitorMappers _mapper;
+    public VisitorController(IVisitorRepo visitorRepo, VisitorMappers mapper)
     {
       _visitorRepo = visitorRepo;
+      _mapper = mapper;
     }
     [HttpPost("check-in")]
     public async Task<IActionResult> CheckIn([FromBody] CheckInDto inDto, [FromBody] string roomNo)
@@ -23,8 +26,13 @@ namespace simpli.Api.Controllers
       {
         var roomId = await _roomRepo.GetRoomIdByRoomNumber(companyId, roomNo);
         if (roomId == null) return BadRequest("Room is missing");
+        var model = _mapper.MapToEntityFromCeckIn(inDto);
         await _visitorRepo.CheckIn(inDto, companyId, roomId ?? 0);
-        return Ok("Check in was a success!");
+        var visitorDto = _mapper.MapToDto(model);
+        return CreatedAtRoute(nameof(GetVisitor),
+        new { Id = visitorDto.Id },
+        visitorDto
+        );
       }
       else
       {
@@ -45,7 +53,7 @@ namespace simpli.Api.Controllers
         return BadRequest("Error accessing DB , Could not check out.");
       }
     }
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}", Name = "GetVisitor")]
     public async Task<IActionResult> GetVisitor([FromRoute] int id)
     {
       var visitor = await _visitorRepo.GetVisitor(id);
