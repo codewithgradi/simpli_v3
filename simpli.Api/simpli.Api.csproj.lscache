@@ -56,6 +56,7 @@ TemporaryDependencyNodeTargetIdentifier=net10.0
 
 [sourceFiles]
 Controllers/
+ CompanyController.cs
  NotificationController.cs
  RoomController.cs
  VisitorController.cs
