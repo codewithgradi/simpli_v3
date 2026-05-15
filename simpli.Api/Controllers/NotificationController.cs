@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application.Dtos;
 
@@ -14,6 +15,7 @@ namespace simpli.Api
       _notificationRepo = notification;
       _mapper = mapper;
     }
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllNotification()
     {
@@ -23,7 +25,7 @@ namespace simpli.Api
       if (notifcations == null) return null;
       return Ok(notifcations);
     }
-
+    [Authorize]
     [HttpPatch("mark-read")]
     public async Task<IActionResult> MarkAllRead()
     {
@@ -32,7 +34,7 @@ namespace simpli.Api
       await _notificationRepo.MarkAllRead(companyId);
       return NoContent();
     }
-
+    [Authorize]
     [HttpDelete]
     public async Task<IActionResult> clearAll()
     {
@@ -41,7 +43,7 @@ namespace simpli.Api
       await _notificationRepo.ClearAllNotifications(companyID);
       return NoContent();
     }
-
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateNotification(CreateNotificationDto notificationDto)
     {
@@ -57,13 +59,13 @@ namespace simpli.Api
          _mapper.MapToDto(entity));
 
     }
-
+    [Authorize]
     [HttpGet("{id:int}", Name = "GetOne")]
     public async Task<IActionResult> GetOne([FromRoute] int id)
     {
       var notifcation = await _notificationRepo.GetNotification(id);
       if (notifcation == null) return BadRequest("Could not get notification");
-      return Ok(notifcation)
+      return Ok(notifcation);
     }
   }
 }
