@@ -56,7 +56,6 @@ public static class ServiceExtentions
     services.AddScoped<ICompanyRepo, CompanyRepo>();
     services.AddScoped<INotification, NotificationRepo>();
     services.AddScoped<IRoomRepo, RoomRepo>();
-    services.AddScoped<IStatsRepo, StatsRepo>();
     services.AddScoped<IVisitorRepo, VisitorRepo>();
 
     return services;

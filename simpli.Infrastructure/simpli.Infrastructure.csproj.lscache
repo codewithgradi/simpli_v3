@@ -73,7 +73,6 @@ Repository/
  CompanyRepo.cs
  NotificationRepo.cs
  RoomRepo.cs
- StatsRepo.cs
  VisitorRepo.cs
 Utils/Utils.cs
 
