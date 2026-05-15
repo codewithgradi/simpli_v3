@@ -78,7 +78,6 @@ Interfaces/
  ICompanyRepo.cs
  INotificationRepo.cs
  IRoomRepo.cs
- IStatsRepo.cs
  IVisitorRepo.cs
 Mappings/
  CompanyMappers.cs
