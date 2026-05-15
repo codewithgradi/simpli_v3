@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using simpli.Application;
 using simpli.Application.Dtos;
 using simpli.Domain.Entities;
 
@@ -42,6 +43,31 @@ namespace simpli.Api.Controllers
         _mapper.MapToDto(entity)
       );
     }
+
+    [Authorize]
+    [HttpPatch("update-password")]
+    public async Task<IActionResult> UpdatePassword([FromBody] UpdateCompanyPasswordDto dto)
+    {
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      if (companyId == null) return Unauthorized("Invalid Session");
+      var company = await _companyRepo
+      .UpdateExistingCompanyPassword(companyId, dto);
+      if (company == null) return BadRequest("Could not update password");
+      return NoContent();
+    }
+
+    [Authorize]
+    [HttpPut("update-profile")]
+    public async Task<IActionResult> UpdateProfile([FromBody] UpdateCompanyProfileDto dto)
+    {
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      if (companyId == null) return Unauthorized("Invalid Session");
+
+      var company = await _companyRepo.UpdateCompanyProfile(companyId, dto);
+      if (company == null) return BadRequest("Could not update profile");
+      return NoContent();
+    }
+
 
 
   }
