@@ -1,8 +1,3 @@
 @simpli.Api_HostAddress = http://localhost:5095
 
-GET {{simpli.Api_HostAddress}}/weatherforecast/
-Accept: application/json
 
-###
-GET {{{{simpli.Api_HostAddress}}}}/company/
-Accept: application/application/json
