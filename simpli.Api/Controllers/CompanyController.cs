@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using simpli.Application.Dtos;
 using simpli.Domain.Entities;
 
 namespace simpli.Api.Controllers
@@ -9,14 +10,16 @@ namespace simpli.Api.Controllers
   public class CompanyController : ControllerBase
   {
     private readonly ICompanyRepo _companyRepo;
+    private readonly CompanyMappers _mapper;
 
-    public CompanyController(ICompanyRepo companyRepo)
+    public CompanyController(ICompanyRepo companyRepo, CompanyMappers mapper)
     {
       _companyRepo = companyRepo;
+      _mapper = mapper;
     }
 
     [Authorize]
-    [HttpGet]
+    [HttpGet(Name = "GetCompany")]
     public async Task<IActionResult> GetCompany()
     {
       var comapnyId = Convert.ToInt32(User.FindFirst("CompanyId"));
@@ -32,12 +35,12 @@ namespace simpli.Api.Controllers
     {
       var company = await _companyRepo.CreateCompany(createCompany);
       if (company == null) return Unauthorized("Invalid session");
-      var en
+      var entity = _mapper.MapToEntityFromCreate(createCompany);
       return CreatedAtRoute(
-        nameof(GetCompany), new { Id = cre }
-
-
-      )
+        nameof(GetCompany),
+        new { Id = entity.Id },
+        _mapper.MapToDto(entity)
+      );
     }
 
 
