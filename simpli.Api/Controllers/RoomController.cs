@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application;
+using simpli.Application.Dtos;
 using simpli.Domain.Entities;
 
 //accesssed by companies
@@ -11,9 +12,11 @@ namespace simpli.Api.Controllers
   public class RoomController : ControllerBase
   {
     private readonly IRoomRepo _roomRepo;
-    public RoomController(IRoomRepo roomRepo)
+    private readonly RoomMappers _mapper;
+    public RoomController(IRoomRepo roomRepo, RoomMappers mapper)
     {
       _roomRepo = roomRepo;
+      _mapper = mapper;
     }
     [Authorize]
     [HttpGet("{companyId:int}")]
@@ -26,7 +29,7 @@ namespace simpli.Api.Controllers
     }
 
     [Authorize]
-    [HttpGet]
+    [HttpGet(Name = "GetRoom")]
     public async Task<IActionResult> GetRoom([FromQuery] RoomQuery query)
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
@@ -47,7 +50,7 @@ namespace simpli.Api.Controllers
         if (companyId == null) return Unauthorized("No company in session");
         var room = await _roomRepo.CreateRoom(roomDto, companyId);
         if (room == null) return BadRequest("Could not create room");
-        return Ok(room);
+        return CreatedAtRoute(nameof(GetRoom), new { Id = room.Id }, room);
       }
       catch
       {
