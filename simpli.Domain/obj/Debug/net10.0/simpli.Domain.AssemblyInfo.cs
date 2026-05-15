@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("simpli.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8f1e9de2aa881f8d01f4f95c0454db7b39b9252")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d934f092b235782bdc23905afccaf4f15caab8fe")]
 [assembly: System.Reflection.AssemblyProductAttribute("simpli.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("simpli.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
