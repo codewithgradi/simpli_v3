@@ -17,6 +17,11 @@ public class NotificationRepo : INotification
        .ExecuteDeleteAsync();
     }
 
+    public Task<NotificationDto> CreateNotification(int companyID)
+    {
+
+    }
+
     public async Task<List<NotificationMessageDto>> GetAllNotifications(int companyID)
     {
         return await _mapper.ProjectToDto(
