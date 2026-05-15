@@ -3,7 +3,7 @@ using simpli.Domain.Entities;
 
 public interface INotification
 {
-    Task<List<NotificationMessageDto>> GetAllNotifications(int company);
+    Task<List<NotificationMessageDto>> GetAllNotifications(int companyId);
     Task MarkAllRead(int companyId);
     Task ClearAllNotifications(int companyId);
     Task<NotificationDto> CreateNotification(CreateNotificationDto dto);

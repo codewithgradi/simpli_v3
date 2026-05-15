@@ -11,10 +11,14 @@ namespace simpli.Api
     {
       _notificationRepo = notification;
     }
-    [HttpGet("{id:int}")]
-    public Task<IActionResult> GetAllNotification([FromRoute] int companyId)
+    [HttpGet]
+    public async Task<IActionResult> GetAllNotification()
     {
-
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
+      if (companyId == null) return Unauthorized("Invalid session");
+      var notifcations = await _notificationRepo.GetAllNotifications(companyId);
+      if (notifcations == null) return null;
+      return Ok(notifcations);
     }
   }
 }
