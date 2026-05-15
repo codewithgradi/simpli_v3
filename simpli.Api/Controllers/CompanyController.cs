@@ -73,8 +73,7 @@ namespace simpli.Api.Controllers
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
       if (companyId == null) return Unauthorized("Invalid Session");
-      var company = await _companyRepo.SoftDeleteCompanyProfile(companyId);
-      if (company == null) return BadRequest("Could not delete profile.");
+      await _companyRepo.SoftDeleteCompanyProfile(companyId);
       return NoContent();
     }
     [Authorize]
