@@ -25,9 +25,18 @@ namespace simpli.Api
     public async Task<IActionResult> MarkAllRead()
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
-      if (companyId == null) return null;
+      if (companyId == null) return Unauthorized("Invalid session.");
       await _notificationRepo.MarkAllRead(companyId);
-      return Ok("Notifications have all be read.");
+      return NoContent();
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> clearAll()
+    {
+      var companyID = Convert.ToInt32(User.FindFirst("CompanyID"));
+      if (companyID == null) return Unauthorized();
+      await _notificationRepo.ClearAllNotifications(companyID);
+      return NoContent();
     }
   }
 }
