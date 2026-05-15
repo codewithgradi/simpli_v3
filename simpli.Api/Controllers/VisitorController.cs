@@ -45,6 +45,13 @@ namespace simpli.Api.Controllers
         return BadRequest("Error accessing DB , Could not check out.");
       }
     }
-
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetVisitor([FromRoute] int id)
+    {
+      var visitor = await _visitorRepo.GetVisitor(id);
+      if (visitor == null) return null;
+      return Ok(visitor);
+    }
   }
+
 }
