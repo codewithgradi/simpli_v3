@@ -79,6 +79,14 @@ namespace simpli.Api.Controllers
     }
     [Authorize]
     [HttpPut("reactivate")]
+    public async Task<IActionResult> ReactivateProfile()
+    {
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      if (companyId == null) return Unauthorized("Invalid Session");
+      await _companyRepo.ReactivateProfile(companyId);
+      return NoContent();
+    }
+
 
 
 
