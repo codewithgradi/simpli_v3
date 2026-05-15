@@ -52,6 +52,16 @@ namespace simpli.Api.Controllers
       if (visitor == null) return null;
       return Ok(visitor);
     }
+    [HttpGet]
+    public async Task<IActionResult> GettAllVisitors()
+    {
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      if (companyId == null) return NotFound("User Not found.");
+      var visitors = await _visitorRepo.GetAllVisitors(companyId);
+      if (visitors == null) return null;
+      return Ok(visitors);
+    }
+
   }
 
 }
