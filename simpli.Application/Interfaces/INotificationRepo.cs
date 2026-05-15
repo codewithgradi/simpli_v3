@@ -5,6 +5,7 @@ public interface INotification
 {
     Task<List<NotificationMessageDto>> GetAllNotifications(int companyId);
     Task MarkAllRead(int companyId);
+    Task<NotificationDto> GetNotification(int id);
     Task ClearAllNotifications(int companyId);
     Task<NotificationDto> CreateNotification(CreateNotificationDto dto);
 }
