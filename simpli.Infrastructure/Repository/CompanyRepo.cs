@@ -3,6 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using simpli.Application;
 using simpli.Application.Dtos;
+using simpli.Domain;
 using simpli.Domain.Entities;
 
 public class CompanyRepo : ICompanyRepo
@@ -26,12 +27,11 @@ public class CompanyRepo : ICompanyRepo
         return _mapper.MapToDtoFromGet(company);
     }
 
-    public async Task<CompanyDto> CreateCompany(CreateCompanyDto companyDto)
+    public async Task<Company> CreateCompany(Company company)
     {
-        var company = _mapper.MapToEntityFromCreate(companyDto);
         _context.Companies.Add(company);
         await _context.SaveChangesAsync();
-        return _mapper.MapToDto(company);
+        return company;
     }
 
     public async Task ReactivateProfile(int companyId)

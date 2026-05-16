@@ -1,12 +1,13 @@
 using simpli.Application;
+using simpli.Domain;
 using simpli.Domain.Entities;
 
 public interface ICompanyRepo
 {
-    Task<CompanyDto> GetCompanyProfile(int companyId);
-    Task<CompanyDto> CreateCompany(CreateCompanyDto dto);
-    Task UpdateExistingCompanyPassword(int id, UpdateCompanyPasswordDto dto);
-    Task<CompanyDto> UpdateCompanyProfile(int comapnyId, UpdateCompanyProfileDto dto);
+    Task<Company> GetCompanyProfile(int companyId);
+    Task<Company> CreateCompany(Company company);
+    Task UpdateExistingCompanyPassword(int id, Company company);
+    Task<Company> UpdateCompanyProfile(int comapnyId, Company company);
     Task SoftDeleteCompanyProfile(int companyId);
     Task ReactivateProfile(int companyId);
     Task<bool> CompanyExists(int companyId);
