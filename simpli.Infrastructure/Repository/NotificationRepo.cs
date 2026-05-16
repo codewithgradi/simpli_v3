@@ -30,11 +30,11 @@ public class NotificationRepo : INotification
         return _mapper.MapToDto(entity);
     }
 
-    public async Task<List<NotificationMessageDto>> GetAllNotifications(int companyID)
+    public async Task<List<Notification>> GetAllNotifications(int companyID)
     {
-        return await _mapper.ProjectToDto(
+        return await
             _context.Notifications.AsNoTracking()
-            .Where(x => x.CompanyId == companyID))
+            .Where(x => x.CompanyId == companyID)
             .OrderByDescending(x => x.CreatedAt)
             .ToListAsync();
     }
