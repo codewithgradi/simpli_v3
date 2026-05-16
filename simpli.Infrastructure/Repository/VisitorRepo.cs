@@ -12,9 +12,9 @@ public class VisitorRepo : IVisitorRepo
         _context = context;
         _mapper = mapper;
     }
-    public async Task CheckIn(CheckInDto dto, int companyId, int roomId)
+    public async Task CheckIn(Visitor entity, int companyId, int roomId)
     {
-        var visitor = _mapper.MapToEntityFromCeckIn(dto);
+        var visitor = _mapper.MapToEntityFromCeckIn(entity);
         if (companyId == null || roomId == null) return;
         visitor.CompanyId = companyId;
         visitor.RoomID = roomId;
