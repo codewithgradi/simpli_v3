@@ -13,13 +13,12 @@ public class RoomRepo : IRoomRepo
         _context = context;
         _mapper = mapper;
     }
-    public async Task<RoomDto> CreateRoom(CreateRoomDto dto, int companyId)
+    public async Task<Room> CreateRoom(Room room, int companyId)
     {
-        var room = _mapper.MapFromCreate(dto);
         room.CompanyId = companyId;
         _context.Rooms.AddAsync(room);
         await _context.SaveChangesAsync();
-        return _mapper.MapToDto(room);
+        return room;
     }
 
     public async Task<List<Room>> GetAllRooms(int companyId)
