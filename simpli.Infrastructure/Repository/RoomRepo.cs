@@ -7,11 +7,10 @@ using simpli.Domain.Entities;
 public class RoomRepo : IRoomRepo
 {
     private readonly AppDbContext _context;
-    private readonly RoomMappers _mapper;
-    public RoomRepo(AppDbContext context, RoomMappers mapper)
+    public RoomRepo(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
+
     }
     public async Task<Room> CreateRoom(Room room, int companyId)
     {
