@@ -41,14 +41,14 @@ public class RoomRepo : IRoomRepo
         return room.Id;
     }
 
-    public async Task<RoomDto?> GetRoom(int companyId, string roomNo)
+    public async Task<Room> GetRoom(int companyId, string roomNo)
     {
         var room = await _context.Rooms
         .AsNoTracking()
         .FirstOrDefaultAsync(x => x.RoomNumber == roomNo && x.CompanyId == companyId);
 
         if (room == null) return null;
-        return _mapper.MapToDto(room);
+        return room;
 
     }
 
