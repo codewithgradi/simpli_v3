@@ -20,11 +20,11 @@ public class CompanyRepo : ICompanyRepo
         return _context.Companies.AnyAsync(x => x.Id == companyId);
     }
 
-    public async Task<CompanyDto> GetCompanyProfile(int companyId)
+    public async Task<Company> GetCompanyProfile(int companyId)
     {
         var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
         if (company == null) return null;
-        return _mapper.MapToDtoFromGet(company);
+        return company;
     }
 
     public async Task<Company> CreateCompany(Company company)
