@@ -54,7 +54,7 @@ public static class ServiceExtentions
     services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
     services.Configure<OtherSettings>(configuration.GetSection("OtherSettings"));
     services.AddScoped<ICompanyRepo, CompanyRepo>();
-    services.AddScoped<INotification, NotificationRepo>();
+    services.AddScoped<INotificationRepo, NotificationRepo>();
     services.AddScoped<IRoomRepo, RoomRepo>();
     services.AddScoped<IVisitorRepo, VisitorRepo>();
 
