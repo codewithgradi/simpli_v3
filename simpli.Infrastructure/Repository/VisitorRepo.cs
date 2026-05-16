@@ -48,10 +48,10 @@ public class VisitorRepo : IVisitorRepo
         .ToListAsync();
     }
 
-    public async Task<VisitorDto> GetVisitor(int id)
+    public async Task<Visitor> GetVisitor(int id)
     {
         var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.Id == id);
         if (visitor == null) return null;
-        return _mapper.MapToDto(visitor);
+        return visitor;
     }
 }
