@@ -13,10 +13,11 @@ public class VisitorService
     _visitorRepo = visitorRepo;
     _mapper = mapper;
   }
-  public async Task CheckIn(CheckInDto visitorDto, int companyID, int roomId)
+  public async Task<VisitorDto> CheckIn(CheckInDto visitorDto, int companyID, int roomId)
   {
     var visitor = _mapper.MapToEntityFromCheckIn(visitorDto);
     await _visitorRepo.CheckIn(visitor, companyID, roomId);
+    return _mapper.MapToDto(visitor);
   }
   public async Task CheckOut(CheckOutDto dto)
   {

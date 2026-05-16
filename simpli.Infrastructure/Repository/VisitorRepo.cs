@@ -11,15 +11,15 @@ public class VisitorRepo : IVisitorRepo
     {
         _context = context;
     }
-    public async Task CheckIn(Visitor visitor, int companyId, int roomId)
+    public async Task<Visitor> CheckIn(Visitor visitor, int companyId, int roomId)
     {
-        if (companyId == null || roomId == null) return;
         visitor.CompanyId = companyId;
         visitor.RoomID = roomId;
         visitor.PassCode = Utils.GeneratePasscode();
 
         _context.Visitors.Add(visitor);
         await _context.SaveChangesAsync();
+        return visitor;
     }
 
     public async Task CheckOut(Visitor checkout)
