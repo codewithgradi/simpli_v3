@@ -11,7 +11,8 @@ builder.Services
 .ConfigureSqlDB(builder.Configuration)
 .AddInfrastructureServices(builder.Configuration)
 .IdentityConfigurationsScope()
-.AllowCors();
+.AllowCors()
+.AddMappers();
 
 
 var app = builder.Build();

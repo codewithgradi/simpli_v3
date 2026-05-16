@@ -244,12 +244,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -897,14 +897,10 @@
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         }
       },
       "QRCoder/1.8.0": {
@@ -1048,10 +1044,14 @@
           "System.Composition.Runtime": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.Hosting.dll": {}
+          "lib/net9.0/System.Composition.Hosting.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Hosting.dll": {}
+          "lib/net9.0/System.Composition.Hosting.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1060,10 +1060,14 @@
       "System.Composition.Runtime/9.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Composition.Runtime.dll": {}
+          "lib/net9.0/System.Composition.Runtime.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Runtime.dll": {}
+          "lib/net9.0/System.Composition.Runtime.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1229,7 +1233,7 @@
           "bin/placeholder/simpli.Domain.dll": {}
         }
       },
-      "simpli.Infrastructure/1.0.0": {
+      "simpli.infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
@@ -1244,10 +1248,10 @@
           "simpli.Application": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/simpli.Infrastructure.dll": {}
+          "bin/placeholder/simpli.infrastructure.dll": {}
         },
         "runtime": {
-          "bin/placeholder/simpli.Infrastructure.dll": {}
+          "bin/placeholder/simpli.infrastructure.dll": {}
         }
       }
     }
@@ -3565,10 +3569,10 @@
       "path": "../simpli.Domain/simpli.Domain.csproj",
       "msbuildProject": "../simpli.Domain/simpli.Domain.csproj"
     },
-    "simpli.Infrastructure/1.0.0": {
+    "simpli.infrastructure/1.0.0": {
       "type": "project",
-      "path": "../simpli.Infrastructure/simpli.Infrastructure.csproj",
-      "msbuildProject": "../simpli.Infrastructure/simpli.Infrastructure.csproj"
+      "path": "../simpli.infrastructure/simpli.infrastructure.csproj",
+      "msbuildProject": "../simpli.infrastructure/simpli.infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3576,7 +3580,7 @@
       "Microsoft.AspNetCore.OpenApi >= 10.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.5",
       "simpli.Application >= 1.0.0",
-      "simpli.Infrastructure >= 1.0.0"
+      "simpli.infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3610,8 +3614,8 @@
             "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj": {
               "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj"
             },
-            "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj"
+            "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj"
             }
           }
         }
