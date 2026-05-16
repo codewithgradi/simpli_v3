@@ -6,11 +6,10 @@ using simpli.Domain.Entities;
 public class NotificationRepo : INotification
 {
     private readonly AppDbContext _context;
-    private readonly NotificationMappers _mapper;
-    public NotificationRepo(AppDbContext context, NotificationMappers mapper)
+    public NotificationRepo(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
+
     }
     public async Task ClearAllNotifications(int companyId)
     {
