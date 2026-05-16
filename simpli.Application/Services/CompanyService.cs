@@ -30,4 +30,21 @@ public class CompanyService
     company = await _companyRepo.UpdateCompanyProfile(companyId, company);
     return _mapper.MapToDto(company);
   }
-}
+  public async Task SoftDeleteCompanyProfile(int companyID)
+  {
+    var exists = await _companyRepo.GetCompanyProfile(companyID);
+    if (exists == null) throw new KeyNotFoundException("Company was not found.");
+    await _companyRepo.SoftDeleteCompanyProfile(companyID);
+  }
+  public async Task UpdateExistingCompanyPassword(int companyID, UpdateCompanyPasswordDto dto)
+  {
+    var exists = await _companyRepo.GetCompanyProfile(companyID);
+    if (exists == null) throw new KeyNotFoundException("Company was not found");
+    var
+  }
+  public async Task ReactivateProfile(int id)
+  {
+    var exists = await _companyRepo.GetCompanyProfile(companyID);
+    if (exists == null) throw new KeyNotFoundException("Company was not found");
+    await _companyRepo.ReactivateProfile(id);
+  }
