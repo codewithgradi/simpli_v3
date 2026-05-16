@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using simpli.Application;
 using simpli.Application.Dtos;
+using simpli.Domain;
 using simpli.Domain.Entities;
 
 public class RoomRepo : IRoomRepo
@@ -56,18 +57,18 @@ public class RoomRepo : IRoomRepo
         return await _context.Rooms.AnyAsync(x => x.Id == roomId && x.CompanyId == companyId);
     }
 
-    public async Task<RoomDto> UpdateRoom(UpdateRoomDto dto, int roomId, int companyId)
+    public async Task<Room> UpdateRoom(Room updatedRoom, int roomId, int companyId)
     {
         var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == roomId && companyId == x.CompanyId);
         if (room == null) return null;
 
-        room.Floor = dto.Floor;
-        room.RoomNumber = dto.RoomNumber;
-        room.Type = dto.Type;
-        room.Status = dto.Status;
+        room.Floor = updatedRoom.Floor;
+        room.RoomNumber = updatedRoom.RoomNumber;
+        room.Type = updatedRoom.Type;
+        room.Status = updatedRoom.Status;
 
         await _context.SaveChangesAsync();
-        return _mapper.MapToDto(room);
+        return room;
     }
 
 
