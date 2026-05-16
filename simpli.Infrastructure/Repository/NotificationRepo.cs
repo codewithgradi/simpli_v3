@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using simpli.Application.Dtos;
+using simpli.Domain;
 using simpli.Domain.Entities;
 
 public class NotificationRepo : INotification
@@ -38,11 +39,11 @@ public class NotificationRepo : INotification
             .ToListAsync();
     }
 
-    public async Task<NotificationDto> GetNotification(int id)
+    public async Task<Notification> GetNotification(int id)
     {
         var notif = await _context.Notifications.FirstOrDefaultAsync(x => x.Id == id);
         if (notif == null) return null;
-        return _mapper.MapToDto(notif);
+        return notif;
     }
 
     public async Task MarkAllRead(int companyId)
