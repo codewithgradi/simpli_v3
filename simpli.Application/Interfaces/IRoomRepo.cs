@@ -1,12 +1,13 @@
 using simpli.Application;
+using simpli.Domain;
 using simpli.Domain.Entities;
 
 public interface IRoomRepo
 {
-    Task<RoomDto> CreateRoom(CreateRoomDto dto, int companyId);
-    Task<RoomDto> UpdateRoom(UpdateRoomDto dto, int roomId, int companyId);
-    Task<List<RoomDto>> GetAllRooms(int companyId);
-    Task<RoomDto> GetRoom(int companyId, string roomNo);
+    Task<Room> CreateRoom(Room room, int companyId);
+    Task<Room> UpdateRoom(Room room, int roomId, int companyId);
+    Task<List<Room>> GetAllRooms(int companyId);
+    Task<Room> GetRoom(int companyId, string roomNo);
     Task<bool> RoomExists(int companyId, int roomId);
     Task<int?> GetRoomIdByRoomNumber(int companyId, string roomNum);
 
