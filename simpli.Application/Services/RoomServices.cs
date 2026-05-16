@@ -1,5 +1,4 @@
 using simpli.Application.Dtos;
-using simpli.Domain;
 using simpli.Domain.Entities;
 
 namespace simpli.Application.Services;
