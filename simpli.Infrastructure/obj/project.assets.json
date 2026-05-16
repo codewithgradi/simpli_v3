@@ -68,14 +68,10 @@
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Humanizer.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Humanizer.dll": {}
         },
         "runtime": {
-          "lib/net6.0/Humanizer.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Humanizer.dll": {}
         }
       },
       "MailKit/4.16.0": {
@@ -196,12 +192,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -376,12 +372,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -1232,14 +1228,10 @@
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Newtonsoft.Json.dll": {}
         }
       },
       "QRCoder/1.8.0": {
@@ -1323,14 +1315,10 @@
       "System.CodeDom/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.CodeDom.dll": {}
         },
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.CodeDom.dll": {}
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -1358,14 +1346,10 @@
       "System.Composition.AttributedModel/9.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Composition.AttributedModel.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.AttributedModel.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.AttributedModel.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.AttributedModel.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1377,14 +1361,10 @@
           "System.Composition.AttributedModel": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.Convention.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Convention.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Convention.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Convention.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1396,14 +1376,10 @@
           "System.Composition.Runtime": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.Hosting.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Hosting.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Hosting.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Hosting.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1412,14 +1388,10 @@
       "System.Composition.Runtime/9.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Composition.Runtime.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Runtime.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Runtime.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Runtime.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1433,14 +1405,10 @@
           "System.Composition.Runtime": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.TypedParts.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.TypedParts.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.TypedParts.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.TypedParts.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -4574,11 +4542,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj",
-      "projectName": "simpli.infrastructure",
-      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
+      "projectName": "simpli.Infrastructure",
+      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\Desktop\\simpli_v3\\NuGet.Config",

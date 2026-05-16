@@ -9,9 +9,11 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
   {
     //Primary Key
     builder.HasKey(c => c.Id);
-
+    //
+    builder.OwnsOne(c => c.Address);
     //One company have many notifications
-    builder.HasMany(c => c.Notifications)
+    builder
+    .HasMany(c => c.Notifications)
     .WithOne(c => c.Company)
     .HasForeignKey(x => x.CompanyId)
     .OnDelete(DeleteBehavior.Cascade);
