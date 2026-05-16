@@ -12,12 +12,11 @@ namespace simpli.Api.Controllers
   public class CompanyController : ControllerBase
   {
     private readonly CompanyService _companyService;
-    private readonly CompanyMappers _mapper;
 
-    public CompanyController(CompanyService service, CompanyMappers mapper)
+    public CompanyController(CompanyService service)
     {
       _companyService = service;
-      _mapper = mapper;
+
     }
 
     [Authorize]
@@ -37,11 +36,10 @@ namespace simpli.Api.Controllers
     {
       var company = await _companyService.CreateCompany(createCompany);
       if (company == null) return Unauthorized("Invalid session");
-      var entity = _mapper.MapToEntityFromCreate(createCompany);
       return CreatedAtRoute(
         nameof(GetCompany),
-        new { Id = entity.Id },
-        _mapper.MapToDto(entity)
+        new { Id = company.Id },
+        company
       );
     }
 
