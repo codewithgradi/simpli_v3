@@ -6,15 +6,13 @@ using simpli.Domain.Entities;
 public class VisitorRepo : IVisitorRepo
 {
     private readonly AppDbContext _context;
-    private readonly VisitorMappers _mapper;
-    public VisitorRepo(AppDbContext context, VisitorMappers mapper)
+
+    public VisitorRepo(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
-    public async Task CheckIn(Visitor entity, int companyId, int roomId)
+    public async Task CheckIn(Visitor visitor, int companyId, int roomId)
     {
-        var visitor = _mapper.MapToEntityFromCeckIn(entity);
         if (companyId == null || roomId == null) return;
         visitor.CompanyId = companyId;
         visitor.RoomID = roomId;
