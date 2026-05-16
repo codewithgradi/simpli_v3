@@ -1,11 +1,10 @@
-using simpli.Application.Dtos;
-using simpli.Domain.Entities;
+using simpli.Domain;
 
 public interface INotification
 {
-    Task<List<NotificationMessageDto>> GetAllNotifications(int companyId);
+    Task<List<Notification>> GetAllNotifications(int companyId);
     Task MarkAllRead(int companyId);
-    Task<NotificationDto> GetNotification(int id);
+    Task<Notification> GetNotification(int id);
     Task ClearAllNotifications(int companyId);
-    Task<NotificationDto> CreateNotification(CreateNotificationDto dto);
+    Task<Notification> CreateNotification(Notification notification);
 }
