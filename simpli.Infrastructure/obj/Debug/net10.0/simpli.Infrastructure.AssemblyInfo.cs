@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("simpli.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d934f092b235782bdc23905afccaf4f15caab8fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+696a10eada63d1b22bc15e192614da013130eea2")]
 [assembly: System.Reflection.AssemblyProductAttribute("simpli.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("simpli.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

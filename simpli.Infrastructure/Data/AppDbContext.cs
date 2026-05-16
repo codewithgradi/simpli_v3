@@ -18,11 +18,14 @@ public class AppDbContext : IdentityDbContext<AppUser>
   public DbSet<Room> Rooms { get; set; }
   public DbSet<Visitor> Visitors { get; set; }
 
+
   protected override void OnModelCreating(ModelBuilder builder)
   {
     base.OnModelCreating(builder);
 
     //Applies the rules in ./confirgurations to db here
-    builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+    builder.ApplyConfigurationsFromAssembly(
+      typeof(AppDbContext)
+      .Assembly);
   }
 }
