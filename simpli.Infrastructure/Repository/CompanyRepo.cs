@@ -48,7 +48,7 @@ public class CompanyRepo : ICompanyRepo
         await _context.SaveChangesAsync();
     }
 
-    public async Task<Company> UpdateCompanyProfile(int companyId, UpdateCompanyProfileDto updatedCompany)
+    public async Task<Company> UpdateCompanyProfile(int companyId, Company updatedCompany)
     {
         var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
         if (company == null) return null;
@@ -62,13 +62,10 @@ public class CompanyRepo : ICompanyRepo
         return company;
     }
 
-    public async Task UpdateExistingCompanyPassword(int id, UpdateCompanyPasswordDto dto)
+    public async Task UpdateExistingCompanyPassword(int id, Company curentComp)
     {
         var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == id);
-        if (company == null || dto.CurrentPassword != company.Password) return;
-        if (dto.ConfirmedPassword != dto.NewPassword) return;
-
-        company.Password = dto.NewPassword;
+        company.Password = curentComp.Password;
         await _context.SaveChangesAsync();
 
     }
