@@ -24,14 +24,14 @@ public class VisitorRepo : IVisitorRepo
         await _context.SaveChangesAsync();
     }
 
-    public async Task CheckOut(CheckOutDto dto)
+    public async Task CheckOut(Visitor checkout)
     {
-        var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.PassCode == dto.Passcode);
-        if (visitor == null || dto == null) return;
+        var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.PassCode == checkout.PassCode);
+        if (visitor == null || checkout == null) return;
 
-        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == dto.roomId);
+        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == checkout.RoomID);
         if (room == null) return;
-        if (visitor.PassCode != dto.Passcode) return;
+        if (visitor.PassCode != checkout.PassCode) return;
 
         visitor.Status = VisitorStatus.CheckedOut;
         visitor.CheckOutTime = DateTime.Now;
