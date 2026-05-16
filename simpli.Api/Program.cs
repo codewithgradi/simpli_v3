@@ -5,6 +5,8 @@ using simpli.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi("v1");
+builder.Services.AddControllers();
+
 DotNetEnv.Env.Load();
 
 builder.Services
@@ -33,6 +35,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.MapControllers();
+
 
 //Mapping from scalar UI
 app.MapIdentityApi<IdentityUser>();
