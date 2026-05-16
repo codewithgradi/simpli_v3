@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application.Dtos;
+using simpli.Application.Services;
 
 namespace simpli.Api
 {
@@ -8,11 +9,11 @@ namespace simpli.Api
   [ApiController]
   public class NotificationController : ControllerBase
   {
-    private readonly INotification _notificationRepo;
+    private readonly NotificationService _notiService;
     private readonly NotificationMappers _mapper;
-    public NotificationController(INotification notification, NotificationMappers mapper)
+    public NotificationController(NotificationService service, NotificationMappers mapper)
     {
-      _notificationRepo = notification;
+      _notiService = service;
       _mapper = mapper;
     }
     [Authorize]
@@ -21,7 +22,7 @@ namespace simpli.Api
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
       if (companyId == null) return Unauthorized("Invalid session");
-      var notifcations = await _notificationRepo.GetAllNotifications(companyId);
+      var notifcations = await _notiService.GetAllNotifications(companyId);
       if (notifcations == null) return null;
       return Ok(notifcations);
     }
@@ -31,7 +32,7 @@ namespace simpli.Api
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
       if (companyId == null) return Unauthorized("Invalid session.");
-      await _notificationRepo.MarkAllRead(companyId);
+      await _notiService.MarkAllRead(companyId);
       return NoContent();
     }
     [Authorize]
@@ -40,7 +41,7 @@ namespace simpli.Api
     {
       var companyID = Convert.ToInt32(User.FindFirst("CompanyID"));
       if (companyID == null) return Unauthorized();
-      await _notificationRepo.ClearAllNotifications(companyID);
+      await _notiService.ClearAllNotifications(companyID);
       return NoContent();
     }
     [Authorize]
@@ -50,20 +51,19 @@ namespace simpli.Api
       var companyID = Convert.ToInt32(User.FindFirst("CompanyID"));
       if (companyID == null) return Unauthorized();
       notificationDto.CompanyId = companyID;
-      var notisf = await _notificationRepo.CreateNotification(notificationDto);
-      var entity = _mapper.MapToDtoFromCreate(notificationDto);
+      var notisf = await _notiService.CreateNotification(notificationDto);
       if (notisf == null) return BadRequest("Could not create Notification");
       return CreatedAtRoute(
         nameof(GetOne),
-        new { Id = entity.Id },
-         _mapper.MapToDto(entity));
+        new { Id = notisf.Id },
+         notisf);
 
     }
     [Authorize]
     [HttpGet("{id:int}", Name = "GetOne")]
     public async Task<IActionResult> GetOne([FromRoute] int id)
     {
-      var notifcation = await _notificationRepo.GetNotification(id);
+      var notifcation = await _notiService.GetNotification(id);
       if (notifcation == null) return BadRequest("Could not get notification");
       return Ok(notifcation);
     }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application;
 using simpli.Application.Dtos;
+using simpli.Application.Services;
 using simpli.Domain.Entities;
 
 //accesssed by companies
@@ -11,18 +12,16 @@ namespace simpli.Api.Controllers
   [ApiController]
   public class RoomController : ControllerBase
   {
-    private readonly IRoomRepo _roomRepo;
-    private readonly RoomMappers _mapper;
-    public RoomController(IRoomRepo roomRepo, RoomMappers mapper)
+    private readonly RoomServices _roomService;
+    public RoomController(RoomServices services)
     {
-      _roomRepo = roomRepo;
-      _mapper = mapper;
+      _roomService = services;
     }
     [Authorize]
     [HttpGet("{companyId:int}")]
     public async Task<IActionResult> GetAllRooms([FromRoute] int companyId)
     {
-      var rooms = await _roomRepo.GetAllRooms(companyId);
+      var rooms = await _roomService.GetAllRooms(companyId);
       if (rooms == null) return BadRequest("Error");
       return Ok(rooms);
 
@@ -34,7 +33,7 @@ namespace simpli.Api.Controllers
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
       if (companyId == null) return Unauthorized("No company in session.");
-      var room = await _roomRepo.GetRoom(companyId, query.RoomNo);
+      var room = await _roomService.GetRoom(companyId, query.RoomNo);
       if (room == null) return Unauthorized("Missing company id or room number.");
       return Ok(room);
     }
@@ -48,7 +47,7 @@ namespace simpli.Api.Controllers
       {
         var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
         if (companyId == null) return Unauthorized("No company in session");
-        var room = await _roomRepo.CreateRoom(roomDto, companyId);
+        var room = await _roomService.CreateRoom(roomDto, companyId);
         if (room == null) return BadRequest("Could not create room");
         return CreatedAtRoute(nameof(GetRoom), new { Id = room.Id }, room);
       }
@@ -70,7 +69,7 @@ namespace simpli.Api.Controllers
       if (companyId == null) return Unauthorized("Invalid session");
       try
       {
-        var room = await _roomRepo.UpdateRoom(updateRoom, query.RoomId, query.CompanyID);
+        var room = await _roomService.UpdateRoom(updateRoom, query.RoomId, query.CompanyID);
         if (room == null) return BadRequest("Could not Update room");
         return NoContent();
       }
