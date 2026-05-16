@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application;
 using simpli.Application.Dtos;
+using simpli.Application.Services;
 using simpli.Domain.Entities;
 
 namespace simpli.Api.Controllers
@@ -10,12 +11,12 @@ namespace simpli.Api.Controllers
   [ApiController]
   public class CompanyController : ControllerBase
   {
-    private readonly ICompanyRepo _companyRepo;
+    private readonly CompanyService _companyService;
     private readonly CompanyMappers _mapper;
 
-    public CompanyController(ICompanyRepo companyRepo, CompanyMappers mapper)
+    public CompanyController(CompanyService service, CompanyMappers mapper)
     {
-      _companyRepo = companyRepo;
+      _companyService = service;
       _mapper = mapper;
     }
 
@@ -25,7 +26,7 @@ namespace simpli.Api.Controllers
     {
       var comapnyId = Convert.ToInt32(User.FindFirst("CompanyId"));
       if (comapnyId == null) return Unauthorized("Invalid session");
-      var company = await _companyRepo.GetCompanyProfile(comapnyId);
+      var company = await _companyService.GetCompanyProfile(comapnyId);
       if (company == null) return NotFound("No company profile found");
       return Ok(company);
     }
@@ -34,7 +35,7 @@ namespace simpli.Api.Controllers
     [HttpPost]
     public async Task<IActionResult> CreateCompany(CreateCompanyDto createCompany)
     {
-      var company = await _companyRepo.CreateCompany(createCompany);
+      var company = await _companyService.CreateCompany(createCompany);
       if (company == null) return Unauthorized("Invalid session");
       var entity = _mapper.MapToEntityFromCreate(createCompany);
       return CreatedAtRoute(
@@ -50,7 +51,7 @@ namespace simpli.Api.Controllers
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
       if (companyId == null) return Unauthorized("Invalid Session");
-      await _companyRepo
+      await _companyService
       .UpdateExistingCompanyPassword(companyId, dto);
       return NoContent();
     }
@@ -62,7 +63,7 @@ namespace simpli.Api.Controllers
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
       if (companyId == null) return Unauthorized("Invalid Session");
 
-      var company = await _companyRepo.UpdateCompanyProfile(companyId, dto);
+      var company = await _companyService.UpdateCompanyProfile(companyId, dto);
       if (company == null) return BadRequest("Could not update profile");
       return NoContent();
     }
@@ -72,7 +73,7 @@ namespace simpli.Api.Controllers
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
       if (companyId == null) return Unauthorized("Invalid Session");
-      await _companyRepo.SoftDeleteCompanyProfile(companyId);
+      await _companyService.SoftDeleteCompanyProfile(companyId);
       return NoContent();
     }
     [Authorize]
@@ -81,7 +82,7 @@ namespace simpli.Api.Controllers
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
       if (companyId == null) return Unauthorized("Invalid Session");
-      await _companyRepo.ReactivateProfile(companyId);
+      await _companyService.ReactivateProfile(companyId);
       return NoContent();
     }
 
