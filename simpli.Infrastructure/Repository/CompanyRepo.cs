@@ -48,18 +48,18 @@ public class CompanyRepo : ICompanyRepo
         await _context.SaveChangesAsync();
     }
 
-    public async Task<CompanyDto> UpdateCompanyProfile(int companyId, UpdateCompanyProfileDto dto)
+    public async Task<Company> UpdateCompanyProfile(int companyId, UpdateCompanyProfileDto updatedCompany)
     {
         var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
         if (company == null) return null;
-        company.Address = dto.Address;
-        company.CompanyName = dto.CompanyName;
-        company.ContactNumber = dto.ContactNumber;
-        company.RegistrationNumber = dto.RegistrationNumber;
-        company.Website = dto.Website;
-        company.Address = dto.Address;
+        company.Address = updatedCompany.Address;
+        company.CompanyName = updatedCompany.CompanyName;
+        company.ContactNumber = updatedCompany.ContactNumber;
+        company.RegistrationNumber = updatedCompany.RegistrationNumber;
+        company.Website = updatedCompany.Website;
+        company.Address = updatedCompany.Address;
         await _context.SaveChangesAsync();
-        return _mapper.MapToDto(company);
+        return company;
     }
 
     public async Task UpdateExistingCompanyPassword(int id, UpdateCompanyPasswordDto dto)
