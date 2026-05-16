@@ -22,12 +22,11 @@ public class RoomRepo : IRoomRepo
         return _mapper.MapToDto(room);
     }
 
-    public async Task<List<RoomDto>> GetAllRooms(int companyId)
+    public async Task<List<Room>> GetAllRooms(int companyId)
     {
-        return await _mapper.ProjectToRoomDto(
+        return await
             _context.Rooms.AsNoTracking()
             .Where(x => x.CompanyId == companyId)
-            )
         .ToListAsync();
     }
     public async Task<int?> GetRoomIdByRoomNumber(int companyId, string roomNo)
