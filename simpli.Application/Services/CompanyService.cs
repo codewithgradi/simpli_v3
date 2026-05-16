@@ -40,11 +40,12 @@ public class CompanyService
   {
     var exists = await _companyRepo.GetCompanyProfile(companyID);
     if (exists == null) throw new KeyNotFoundException("Company was not found");
-    var
+    await _companyRepo.UpdateExistingCompanyPassword(companyID, exists);
   }
   public async Task ReactivateProfile(int id)
   {
-    var exists = await _companyRepo.GetCompanyProfile(companyID);
+    var exists = await _companyRepo.GetCompanyProfile(id);
     if (exists == null) throw new KeyNotFoundException("Company was not found");
     await _companyRepo.ReactivateProfile(id);
   }
+}
