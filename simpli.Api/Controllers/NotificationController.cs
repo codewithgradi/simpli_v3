@@ -10,11 +10,10 @@ namespace simpli.Api
   public class NotificationController : ControllerBase
   {
     private readonly NotificationService _notiService;
-    private readonly NotificationMappers _mapper;
-    public NotificationController(NotificationService service, NotificationMappers mapper)
+    public NotificationController(NotificationService service)
     {
       _notiService = service;
-      _mapper = mapper;
+
     }
     [Authorize]
     [HttpGet]
