@@ -1,6 +1,6 @@
 using simpli.Domain;
 
-public interface INotification
+public interface INotificationRepo
 {
     Task<List<Notification>> GetAllNotifications(int companyId);
     Task MarkAllRead(int companyId);

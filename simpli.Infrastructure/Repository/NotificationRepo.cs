@@ -3,7 +3,7 @@ using simpli.Application.Dtos;
 using simpli.Domain;
 using simpli.Domain.Entities;
 
-public class NotificationRepo : INotification
+public class NotificationRepo : INotificationRepo
 {
     private readonly AppDbContext _context;
     public NotificationRepo(AppDbContext context)
