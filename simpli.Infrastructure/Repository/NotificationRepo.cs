@@ -19,15 +19,14 @@ public class NotificationRepo : INotification
        .ExecuteDeleteAsync();
     }
 
-    public async Task<NotificationDto> CreateNotification(CreateNotificationDto dto)
+    public async Task<Notification> CreateNotification(Notification notif)
     {
-        var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == dto.CompanyId);
+        var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == notif.CompanyId);
         if (company == null) return null;
-        var entity = _mapper.MapToDtoFromCreate(dto);
-        var notification = await _context.Notifications.AddAsync(entity);
+        var notification = await _context.Notifications.AddAsync(notif);
         if (notification == null) return null;
         await _context.SaveChangesAsync();
-        return _mapper.MapToDto(entity);
+        return notif;
     }
 
     public async Task<List<Notification>> GetAllNotifications(int companyID)
