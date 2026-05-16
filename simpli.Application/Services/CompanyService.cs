@@ -24,5 +24,10 @@ public class CompanyService
     var company = await _companyRepo.CreateCompany(entity);
     return _mapper.MapToDto(company);
   }
-
+  public async Task<CompanyDto> UpdateCompanyProfile(int companyId, UpdateCompanyProfileDto dto)
+  {
+    var company = _mapper.MapToEntityFromUpdate(dto);
+    company = await _companyRepo.UpdateCompanyProfile(companyId, company);
+    return _mapper.MapToDto(company);
+  }
 }

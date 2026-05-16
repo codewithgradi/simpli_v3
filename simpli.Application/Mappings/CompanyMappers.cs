@@ -10,6 +10,7 @@ public partial class CompanyMappers
   public partial Company? MapToEntityFromCreate(CreateCompanyDto dto);
   public partial IQueryable<CompanyDto> ProjectToCompanyDto(IQueryable<Company> companies);
   public partial Company? MapToEntity(LogCompanydto dto);
+  public partial Company? MapToEntityFromUpdate(UpdateCompanyProfileDto dto);
   public partial LogCompanydto MapToLogDto(Company entity);
   public partial CompanyDto MapToDto(Company entity);
   public partial CompanyDto? MapToDtoFromGet(Company company);
