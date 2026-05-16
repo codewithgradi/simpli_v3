@@ -9,11 +9,9 @@ using simpli.Domain.Entities;
 public class CompanyRepo : ICompanyRepo
 {
     private readonly AppDbContext _context;
-    private readonly CompanyMappers _mapper;
-    public CompanyRepo(AppDbContext context, CompanyMappers mapper)
+    public CompanyRepo(AppDbContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
     public Task<bool> CompanyExists(int companyId)
     {
