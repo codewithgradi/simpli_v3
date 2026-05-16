@@ -14,7 +14,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
   //tables
   public DbSet<Notification> Notifications { get; set; }
   public DbSet<Company> Companies { get; set; }
-  public DbSet<Log> Logs { get; set; }
   public DbSet<Room> Rooms { get; set; }
   public DbSet<Visitor> Visitors { get; set; }
 

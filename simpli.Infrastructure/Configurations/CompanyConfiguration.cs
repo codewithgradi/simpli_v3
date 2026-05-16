@@ -16,12 +16,12 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
     .HasMany(c => c.Notifications)
     .WithOne(c => c.Company)
     .HasForeignKey(x => x.CompanyId)
-    .OnDelete(DeleteBehavior.Cascade);
+    .OnDelete(DeleteBehavior.Restrict);
 
     //One company have many rooms
     builder.HasMany(x => x.Rooms)
     .WithOne(x => x.Company)
     .HasForeignKey(x => x.CompanyId)
-    .OnDelete(DeleteBehavior.Cascade);
+    .OnDelete(DeleteBehavior.Restrict);
   }
 }
