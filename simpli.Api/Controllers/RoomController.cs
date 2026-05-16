@@ -31,7 +31,7 @@ namespace simpli.Api.Controllers
     [HttpGet(Name = "GetRoom")]
     public async Task<IActionResult> GetRoom([FromQuery] RoomQuery query)
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("No company in session.");
       var room = await _roomService.GetRoom(companyId, query.RoomNo);
       if (room == null) return Unauthorized("Missing company id or room number.");
@@ -65,7 +65,7 @@ namespace simpli.Api.Controllers
       [FromQuery] UpdateRoomQuery query
     )
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("Invalid session");
       try
       {

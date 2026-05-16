@@ -21,7 +21,6 @@ namespace simpli.Api.Controllers
     [HttpPost("check-in")]
     public async Task<IActionResult> CheckIn(
       [FromBody] CheckInDto inDto,
-      [FromBody] string roomNo,
       [FromQuery] int roomId)
     {
       var companyIdString = User.FindFirstValue("CompanyId");

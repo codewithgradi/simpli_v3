@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using simpli.Application;
 using simpli.Application.Dtos;
+using simpli.Application.Services;
 namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
@@ -57,6 +58,10 @@ public static class ServiceExtentions
     services.AddScoped<INotificationRepo, NotificationRepo>();
     services.AddScoped<IRoomRepo, RoomRepo>();
     services.AddScoped<IVisitorRepo, VisitorRepo>();
+    services.AddScoped<CompanyService>();
+    services.AddScoped<NotificationService>();
+    services.AddScoped<VisitorService>();
+    services.AddScoped<RoomServices>();
 
     return services;
   }

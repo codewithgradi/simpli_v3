@@ -19,7 +19,7 @@ namespace simpli.Api
     [HttpGet]
     public async Task<IActionResult> GetAllNotification()
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyID").Value);
       if (companyId == null) return Unauthorized("Invalid session");
       var notifcations = await _notiService.GetAllNotifications(companyId);
       if (notifcations == null) return null;
@@ -29,7 +29,7 @@ namespace simpli.Api
     [HttpPatch("mark-read")]
     public async Task<IActionResult> MarkAllRead()
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyID").Value);
       if (companyId == null) return Unauthorized("Invalid session.");
       await _notiService.MarkAllRead(companyId);
       return NoContent();
@@ -38,7 +38,7 @@ namespace simpli.Api
     [HttpDelete]
     public async Task<IActionResult> clearAll()
     {
-      var companyID = Convert.ToInt32(User.FindFirst("CompanyID"));
+      var companyID = Convert.ToInt32(User.FindFirst("CompanyID").Value);
       if (companyID == null) return Unauthorized();
       await _notiService.ClearAllNotifications(companyID);
       return NoContent();
@@ -47,7 +47,7 @@ namespace simpli.Api
     [HttpPost]
     public async Task<IActionResult> CreateNotification(CreateNotificationDto notificationDto)
     {
-      var companyID = Convert.ToInt32(User.FindFirst("CompanyID"));
+      var companyID = Convert.ToInt32(User.FindFirst("CompanyID").Value);
       if (companyID == null) return Unauthorized();
       notificationDto.CompanyId = companyID;
       var notisf = await _notiService.CreateNotification(notificationDto);

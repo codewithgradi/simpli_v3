@@ -5,6 +5,7 @@ using simpli.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi("v1");
+builder.Services.AddRouting(opt => { opt.LowercaseUrls = true; });
 builder.Services.AddControllers();
 
 DotNetEnv.Env.Load();

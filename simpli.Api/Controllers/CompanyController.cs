@@ -23,7 +23,7 @@ namespace simpli.Api.Controllers
     [HttpGet(Name = "GetCompany")]
     public async Task<IActionResult> GetCompany()
     {
-      var comapnyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      var comapnyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (comapnyId == null) return Unauthorized("Invalid session");
       var company = await _companyService.GetCompanyProfile(comapnyId);
       if (company == null) return NotFound("No company profile found");
@@ -47,7 +47,7 @@ namespace simpli.Api.Controllers
     [HttpPatch("update-password")]
     public async Task<IActionResult> UpdatePassword([FromBody] UpdateCompanyPasswordDto dto)
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("Invalid Session");
       await _companyService
       .UpdateExistingCompanyPassword(companyId, dto);
@@ -58,7 +58,7 @@ namespace simpli.Api.Controllers
     [HttpPut("update-profile")]
     public async Task<IActionResult> UpdateProfile([FromBody] UpdateCompanyProfileDto dto)
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("Invalid Session");
 
       var company = await _companyService.UpdateCompanyProfile(companyId, dto);
@@ -67,9 +67,9 @@ namespace simpli.Api.Controllers
     }
     [Authorize]
     [HttpPut("soft-delete")]
-    public async Task<IActionResult> UpdateProfile()
+    public async Task<IActionResult> SoftDeleteProfile()
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("Invalid Session");
       await _companyService.SoftDeleteCompanyProfile(companyId);
       return NoContent();
@@ -78,7 +78,7 @@ namespace simpli.Api.Controllers
     [HttpPut("reactivate")]
     public async Task<IActionResult> ReactivateProfile()
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
+      var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("Invalid Session");
       await _companyService.ReactivateProfile(companyId);
       return NoContent();
