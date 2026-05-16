@@ -42,7 +42,8 @@ public class VisitorRepo : IVisitorRepo
     {
         return await _mapper
         .ProjectToCheckInDto
-        (_context.Visitors.AsNoTracking().Where(x => x.CompanyId == companyID)
+        (_context.Visitors.AsNoTracking()
+        .Where(x => x.CompanyId == companyID)
        )
         .ToListAsync();
     }
