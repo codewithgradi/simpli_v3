@@ -18,5 +18,11 @@ public class CompanyService
     var company = await _companyRepo.GetCompanyProfile(companyId);
     return _mapper.MapToDto(company);
   }
+  public async Task<CompanyDto> CreateCompany(CreateCompanyDto dto)
+  {
+    var entity = _mapper.MapToEntityFromCreate(dto);
+    var company = await _companyRepo.CreateCompany(entity);
+    return _mapper.MapToDto(company);
+  }
 
 }
