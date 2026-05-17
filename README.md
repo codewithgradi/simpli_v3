@@ -283,58 +283,7 @@ The API includes interactive documentation using:
 * Environment Variable Support
 * Scalable Project Structure
 * Separation of Concerns
-
----
-
-# API Design Diagram
-
-```mermaid
-flowchart TD
-
-    Client[Client Applications]
-
-    subgraph API Layer
-        Controllers[Controllers]
-        Middleware[Middleware]
-        Auth[Identity Auth Endpoints]
-    end
-
-    subgraph Application Layer
-        DTOs[DTOs]
-        Services[Business Logic Services]
-        Interfaces[Interfaces]
-        Mappers[Mapperly Mappers]
-    end
-
-    subgraph Domain Layer
-        Entities[Entities]
-        Enums[Enums]
-    end
-
-    subgraph Infrastructure Layer
-        Repositories[Repositories]
-        Configs[Fluent API Configurations]
-        Utilities[Utilities]
-        Env[Environment Configs]
-        Data[DbContext & Data Access]
-    end
-
-    Database[(MySQL Database)]
-
-    Client --> Controllers
-    Controllers --> Services
-    Services --> Interfaces
-    Services --> Mappers
-    Services --> Entities
-    Interfaces --> Repositories
-    Repositories --> Data
-    Data --> Database
-    Configs --> Data
-    Env --> Infrastructure Layer
-    Auth --> Controllers
-```
-
----
+----
 
 # Getting Started
 
