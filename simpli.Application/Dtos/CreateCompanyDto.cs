@@ -10,8 +10,14 @@ public class CreateCompanyDto
   [EmailAddress]
   public string? Email { get; set; }
   [Required]
-  public string? ContactNumber { get; set; }
-  [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
+  [MinLength(8, ErrorMessage = "Password should be at least 8 characters long.")]
   public string? Password { get; set; }
+  public string? RegistrationNumber { get; set; }
+  [Required]
+  public string? ContactNumber { get; set; }
+
+  public bool isProfileComplete { get; set; }
+  public bool isDeleted { get; set; }
+  public string? Website { get; set; }
 
 }

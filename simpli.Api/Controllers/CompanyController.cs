@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application;
-using simpli.Application.Dtos;
 using simpli.Application.Services;
 using simpli.Domain.Entities;
 
