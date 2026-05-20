@@ -15,6 +15,7 @@ public class AdditionalUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<A
   {
     var identity = await base.GenerateClaimsAsync(appUser);
     identity.AddClaim(new Claim("CompanyId", appUser.Company.Id.ToString()));
+    identity.AddClaim(new Claim("Email", appUser.Email));
     return identity;
   }
 }
