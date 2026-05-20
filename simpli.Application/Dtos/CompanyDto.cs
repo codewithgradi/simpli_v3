@@ -4,8 +4,7 @@ public class CompanyDto
 {
   public int Id { get; set; }
   public string? CompanyName { get; set; }
-  public string? Email { get; set; }
-  public string? Password { get; set; }
+
   public string? RegistrationNumber { get; set; }
   public string? ContactNumber { get; set; }
   public bool isProfileComplete { get; set; }

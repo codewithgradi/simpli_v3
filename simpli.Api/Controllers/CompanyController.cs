@@ -30,7 +30,7 @@ namespace simpli.Api.Controllers
     }
 
 
-    [HttpPost]
+    [HttpPost("save-company")]
     public async Task<IActionResult> CreateCompany(CreateCompanyDto createCompany)
     {
       var company = await _companyService.CreateCompany(createCompany);
