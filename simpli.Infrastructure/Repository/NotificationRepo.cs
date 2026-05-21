@@ -20,7 +20,7 @@ public class NotificationRepo : INotificationRepo
 
     public async Task<Notification> CreateNotification(Notification notif, int companyID)
     {
-        var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == notif.CompanyId);
+        var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == companyID);
         if (company == null) return null;
         notif.CompanyId = companyID;
         notif.CreatedAt = DateTime.UtcNow;

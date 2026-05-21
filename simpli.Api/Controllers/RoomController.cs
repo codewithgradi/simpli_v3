@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application;
@@ -18,9 +19,11 @@ namespace simpli.Api.Controllers
       _roomService = services;
     }
     [Authorize]
-    [HttpGet("{companyId:int}")]
-    public async Task<IActionResult> GetAllRooms([FromRoute] int companyId)
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAllRooms()
     {
+      var companyId = Convert.ToInt32(User.FindFirstValue("CompanyId"));
+      if (companyId == null) return Unauthorized("Invalid Session.");
       var rooms = await _roomService.GetAllRooms(companyId);
       if (rooms == null) return BadRequest("Error");
       return Ok(rooms);

@@ -15,6 +15,7 @@ public class RoomRepo : IRoomRepo
     public async Task<Room> CreateRoom(Room room, int companyId)
     {
         room.CompanyId = companyId;
+        room.Status = RoomStatus.Available;
         _context.Rooms.AddAsync(room);
         await _context.SaveChangesAsync();
         return room;
