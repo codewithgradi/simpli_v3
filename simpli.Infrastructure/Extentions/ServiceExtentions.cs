@@ -38,12 +38,8 @@ public static class ServiceExtentions
   }
   public static IServiceCollection IdentityConfigurationsScope(this IServiceCollection services)
   {
-    services.AddIdentityCore<AppUser>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddApiEndpoints();
-
-    services.AddAuthentication()
-    .AddBearerToken(IdentityConstants.BearerScheme);
+    services.AddIdentityApiEndpoints<AppUser>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
     services.AddAuthorization();
 
