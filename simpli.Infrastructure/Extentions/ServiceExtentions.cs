@@ -17,20 +17,30 @@ public static class ServiceExtentions
     services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
     return services;
   }
-  public static IServiceCollection ConfigureSqlDB(this IServiceCollection services,
-   IConfiguration config)
+  public static IServiceCollection ConfigureSqlDB(this IServiceCollection services, IConfiguration config)
   {
+    // Clean up spaces or lingering literal quotation marks from the .env file values
+    var envType = config["OtherSettings:CurrentEnviroment"]?.ToLower().Trim(' ', '"');
 
-    var envType = config["OtherSettings:CurrentEnviroment"];
     services.AddDbContext<AppDbContext>(opt =>
     {
       if (envType == "dev")
       {
-        opt.UseSqlServer(config["ConnectionStrings:DevDB"]);
+        var devCs = config["ConnectionStrings:DevDB"];
+        if (string.IsNullOrEmpty(devCs)) throw new InvalidOperationException("DevDB connection string is missing.");
+        opt.UseSqlServer(devCs);
       }
       else if (envType == "prod")
       {
-        opt.UseSqlServer(config["ConnectionStrings:ProdDB"]);
+        var prodCs = config["ConnectionStrings:ProdDB"];
+        if (string.IsNullOrEmpty(prodCs)) throw new InvalidOperationException("ProdDB connection string is missing.");
+        opt.UseSqlServer(prodCs);
+      }
+      else
+      {
+        throw new InvalidOperationException(
+            $"SQL Server could not be configured. The environment target read as '{envType}'. " +
+            "Ensure builder.Configuration.AddEnvironmentVariables() is active.");
       }
     });
 
@@ -38,8 +48,19 @@ public static class ServiceExtentions
   }
   public static IServiceCollection IdentityConfigurationsScope(this IServiceCollection services)
   {
+    // 1. Configure the core identity parameters without standard cookie-bloat
+    services.AddIdentityCore<AppUser>(options =>
+    {
+      options.User.RequireUniqueEmail = true;
+    })
+    // 2. Firmly link your full database context class
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+    // 3. Inject the specific API endpoint plumbing (Bearer handlers)
+    // This connects seamlessly back to AppUser and your configured AppDbContext stores
     services.AddIdentityApiEndpoints<AppUser>()
-    .AddEntityFrameworkStores<AppDbContext>();
+        .AddEntityFrameworkStores<AppDbContext>();
 
     services.AddAuthorization();
 

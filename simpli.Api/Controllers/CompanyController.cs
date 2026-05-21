@@ -30,7 +30,7 @@ namespace simpli.Api.Controllers
       return Ok(company);
     }
 
-
+    [Authorize]
     [HttpPost("save-company")]
     public async Task<IActionResult> CreateCompany(CreateCompanyDto createCompany)
     {

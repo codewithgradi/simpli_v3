@@ -15,7 +15,11 @@ public class AdditionalUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<A
   protected override async Task<ClaimsIdentity> GenerateClaimsAsync(AppUser appUser)
   {
     var identity = await base.GenerateClaimsAsync(appUser);
-    identity.AddClaim(new Claim("CompanyId", appUser.Company.Id.ToString()));
+    identity.AddClaim(new Claim("CompanyId", appUser.CompanyId.ToString()));
+    if (!string.IsNullOrEmpty(appUser.Email))
+    {
+      identity.AddClaim(new Claim("Email", appUser.Email));
+    }
     identity.AddClaim(new Claim("Email", appUser.Email));
     return identity;
   }

@@ -22,6 +22,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
   {
     base.OnModelCreating(builder);
 
+
     //Applies the rules in ./confirgurations to db here
     builder.ApplyConfigurationsFromAssembly(
       typeof(AppDbContext)
