@@ -32,10 +32,10 @@ public class NotificationService
   {
     await _notiRepo.ClearAllNotifications(companyId);
   }
-  public async Task<NotificationDto> CreateNotification(CreateNotificationDto notificationDto)
+  public async Task<NotificationDto> CreateNotification(CreateNotificationDto notificationDto, int Id)
   {
     var entity = _mapper.MapToEntityFromCreate(notificationDto);
-    var created = await _notiRepo.CreateNotification(entity);
+    var created = await _notiRepo.CreateNotification(entity, Id);
     if (created == null) throw new KeyNotFoundException("Could not create");
     return _mapper.MapToDto(created);
   }

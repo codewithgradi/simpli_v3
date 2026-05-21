@@ -1,11 +1,5 @@
-
-
 using Microsoft.EntityFrameworkCore;
-using simpli.Application;
-using simpli.Application.Dtos;
 using simpli.Domain;
-using simpli.Domain.Entities;
-
 public class CompanyRepo : ICompanyRepo
 {
     private readonly AppDbContext _context;
@@ -20,13 +14,17 @@ public class CompanyRepo : ICompanyRepo
 
     public async Task<Company> GetCompanyProfile(int companyId)
     {
-        var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId);
+        var company = await _context
+        .Companies
+        .Include(x => x.User)
+        .FirstOrDefaultAsync(x => x.Id == companyId);
         if (company == null) return null;
         return company;
     }
 
-    public async Task<Company> CreateCompany(Company company)
+    public async Task<Company> CreateCompany(Company company, string userId)
     {
+        company.AppUserId = userId;
         _context.Companies.Add(company);
         await _context.SaveChangesAsync();
         return company;
@@ -61,6 +59,4 @@ public class CompanyRepo : ICompanyRepo
         await _context.SaveChangesAsync();
         return company;
     }
-
-
 }

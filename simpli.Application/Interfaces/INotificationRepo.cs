@@ -6,5 +6,5 @@ public interface INotificationRepo
     Task MarkAllRead(int companyId);
     Task<Notification> GetNotification(int id);
     Task ClearAllNotifications(int companyId);
-    Task<Notification> CreateNotification(Notification notification);
+    Task<Notification> CreateNotification(Notification notification, int companyID);
 }

@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using simpli.Application.Dtos;
 using simpli.Domain;
-using simpli.Domain.Entities;
 
 public class VisitorRepo : IVisitorRepo
 {

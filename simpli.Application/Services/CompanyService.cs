@@ -16,12 +16,14 @@ public class CompanyService
   public async Task<CompanyDto> GetCompanyProfile(int companyId)
   {
     var company = await _companyRepo.GetCompanyProfile(companyId);
+    if (company == null) return null;
     return _mapper.MapToDto(company);
   }
-  public async Task<CompanyDto> CreateCompany(CreateCompanyDto dto)
+  public async Task<CompanyDto> CreateCompany(CreateCompanyDto dto, string userId)
   {
     var entity = _mapper.MapToEntityFromCreate(dto);
-    var company = await _companyRepo.CreateCompany(entity);
+    entity.AppUserId = userId;
+    var company = await _companyRepo.CreateCompany(entity, userId);
     return _mapper.MapToDto(company);
   }
   public async Task<CompanyDto> UpdateCompanyProfile(int companyId, UpdateCompanyProfileDto dto)

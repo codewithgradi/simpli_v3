@@ -49,8 +49,7 @@ namespace simpli.Api
     {
       var companyID = Convert.ToInt32(User.FindFirst("CompanyID").Value);
       if (companyID == null) return Unauthorized();
-      notificationDto.CompanyId = companyID;
-      var notisf = await _notiService.CreateNotification(notificationDto);
+      var notisf = await _notiService.CreateNotification(notificationDto, companyID);
       if (notisf == null) return BadRequest("Could not create Notification");
       return CreatedAtRoute(
         nameof(GetOne),

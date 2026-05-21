@@ -18,10 +18,11 @@ public class NotificationRepo : INotificationRepo
        .ExecuteDeleteAsync();
     }
 
-    public async Task<Notification> CreateNotification(Notification notif)
+    public async Task<Notification> CreateNotification(Notification notif, int companyID)
     {
         var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == notif.CompanyId);
         if (company == null) return null;
+        notif.CompanyId = companyID;
         var notification = await _context.Notifications.AddAsync(notif);
         if (notification == null) return null;
         await _context.SaveChangesAsync();

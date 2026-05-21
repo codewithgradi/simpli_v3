@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using simpli.Application;
 using simpli.Application.Services;
 using simpli.Domain.Entities;
 
@@ -23,9 +22,14 @@ namespace simpli.Api.Controllers
     [HttpGet(Name = "GetCompany")]
     public async Task<IActionResult> GetCompany()
     {
-      var comapnyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
-      if (comapnyId == null) return Unauthorized("Invalid session");
-      var company = await _companyService.GetCompanyProfile(comapnyId);
+      var comapnyIdClaim = User.FindFirstValue("CompanyId");
+      if (comapnyIdClaim == "0" || string.IsNullOrEmpty(comapnyIdClaim))
+      {
+        Console.WriteLine($"CompanyId : {comapnyIdClaim}");
+        return Unauthorized("Invalid session");
+      }
+      var companyId = Convert.ToInt32(comapnyIdClaim);
+      var company = await _companyService.GetCompanyProfile(companyId);
       if (company == null) return NotFound("No company profile found");
       return Ok(company);
     }
@@ -34,13 +38,15 @@ namespace simpli.Api.Controllers
     [HttpPost("save-company")]
     public async Task<IActionResult> CreateCompany(CreateCompanyDto createCompany)
     {
-      createCompany.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
-      var company = await _companyService.CreateCompany(createCompany);
-      if (company == null) return Unauthorized("Invalid session");
+      var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+      if (userId == null) return Unauthorized();
+      var companydto = await _companyService.CreateCompany(createCompany, userId);
+
+      if (companydto == null) return Unauthorized("Invalid session");
       return CreatedAtRoute(
         nameof(GetCompany),
-        new { Id = company.Id },
-        company
+        new { Id = companydto.Id },
+        companydto
       );
     }
 
