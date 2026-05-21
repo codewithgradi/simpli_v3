@@ -62,11 +62,5 @@ public class CompanyRepo : ICompanyRepo
         return company;
     }
 
-    public async Task UpdateExistingCompanyPassword(int id, Company curentComp)
-    {
-        var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == id);
-        company.Password = curentComp.Password;
-        await _context.SaveChangesAsync();
 
-    }
 }

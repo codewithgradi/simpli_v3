@@ -42,16 +42,6 @@ namespace simpli.Api.Controllers
       );
     }
 
-    [Authorize]
-    [HttpPatch("update-password")]
-    public async Task<IActionResult> UpdatePassword([FromBody] UpdateCompanyPasswordDto dto)
-    {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
-      if (companyId == null) return Unauthorized("Invalid Session");
-      await _companyService
-      .UpdateExistingCompanyPassword(companyId, dto);
-      return NoContent();
-    }
 
     [Authorize]
     [HttpPut("update-profile")]
@@ -65,7 +55,7 @@ namespace simpli.Api.Controllers
       return NoContent();
     }
     [Authorize]
-    [HttpPut("soft-delete")]
+    [HttpPatch("soft-delete")]
     public async Task<IActionResult> SoftDeleteProfile()
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
