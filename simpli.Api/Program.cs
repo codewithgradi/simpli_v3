@@ -41,7 +41,7 @@ app.MapControllers();
 
 
 //Mapping from scalar UI
-app.MapIdentityApi<IdentityUser>();
+app.MapIdentityApi<AppUser>();
 
 app.Run();
 
