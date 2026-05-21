@@ -3,30 +3,26 @@ using QRCoder;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Utils;
-using System.Drawing;
 
 public static class Utils
 {
   public static async Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string passCode)
   {
-    // 1. Generate the QR Code with  specific colors
+    // 1. Generate the QR Code with specific colors (Cross-Platform)
     using var qrGenerator = new QRCodeGenerator();
-    var qrCodeData = qrGenerator.CreateQrCode(passCode, QRCodeGenerator.ECCLevel.Q);
+    using var qrCodeData = qrGenerator.CreateQrCode(passCode, QRCodeGenerator.ECCLevel.Q);
 
-    // We use the 'QRCode' class for color support
-    using var qrCode = new QRCode(qrCodeData);
+    // PngByteQRCode works everywhere (Linux, Mac, Windows, Docker)
+    using var qrCode = new PngByteQRCode(qrCodeData);
 
-    // Convert your hex colors to System.Drawing.Color
-    Color darkColor = ColorTranslator.FromHtml("#00ED64");
-    Color lightColor = ColorTranslator.FromHtml("#001E2B");
+    // Define your hex colors as RGB byte arrays:
+    // Dark/Foreground: #00ED64 -> R: 0x00, G: 0xED, B: 0x64
+    byte[] darkColor = new byte[] { 0x00, 0xED, 0x64 };
+    // Light/Background: #001E2B -> R: 0x00, G: 0x1E, B: 0x2B
+    byte[] lightColor = new byte[] { 0x00, 0x1E, 0x2B };
 
-    // Generate as a Bitmap (standard free way)
-    using Bitmap qrImage = qrCode.GetGraphic(20, darkColor, lightColor, true);
-
-    // Convert Bitmap to Byte Array (to send as attachment)
-    using var ms = new MemoryStream();
-    qrImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-    byte[] qrCodeBytes = ms.ToArray();
+    // Generate the graphic directly as a PNG byte array
+    byte[] qrCodeBytes = qrCode.GetGraphic(20, darkColor, lightColor, true);
 
     // 2. Build the Email
     var message = new MimeMessage();
@@ -41,22 +37,21 @@ public static class Utils
     image.ContentId = MimeUtils.GenerateMessageId();
 
     bodyBuilder.HtmlBody = $@"
-        <div style=""background-color: #001E2B; color: #ffffff; padding: 40px; font-family: sans-serif; text-align: center; border-radius: 15px;"">
-            <h1 style=""color: #00ED64; margin-bottom: 5px;"">Check-in Successful</h1>
-            <p style=""color: #8899A6; margin-bottom: 30px;"">Welcome to Room {roomNumber}, {firstName}.</p>
-            <div style=""background: #ffffff; padding: 20px; display: inline-block; border-radius: 12px; margin-bottom: 20px;"">
-                <img src=""cid:{image.ContentId}"" width=""200"" height=""200"" />
-            </div>
-            <p style=""font-size: 14px; color: #E8EDF0;"">Passcode: <br/> 
-               <span style=""font-family: monospace; font-size: 18px; color: #00ED64;"">{passCode}</span>
-            </p>
-        </div>";
+            <div style=""background-color: #001E2B; color: #ffffff; padding: 40px; font-family: sans-serif; text-align: center; border-radius: 15px;"">
+                <h1 style=""color: #00ED64; margin-bottom: 5px;"">Check-in Successful</h1>
+                <p style=""color: #8899A6; margin-bottom: 30px;"">Welcome to Room {roomNumber}, {firstName}.</p>
+                <div style=""background: #ffffff; padding: 20px; display: inline-block; border-radius: 12px; margin-bottom: 20px;"">
+                    <img src=""cid:{image.ContentId}"" width=""200"" height=""200"" />
+                </div>
+                <p style=""font-size: 14px; color: #E8EDF0;"">Passcode: <br/> 
+                   <span style=""font-family: monospace; font-size: 18px; color: #00ED64;"">{passCode}</span>
+                </p>
+            </div>";
 
     message.Body = bodyBuilder.ToMessageBody();
 
-    // 3. Send via Free SMTP (e.g., Gmail or Outlook)
+    // 3. Send via Free SMTP
     using var client = new SmtpClient();
-    // For Gmail: use smtp.gmail.com | Port 587 | StartTls
     await client.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
     await client.AuthenticateAsync("your-email@gmail.com", "your-app-password");
     await client.SendAsync(message);
