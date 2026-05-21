@@ -33,6 +33,7 @@ namespace simpli.Api.Controllers
     [HttpPost("save-company")]
     public async Task<IActionResult> CreateCompany(CreateCompanyDto createCompany)
     {
+
       var company = await _companyService.CreateCompany(createCompany);
       if (company == null) return Unauthorized("Invalid session");
       return CreatedAtRoute(

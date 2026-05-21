@@ -13,5 +13,6 @@ public class CreateCompanyDto
   public bool isProfileComplete { get; set; }
   public bool isDeleted { get; set; }
   public string? Website { get; set; }
+  public string? AppUserId { get; set; }
 
 }
