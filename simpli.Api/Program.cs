@@ -10,7 +10,10 @@ builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddOpenApi("v1");
 builder.Services.AddRouting(opt => { opt.LowercaseUrls = true; });
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+});
 
 builder.Services
 .LoadEnvironment(builder.Configuration)

@@ -23,6 +23,7 @@ public class NotificationRepo : INotificationRepo
         var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == notif.CompanyId);
         if (company == null) return null;
         notif.CompanyId = companyID;
+        notif.CreatedAt = DateTime.UtcNow;
         var notification = await _context.Notifications.AddAsync(notif);
         if (notification == null) return null;
         await _context.SaveChangesAsync();
