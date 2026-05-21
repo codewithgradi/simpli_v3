@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application;
@@ -33,7 +34,7 @@ namespace simpli.Api.Controllers
     [HttpPost("save-company")]
     public async Task<IActionResult> CreateCompany(CreateCompanyDto createCompany)
     {
-
+      createCompany.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier).ToString();
       var company = await _companyService.CreateCompany(createCompany);
       if (company == null) return Unauthorized("Invalid session");
       return CreatedAtRoute(
