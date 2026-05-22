@@ -17,6 +17,8 @@ public class CompanyRepo : ICompanyRepo
         var company = await _context
         .Companies
         .Include(x => x.User)
+        .Include(r => r.Rooms)
+        .Include(v => v.Visitors)
         .FirstOrDefaultAsync(x => x.Id == companyId);
         if (company == null) return null;
         return company;

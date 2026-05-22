@@ -71,10 +71,12 @@ public static class ServiceExtentions
     services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, AdditionalUserClaimsPrincipalFactory>();
     services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
     services.Configure<OtherSettings>(configuration.GetSection("OtherSettings"));
+
     services.AddScoped<ICompanyRepo, CompanyRepo>();
     services.AddScoped<INotificationRepo, NotificationRepo>();
     services.AddScoped<IRoomRepo, RoomRepo>();
     services.AddScoped<IVisitorRepo, VisitorRepo>();
+
     services.AddScoped<CompanyService>();
     services.AddScoped<NotificationService>();
     services.AddScoped<VisitorService>();

@@ -1,13 +1,13 @@
 
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using simpli.Application.Dtos;
 using simpli.Application.Services;
 using simpli.Domain.Entities;
 
 namespace simpli.Api.Controllers
 {
-  [Route("/api/[controller]")]
+  [Route("api/[controller]")]
   [ApiController]
   public class VisitorController : ControllerBase
   {
@@ -18,17 +18,23 @@ namespace simpli.Api.Controllers
       _visitorService = service;
 
     }
+    [HttpGet("test")]
+    public async Task<IActionResult> Test()
+    {
+      return Ok("Working");
+    }
+    [Authorize]
     [HttpPost("check-in")]
     public async Task<IActionResult> CheckIn(
       [FromBody] CheckInDto inDto,
-      [FromQuery] int roomId)
+      [FromQuery] RoomQuery query)
     {
       var companyIdString = User.FindFirstValue("CompanyId");
       if (int.TryParse(companyIdString, out int companyId))
       {
         var visitor = await
         _visitorService
-        .CheckIn(inDto, companyId, roomId);
+        .CheckIn(inDto, companyId, query.Ri);
         return CreatedAtRoute(nameof(GetVisitor),
         new { Id = visitor.Id },
         visitor
@@ -39,8 +45,8 @@ namespace simpli.Api.Controllers
         return BadRequest("Could not check in");
       }
     }
-
-    [HttpPost("check-out")]
+    [Authorize]
+    [HttpPatch("check-out")]
     public async Task<IActionResult> CheckOut([FromBody] CheckOutDto outDto)
     {
       try
@@ -53,18 +59,22 @@ namespace simpli.Api.Controllers
         return BadRequest("Error accessing DB , Could not check out.");
       }
     }
+    [Authorize]
     [HttpGet("{id:int}", Name = "GetVisitor")]
     public async Task<IActionResult> GetVisitor([FromRoute] int id)
     {
       var visitor = await _visitorService.GetVisitor(id);
-      if (visitor == null) return null;
+      if (visitor == null) return NotFound("Visitor not found.");
       return Ok(visitor);
     }
     [HttpGet]
     public async Task<IActionResult> GettAllVisitors()
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId"));
-      if (companyId == null) return NotFound("User Not found.");
+      var companyIdStr = User.FindFirstValue("CompanyId");
+      if (string.IsNullOrEmpty(companyIdStr) || !int.TryParse(companyIdStr, out int companyId))
+      {
+        return Unauthorized("Invalid session.");
+      }
       var visitors = await _visitorService.GetAllVisitors(companyId);
       if (visitors == null) return null;
       return Ok(visitors);

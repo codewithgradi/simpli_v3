@@ -9,7 +9,7 @@ using simpli.Domain.Entities;
 //accesssed by companies
 namespace simpli.Api.Controllers
 {
-  [Route("/api/[controller]")]
+  [Route("api/[controller]")]
   [ApiController]
   public class RoomController : ControllerBase
   {
@@ -36,7 +36,7 @@ namespace simpli.Api.Controllers
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("No company in session.");
-      var room = await _roomService.GetRoom(companyId, query.RoomNo);
+      var room = await _roomService.GetRoom(companyId, (query.Ri).ToString());
       if (room == null) return Unauthorized("Missing company id or room number.");
       return Ok(room);
     }
@@ -48,14 +48,19 @@ namespace simpli.Api.Controllers
     {
       try
       {
-        var companyId = Convert.ToInt32(User.FindFirst("CompanyID"));
-        if (companyId == null) return Unauthorized("No company in session");
+        var companyIdClaimString = User.FindFirstValue("CompanyID");
+        if (string.IsNullOrEmpty(companyIdClaimString) || !int.TryParse(companyIdClaimString, out int companyId))
+        {
+          return Unauthorized("No company in session");
+        }
+
         var room = await _roomService.CreateRoom(roomDto, companyId);
         if (room == null) return BadRequest("Could not create room");
         return CreatedAtRoute(nameof(GetRoom), new { Id = room.Id }, room);
       }
-      catch
+      catch (Exception e)
       {
+        Console.WriteLine($"Error: {e}");
         return BadRequest("Bad Request!");
       }
 
@@ -68,11 +73,14 @@ namespace simpli.Api.Controllers
       [FromQuery] UpdateRoomQuery query
     )
     {
-      var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
-      if (companyId == null) return Unauthorized("Invalid session");
+      var companyIdStr = User.FindFirstValue("CompanyId");
+      if (string.IsNullOrEmpty(companyIdStr) || !int.TryParse(companyIdStr, out int companyId))
+      {
+        return Unauthorized("Invalid session.");
+      }
       try
       {
-        var room = await _roomService.UpdateRoom(updateRoom, query.RoomId, query.CompanyID);
+        var room = await _roomService.UpdateRoom(updateRoom, query.Ri, companyId);
         if (room == null) return BadRequest("Could not Update room");
         return NoContent();
       }

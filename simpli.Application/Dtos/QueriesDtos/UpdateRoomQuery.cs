@@ -1,5 +1,4 @@
 public class UpdateRoomQuery
 {
-  public int CompanyID { get; set; }
-  public int RoomId { get; set; }
+  public int Ri { get; set; }
 }
