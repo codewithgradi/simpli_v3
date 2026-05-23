@@ -1,6 +1,5 @@
 using simpli.Application.Dtos;
 using simpli.Domain.Entities;
-
 namespace simpli.Application.Services;
 
 public class RoomServices
@@ -16,6 +15,11 @@ public class RoomServices
   public async Task<RoomDto> CreateRoom(CreateRoomDto roomDto, int companyID)
   {
     var room = _mapper.MapFromCreate(roomDto);
+    var existingRoomByRoomNumber = await _roomRepo.GetRoomIdByRoomNumber(companyID, roomDto.RoomNumber!);
+    if (existingRoomByRoomNumber != null)
+    {
+      throw new Exception($"Duplicate room number : room with room number {roomDto.RoomNumber} exists.");
+    }
     var created = await _roomRepo.CreateRoom(room, companyID);
     return _mapper.MapToDto(created);
   }

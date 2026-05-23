@@ -53,7 +53,6 @@ namespace simpli.Api.Controllers
         {
           return Unauthorized("No company in session");
         }
-
         var room = await _roomService.CreateRoom(roomDto, companyId);
         if (room == null) return BadRequest("Could not create room");
         return CreatedAtRoute(nameof(GetRoom), new { Id = room.Id }, room);

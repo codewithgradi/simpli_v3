@@ -12,6 +12,7 @@ public class VisitorService
   {
     _visitorRepo = visitorRepo;
     _mapper = mapper;
+
   }
   public async Task<VisitorDto> CheckIn(CheckInDto visitorDto, int companyID, int roomId)
   {

@@ -3,10 +3,35 @@ using QRCoder;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Utils;
+using Microsoft.Extensions.Options;
 
-public static class Utils
+public interface IEmailService
 {
-  public static async Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string passCode)
+  Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string passCode);
+}
+public class EmailService : IEmailService
+{
+  private readonly OtherSettings _setings;
+
+  public EmailService(IOptions<OtherSettings> settings)
+  {
+    _setings = settings.Value;
+
+    if (_setings == null)
+    {
+      throw new ArgumentNullException("Entire other setting is empty");
+    }
+    if (string.IsNullOrEmpty(_setings.SystemEmail))
+    {
+      throw new InvalidOperationException("OtherSettings:SystemEmail is null or empty! Check your environment variables.");
+    }
+
+    if (string.IsNullOrEmpty(_setings.AppPassword))
+    {
+      throw new InvalidOperationException("OtherSettings:AppPassword is null or empty! Check your environment variables.");
+    }
+  }
+  public async Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string passCode)
   {
     // 1. Generate the QR Code with specific colors (Cross-Platform)
     using var qrGenerator = new QRCodeGenerator();
@@ -15,13 +40,9 @@ public static class Utils
     // PngByteQRCode works everywhere (Linux, Mac, Windows, Docker)
     using var qrCode = new PngByteQRCode(qrCodeData);
 
-    // Define your hex colors as RGB byte arrays:
-    // Dark/Foreground: #00ED64 -> R: 0x00, G: 0xED, B: 0x64
     byte[] darkColor = new byte[] { 0x00, 0xED, 0x64 };
-    // Light/Background: #001E2B -> R: 0x00, G: 0x1E, B: 0x2B
     byte[] lightColor = new byte[] { 0x00, 0x1E, 0x2B };
 
-    // Generate the graphic directly as a PNG byte array
     byte[] qrCodeBytes = qrCode.GetGraphic(20, darkColor, lightColor, true);
 
     // 2. Build the Email
@@ -52,12 +73,19 @@ public static class Utils
 
     // 3. Send via Free SMTP
     using var client = new SmtpClient();
-    await client.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-    await client.AuthenticateAsync("your-email@gmail.com", "your-app-password");
+    await client.ConnectAsync(
+      "smtp.gmail.com",
+      587,
+      MailKit.Security.SecureSocketOptions
+      .StartTlsWhenAvailable);
+    await client.AuthenticateAsync(_setings.SystemEmail!, _setings.AppPassword!);
     await client.SendAsync(message);
     await client.DisconnectAsync(true);
   }
+}
 
+public static class Utils
+{
   public static string GeneratePasscode()
   {
     int passcode = RandomNumberGenerator.GetInt32(10000, 100000);

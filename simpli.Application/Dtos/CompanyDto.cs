@@ -15,8 +15,4 @@ public class CompanyDto
   public AddressContent? Address { get; set; }
   public DateTime CreatedAt { get; set; }
 
-
-  public List<RoomDto>? Rooms { get; set; }
-  public List<VisitorDto>? Visitors { get; set; }
-
 }

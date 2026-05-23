@@ -12,17 +12,13 @@ namespace simpli.Api.Controllers
   public class VisitorController : ControllerBase
   {
     private readonly VisitorService _visitorService;
-
     public VisitorController(VisitorService service)
     {
       _visitorService = service;
 
+
     }
-    [HttpGet("test")]
-    public async Task<IActionResult> Test()
-    {
-      return Ok("Working");
-    }
+
     [Authorize]
     [HttpPost("check-in")]
     public async Task<IActionResult> CheckIn(
@@ -33,11 +29,12 @@ namespace simpli.Api.Controllers
       if (int.TryParse(companyIdString, out int companyId))
       {
         var visitor = await
-        _visitorService
-        .CheckIn(inDto, companyId, query.Ri);
-        return CreatedAtRoute(nameof(GetVisitor),
-        new { Id = visitor.Id },
-        visitor
+       _visitorService
+       .CheckIn(inDto, companyId, query.Ri);
+        return CreatedAtRoute(
+          nameof(GetVisitor),
+          new { Id = visitor.Id },
+          visitor
         );
       }
       else

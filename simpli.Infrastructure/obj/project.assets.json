@@ -68,14 +68,10 @@
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Humanizer.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Humanizer.dll": {}
         },
         "runtime": {
-          "lib/net6.0/Humanizer.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/Humanizer.dll": {}
         }
       },
       "MailKit/4.16.0": {
@@ -252,12 +248,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -374,12 +370,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -1159,10 +1155,14 @@
       "Microsoft.VisualStudio.SolutionPersistence/1.0.52": {
         "type": "package",
         "compile": {
-          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {}
+          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {}
+          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Win32.SystemEvents/6.0.0": {
@@ -4536,11 +4536,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
-      "projectName": "simpli.Infrastructure",
-      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj",
+      "projectName": "simpli.infrastructure",
+      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\Desktop\\simpli_v3\\NuGet.Config",

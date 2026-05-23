@@ -5,7 +5,9 @@ public class ConnnectionStrings
 }
 public class OtherSettings
 {
-    public string? Env { get; set; }
-    public string? FrontEndurl { get; set; }
+    public string? CurrentEnviroment { get; set; }
+    public string? FrontEndUrl { get; set; }
     public string? PAT { get; set; }
+    public string? AppPassword { get; set; }
+    public string? SystemEmail { get; set; }
 }

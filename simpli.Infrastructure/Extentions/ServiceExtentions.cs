@@ -15,11 +15,11 @@ public static class ServiceExtentions
     var connectionStrings = new ConnnectionStrings();
     configuration.GetSection("ConnectionStrings").Bind(connectionStrings);
     services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
+    services.Configure<OtherSettings>(configuration.GetSection("OtherSettings"));
     return services;
   }
   public static IServiceCollection ConfigureSqlDB(this IServiceCollection services, IConfiguration config)
   {
-    // Clean up spaces or lingering literal quotation marks from the .env file values
     var envType = config["OtherSettings:CurrentEnviroment"]?.ToLower().Trim(' ', '"');
 
     services.AddDbContext<AppDbContext>(opt =>
@@ -48,17 +48,13 @@ public static class ServiceExtentions
   }
   public static IServiceCollection IdentityConfigurationsScope(this IServiceCollection services)
   {
-    // 1. Configure the core identity parameters without standard cookie-bloat
     services.AddIdentityCore<AppUser>(options =>
     {
       options.User.RequireUniqueEmail = true;
     })
-    // 2. Firmly link your full database context class
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-    // 3. Inject the specific API endpoint plumbing (Bearer handlers)
-    // This connects seamlessly back to AppUser and your configured AppDbContext stores
     services.AddIdentityApiEndpoints<AppUser>()
         .AddEntityFrameworkStores<AppDbContext>();
 
@@ -81,6 +77,8 @@ public static class ServiceExtentions
     services.AddScoped<NotificationService>();
     services.AddScoped<VisitorService>();
     services.AddScoped<RoomServices>();
+
+    services.AddTransient<IEmailService, EmailService>();
 
     return services;
   }
