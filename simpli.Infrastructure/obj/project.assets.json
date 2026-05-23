@@ -168,11 +168,13 @@
       "Microsoft.Build.Framework/18.0.2": {
         "type": "package",
         "compile": {
-          "ref/net10.0/Microsoft.Build.Framework.dll": {}
+          "ref/net10.0/Microsoft.Build.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/net10.0/Microsoft.Build.Framework.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         }
       },
@@ -248,12 +250,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -439,13 +441,13 @@
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -1155,14 +1157,10 @@
       "Microsoft.VisualStudio.SolutionPersistence/1.0.52": {
         "type": "package",
         "compile": {
-          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {
-            "related": ".xml"
-          }
+          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {}
         },
         "runtime": {
-          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {
-            "related": ".xml"
-          }
+          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {}
         }
       },
       "Microsoft.Win32.SystemEvents/6.0.0": {
@@ -1309,10 +1307,14 @@
       "System.CodeDom/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.CodeDom.dll": {}
+          "lib/net6.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {}
+          "lib/net6.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -4536,11 +4538,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj",
-      "projectName": "simpli.infrastructure",
-      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
+      "projectName": "simpli.Infrastructure",
+      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\Desktop\\simpli_v3\\NuGet.Config",

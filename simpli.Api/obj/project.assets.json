@@ -158,11 +158,13 @@
       "Microsoft.Build.Framework/18.0.2": {
         "type": "package",
         "compile": {
-          "ref/net10.0/Microsoft.Build.Framework.dll": {}
+          "ref/net10.0/Microsoft.Build.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
           "lib/net10.0/Microsoft.Build.Framework.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         }
       },
@@ -238,12 +240,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -424,13 +426,13 @@
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -828,14 +830,10 @@
       "Microsoft.VisualStudio.SolutionPersistence/1.0.52": {
         "type": "package",
         "compile": {
-          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {
-            "related": ".xml"
-          }
+          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {}
         },
         "runtime": {
-          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {
-            "related": ".xml"
-          }
+          "lib/net8.0/Microsoft.VisualStudio.SolutionPersistence.dll": {}
         }
       },
       "Microsoft.Win32.SystemEvents/6.0.0": {
@@ -981,10 +979,14 @@
       "System.CodeDom/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.CodeDom.dll": {}
+          "lib/net6.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {}
+          "lib/net6.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -1223,7 +1225,7 @@
           "bin/placeholder/simpli.Domain.dll": {}
         }
       },
-      "simpli.infrastructure/1.0.0": {
+      "simpli.Infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
@@ -1238,10 +1240,10 @@
           "simpli.Application": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/simpli.infrastructure.dll": {}
+          "bin/placeholder/simpli.Infrastructure.dll": {}
         },
         "runtime": {
-          "bin/placeholder/simpli.infrastructure.dll": {}
+          "bin/placeholder/simpli.Infrastructure.dll": {}
         }
       }
     }
@@ -3559,10 +3561,10 @@
       "path": "../simpli.Domain/simpli.Domain.csproj",
       "msbuildProject": "../simpli.Domain/simpli.Domain.csproj"
     },
-    "simpli.infrastructure/1.0.0": {
+    "simpli.Infrastructure/1.0.0": {
       "type": "project",
-      "path": "../simpli.infrastructure/simpli.infrastructure.csproj",
-      "msbuildProject": "../simpli.infrastructure/simpli.infrastructure.csproj"
+      "path": "../simpli.Infrastructure/simpli.Infrastructure.csproj",
+      "msbuildProject": "../simpli.Infrastructure/simpli.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3570,7 +3572,7 @@
       "Microsoft.AspNetCore.OpenApi >= 10.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.5",
       "simpli.Application >= 1.0.0",
-      "simpli.infrastructure >= 1.0.0"
+      "simpli.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3604,8 +3606,8 @@
             "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj": {
               "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj"
             },
-            "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj"
+            "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj"
             }
           }
         }

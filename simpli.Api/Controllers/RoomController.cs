@@ -2,7 +2,6 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application;
-using simpli.Application.Dtos;
 using simpli.Application.Services;
 using simpli.Domain.Entities;
 
@@ -59,8 +58,8 @@ namespace simpli.Api.Controllers
       }
       catch (Exception e)
       {
-        Console.WriteLine($"Error: {e}");
-        return BadRequest("Bad Request!");
+
+        return BadRequest($"error:{e.Message}");
       }
 
     }
@@ -83,9 +82,9 @@ namespace simpli.Api.Controllers
         if (room == null) return BadRequest("Could not Update room");
         return NoContent();
       }
-      catch
+      catch (Exception e)
       {
-        return BadRequest("Errors updating room");
+        return BadRequest($"error:{e.Message}");
       }
 
     }

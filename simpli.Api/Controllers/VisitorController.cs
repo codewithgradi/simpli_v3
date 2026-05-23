@@ -15,8 +15,6 @@ namespace simpli.Api.Controllers
     public VisitorController(VisitorService service)
     {
       _visitorService = service;
-
-
     }
 
     [Authorize]
@@ -51,9 +49,9 @@ namespace simpli.Api.Controllers
         await _visitorService.CheckOut(outDto);
         return Ok("Checked out successfully");
       }
-      catch
+      catch (Exception e)
       {
-        return BadRequest("Error accessing DB , Could not check out.");
+        return BadRequest($"error: {e.Message}");
       }
     }
     [Authorize]
