@@ -33,18 +33,15 @@ public class VisitorRepo : IVisitorRepo
         room.Status = RoomStatus.Occupied;
         room.NumberOfTimesBooked++;
 
-        try
-        {
-            await _emailService.SendVisitorEmailAsync(
-                visitor.Email!,
-                visitor.FirstName!,
-                room.RoomNumber!,
-                visitor.PassCode);
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"Could not send email: {e.Message}", e);
-        }
+
+
+        await _emailService.SendVisitorEmailAsync(
+            visitor.Email!,
+            visitor.FirstName!,
+            room.RoomNumber!,
+            visitor.PassCode);
+
+
 
         await _context.SaveChangesAsync();
         return visitor;

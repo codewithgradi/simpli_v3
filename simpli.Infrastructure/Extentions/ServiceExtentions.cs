@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using simpli.Application;
 using simpli.Application.Dtos;
 using simpli.Application.Services;
 namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
 {
+
   public static IServiceCollection LoadEnvironment(this IServiceCollection services, IConfiguration configuration)
   {
     DotNetEnv.Env.Load();

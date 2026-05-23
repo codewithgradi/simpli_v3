@@ -44,15 +44,11 @@ namespace simpli.Api.Controllers
     [HttpPatch("check-out")]
     public async Task<IActionResult> CheckOut([FromBody] CheckOutDto outDto)
     {
-      try
-      {
-        await _visitorService.CheckOut(outDto);
-        return Ok("Checked out successfully");
-      }
-      catch (Exception e)
-      {
-        return BadRequest($"error: {e.Message}");
-      }
+
+      await _visitorService.CheckOut(outDto);
+      return Ok("Checked out successfully");
+
+
     }
     [Authorize]
     [HttpGet("{id:int}", Name = "GetVisitor")]

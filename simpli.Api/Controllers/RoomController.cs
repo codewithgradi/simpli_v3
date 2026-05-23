@@ -45,22 +45,17 @@ namespace simpli.Api.Controllers
     public async Task<IActionResult> CreateRoom(
       [FromBody] CreateRoomDto roomDto)
     {
-      try
-      {
-        var companyIdClaimString = User.FindFirstValue("CompanyID");
-        if (string.IsNullOrEmpty(companyIdClaimString) || !int.TryParse(companyIdClaimString, out int companyId))
-        {
-          return Unauthorized("No company in session");
-        }
-        var room = await _roomService.CreateRoom(roomDto, companyId);
-        if (room == null) return BadRequest("Could not create room");
-        return CreatedAtRoute(nameof(GetRoom), new { Id = room.Id }, room);
-      }
-      catch (Exception e)
-      {
 
-        return BadRequest($"error:{e.Message}");
+      var companyIdClaimString = User.FindFirstValue("CompanyID");
+      if (string.IsNullOrEmpty(companyIdClaimString) || !int.TryParse(companyIdClaimString, out int companyId))
+      {
+        return Unauthorized("No company in session");
       }
+      var room = await _roomService.CreateRoom(roomDto, companyId);
+      if (room == null) return BadRequest("Could not create room");
+      return CreatedAtRoute(nameof(GetRoom), new { Id = room.Id }, room);
+
+
 
     }
 
@@ -76,16 +71,12 @@ namespace simpli.Api.Controllers
       {
         return Unauthorized("Invalid session.");
       }
-      try
-      {
-        var room = await _roomService.UpdateRoom(updateRoom, query.Ri, companyId);
-        if (room == null) return BadRequest("Could not Update room");
-        return NoContent();
-      }
-      catch (Exception e)
-      {
-        return BadRequest($"error:{e.Message}");
-      }
+
+      var room = await _roomService.UpdateRoom(updateRoom, query.Ri, companyId);
+      if (room == null) return BadRequest("Could not Update room");
+      return NoContent();
+
+
 
     }
 

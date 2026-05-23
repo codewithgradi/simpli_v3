@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
+using simpli.Api.Middlewares;
 using simpli.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddOpenApi("v1");
 builder.Services.AddRouting(opt => { opt.LowercaseUrls = true; });
+builder.Services.AddTransient<GlobalExceptionMiddleware>();
 builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
@@ -37,6 +39,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseAuthentication();
 
