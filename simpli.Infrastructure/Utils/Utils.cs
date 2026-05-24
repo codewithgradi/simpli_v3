@@ -33,11 +33,11 @@ public class EmailService : IEmailService
   }
   public async Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string passCode)
   {
-    // 1. Generate the QR Code with specific colors (Cross-Platform)
+    // 1. Generate the QR Code with specific colors 
     using var qrGenerator = new QRCodeGenerator();
     using var qrCodeData = qrGenerator.CreateQrCode(passCode, QRCodeGenerator.ECCLevel.Q);
 
-    // PngByteQRCode works everywhere (Linux, Mac, Windows, Docker)
+    // PngByteQRCode works everywhere 
     using var qrCode = new PngByteQRCode(qrCodeData);
 
     byte[] darkColor = new byte[] { 0x00, 0xED, 0x64 };
@@ -47,7 +47,7 @@ public class EmailService : IEmailService
 
     // 2. Build the Email
     var message = new MimeMessage();
-    message.From.Add(new MailboxAddress("Check-in System", "your-email@gmail.com"));
+    message.From.Add(new MailboxAddress("Check-in System", _setings.SystemEmail!));
     message.To.Add(new MailboxAddress(firstName, email));
     message.Subject = $"Your Exit Pass - {firstName}";
 
@@ -71,7 +71,7 @@ public class EmailService : IEmailService
 
     message.Body = bodyBuilder.ToMessageBody();
 
-    // 3. Send via Free SMTP
+    // 3. Send via  SMTP
     using var client = new SmtpClient();
     await client.ConnectAsync(
       "smtp.gmail.com",

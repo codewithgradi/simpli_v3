@@ -23,14 +23,13 @@ public class AdditionalUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<A
     await _context.Companies
     .Where(x => x.AppUserId == appUser.Id)
     .Select(c => c.Id)
-    .FirstAsync();
+    .FirstOrDefaultAsync();
 
     identity.AddClaim(new Claim("CompanyId", databaseCompanyId.ToString()));
     if (!string.IsNullOrEmpty(appUser.Email))
     {
       identity.AddClaim(new Claim("Email", appUser.Email));
     }
-    identity.AddClaim(new Claim("Email", appUser.Email));
     return identity;
   }
 }
