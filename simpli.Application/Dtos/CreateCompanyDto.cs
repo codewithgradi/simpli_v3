@@ -6,12 +6,11 @@ public class CreateCompanyDto
 {
   [Required]
   public string? CompanyName { get; set; }
+  [Required]
   public string? RegistrationNumber { get; set; }
   [Required]
   public string? ContactNumber { get; set; }
-
-  public bool isProfileComplete { get; set; }
-  public bool isDeleted { get; set; }
+  [Required]
   public string? Website { get; set; }
 
 }
