@@ -61,4 +61,12 @@ public class CompanyRepo : ICompanyRepo
         await _context.SaveChangesAsync();
         return company;
     }
+
+    public async Task<int> GetCompanyId(string AppUserId)
+    {
+        return await _context.Companies
+        .Where(x => x.AppUserId == AppUserId)
+        .Select(x => x.Id)
+        .FirstOrDefaultAsync();
+    }
 }

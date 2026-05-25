@@ -12,7 +12,7 @@ public class Company
   public bool isDeleted { get; set; }
   public List<Notification>? Notifications { get; set; }
   public AddressContent? Address { get; set; }
-  public DateTime CreatedAt { get; set; }
+  public DateTime CreatedAt { get; set; } = DateTime.Now;
   public string? Website { get; set; }
   public string? AppUserId { get; set; }
 

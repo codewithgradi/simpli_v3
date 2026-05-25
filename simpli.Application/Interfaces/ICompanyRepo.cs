@@ -8,4 +8,5 @@ public interface ICompanyRepo
     Task SoftDeleteCompanyProfile(int companyId);
     Task ReactivateProfile(int companyId);
     Task<bool> CompanyExists(int companyId);
+    Task<int> GetCompanyId(string AppUserId);
 }

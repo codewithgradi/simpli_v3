@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using simpli.Application.Dtos;
 using simpli.Application.Services;
 using simpli.Domain.Entities;
 
@@ -12,23 +13,34 @@ namespace simpli.Api.Controllers
   public class VisitorController : ControllerBase
   {
     private readonly VisitorService _visitorService;
-    public VisitorController(VisitorService service)
+    private readonly NotificationService _notifService;
+    public VisitorController(VisitorService service, NotificationService notificationService)
     {
       _visitorService = service;
+      _notifService = notificationService;
     }
 
     [Authorize]
     [HttpPost("check-in")]
     public async Task<IActionResult> CheckIn(
       [FromBody] CheckInDto inDto,
-      [FromQuery] RoomQuery query)
+      [FromBody] RoomQuery query)
     {
       var companyIdString = User.FindFirstValue("CompanyId");
       if (int.TryParse(companyIdString, out int companyId))
       {
         var visitor = await
        _visitorService
-       .CheckIn(inDto, companyId, query.Ri);
+       .CheckIn(inDto, companyId, query.RoomId);
+        var notisf = await _notifService
+        .CreateNotification
+        (
+          new CreateNotificationDto
+          {
+            Status = visitor.Status,
+            VisitorName = visitor.FirstName
+          }, companyId);
+        if (notisf == null) return BadRequest("Could not create Notification");
         return CreatedAtRoute(
           nameof(GetVisitor),
           new { Id = visitor.Id },

@@ -31,11 +31,11 @@ namespace simpli.Api.Controllers
 
     [Authorize]
     [HttpGet(Name = "GetRoom")]
-    public async Task<IActionResult> GetRoom([FromQuery] RoomQuery query)
+    public async Task<IActionResult> GetRoom([FromQuery] GetRoomQuery query)
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("No company in session.");
-      var room = await _roomService.GetRoom(companyId, (query.Ri).ToString());
+      var room = await _roomService.GetRoom(companyId, query.roomno!);
       if (room == null) return Unauthorized("Missing company id or room number.");
       return Ok(room);
     }

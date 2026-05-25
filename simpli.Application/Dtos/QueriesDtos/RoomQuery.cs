@@ -1,4 +1,8 @@
 public class RoomQuery
 {
-  public int Ri { get; set; }
+  public int RoomId { get; set; }
+}
+public class GetRoomQuery
+{
+  public string? roomno { get; set; }
 }

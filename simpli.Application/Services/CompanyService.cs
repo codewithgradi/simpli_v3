@@ -45,4 +45,9 @@ public class CompanyService
     if (exists == null) throw new KeyNotFoundException("Company was not found");
     await _companyRepo.ReactivateProfile(id);
   }
+
+  public async Task<int> GetCompanyId(string AppUserId)
+  {
+    return await _companyRepo.GetCompanyId(AppUserId);
+  }
 }

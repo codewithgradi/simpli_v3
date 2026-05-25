@@ -43,20 +43,23 @@ namespace simpli.Api
       await _notiService.ClearAllNotifications(companyID);
       return NoContent();
     }
-    [Authorize]
-    [HttpPost]
-    public async Task<IActionResult> CreateNotification(CreateNotificationDto notificationDto)
-    {
-      var companyID = Convert.ToInt32(User.FindFirst("CompanyID").Value);
-      if (companyID == null) return Unauthorized();
-      var notisf = await _notiService.CreateNotification(notificationDto, companyID);
-      if (notisf == null) return BadRequest("Could not create Notification");
-      return CreatedAtRoute(
-        nameof(GetOne),
-        new { Id = notisf.Id },
-         notisf);
 
-    }
+    //Being called on createvisitor!
+
+    // [Authorize]
+    // [HttpPost]
+    // public async Task<IActionResult> CreateNotification(CreateNotificationDto notificationDto)
+    // {
+    //   var companyID = Convert.ToInt32(User.FindFirst("CompanyID").Value);
+    //   if (companyID == null) return Unauthorized();
+    //   var notisf = await _notiService.CreateNotification(notificationDto, companyID);
+    //   if (notisf == null) return BadRequest("Could not create Notification");
+    //   return CreatedAtRoute(
+    //     nameof(GetOne),
+    //     new { Id = notisf.Id },
+    //      notisf);
+
+    // }
     [Authorize]
     [HttpGet("{id:int}", Name = "GetOne")]
     public async Task<IActionResult> GetOne([FromRoute] int id)
