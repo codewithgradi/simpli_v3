@@ -17,11 +17,11 @@ namespace simpli.Api
     }
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetAllNotification()
+    public async Task<IActionResult> GetAllNotification([FromQuery] int pageNumber, [FromQuery] int pageSize)
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyID").Value);
       if (companyId == null) return Unauthorized("Invalid session");
-      var notifcations = await _notiService.GetAllNotifications(companyId);
+      var notifcations = await _notiService.GetAllNotifications(companyId, pageNumber, pageSize);
       if (notifcations == null) return null;
       return Ok(notifcations);
     }

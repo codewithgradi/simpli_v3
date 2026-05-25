@@ -30,12 +30,17 @@ public class NotificationRepo : INotificationRepo
         return notif;
     }
 
-    public async Task<List<Notification>> GetAllNotifications(int companyID)
+    public async Task<List<Notification>> GetAllNotifications(int companyID, int pageNumber, int pageSize)
     {
+        if (pageNumber < 1) { pageNumber = 1; }
+        if (pageSize < 1 || pageSize > 20) { pageSize = 10; }
         return await
-            _context.Notifications.AsNoTracking()
-            .Where(x => x.CompanyId == companyID)
+            _context.Notifications
+            .AsNoTracking()
             .OrderByDescending(x => x.CreatedAt)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageNumber)
+            .Where(x => x.CompanyId == companyID)
             .ToListAsync();
     }
 
