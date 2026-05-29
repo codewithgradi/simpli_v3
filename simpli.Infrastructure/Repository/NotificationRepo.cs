@@ -39,7 +39,7 @@ public class NotificationRepo : INotificationRepo
             .AsNoTracking()
             .OrderByDescending(x => x.CreatedAt)
             .Skip((pageNumber - 1) * pageSize)
-            .Take(pageNumber)
+            .Take(pageSize)
             .Where(x => x.CompanyId == companyID)
             .ToListAsync();
     }

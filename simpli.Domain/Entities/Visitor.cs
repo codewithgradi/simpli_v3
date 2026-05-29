@@ -19,5 +19,5 @@ public class Visitor
   public Room? Room { get; set; }
   public List<Company>? Companies { get; set; }
   public int CompanyId { get; set; }
-  public int RoomID { get; set; }
+  public int RoomId { get; set; }
 }

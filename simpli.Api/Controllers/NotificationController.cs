@@ -17,11 +17,11 @@ namespace simpli.Api
     }
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetAllNotification([FromQuery] int pageNumber, [FromQuery] int pageSize)
+    public async Task<IActionResult> GetAllNotification([FromQuery] NotificationQuery query)
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyID").Value);
       if (companyId == null) return Unauthorized("Invalid session");
-      var notifcations = await _notiService.GetAllNotifications(companyId, pageNumber, pageSize);
+      var notifcations = await _notiService.GetAllNotifications(companyId, query.PageNumber, query.PageSize);
       if (notifcations == null) return null;
       return Ok(notifcations);
     }
@@ -44,22 +44,6 @@ namespace simpli.Api
       return NoContent();
     }
 
-    //Being called on createvisitor!
-
-    // [Authorize]
-    // [HttpPost]
-    // public async Task<IActionResult> CreateNotification(CreateNotificationDto notificationDto)
-    // {
-    //   var companyID = Convert.ToInt32(User.FindFirst("CompanyID").Value);
-    //   if (companyID == null) return Unauthorized();
-    //   var notisf = await _notiService.CreateNotification(notificationDto, companyID);
-    //   if (notisf == null) return BadRequest("Could not create Notification");
-    //   return CreatedAtRoute(
-    //     nameof(GetOne),
-    //     new { Id = notisf.Id },
-    //      notisf);
-
-    // }
     [Authorize]
     [HttpGet("{id:int}", Name = "GetOne")]
     public async Task<IActionResult> GetOne([FromRoute] int id)

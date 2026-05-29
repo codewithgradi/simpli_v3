@@ -6,7 +6,7 @@ public class RoomDto
   public string? RoomNumber { get; set; }
   public int Floor { get; set; }
   public RoomType RoomType { get; set; }
-  public RoomStatus Status;
+  public RoomStatus Status { get; set; }
   public int NumberOfTimesBooked { get; set; } = 0;
   public int CompanyId { get; set; }
 

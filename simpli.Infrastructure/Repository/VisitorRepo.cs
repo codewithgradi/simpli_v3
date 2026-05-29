@@ -18,7 +18,7 @@ public class VisitorRepo : IVisitorRepo
     public async Task<Visitor> CheckIn(Visitor visitor, int companyId, int roomId)
     {
         visitor.CompanyId = companyId;
-        visitor.RoomID = roomId;
+        visitor.RoomId = roomId;
         string qrCodeData = Utils.GeneratePasscode(roomId);
         string passcode = Utils.GetPassCodeUtility(qrCodeData);
         visitor.PassCode = passcode;
@@ -57,26 +57,32 @@ public class VisitorRepo : IVisitorRepo
 
     public async Task CheckOut(Visitor checkout)
     {
+        if (checkout == null) { throw new ResourceNotFoundException("Missing checkout body"); }
+        ;
+
         var visitor = await _context.Visitors.FirstOrDefaultAsync(
             x => x.PassCode == checkout.PassCode
             && x.PassCode != null);
 
-        if (checkout == null) return;
         if (visitor == null)
         {
             throw new ResourceNotFoundException("No visitor was found");
         }
 
-        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == checkout.RoomID);
-        if (room == null) return;
-        if (visitor.PassCode != checkout.PassCode) return;
-        Console.WriteLine("Changed tocheck out and available");
+        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == checkout.RoomId);
+        if (room == null)
+        {
+            throw new ResourceNotFoundException(
+                $"Room with{checkout.RoomId} was not found ");
+        }
+        ;
+
 
         visitor.Status = VisitorStatus.CheckedOut;
-        visitor.CheckOutTime = DateTime.Now;
+        visitor.CheckOutTime = DateTime.UtcNow;
         room.Status = RoomStatus.Available;
 
-        var notifcation = _notiRepo
+        var notifcation = await _notiRepo
         .CreateNotification(
             new Notification
             {
@@ -85,7 +91,8 @@ public class VisitorRepo : IVisitorRepo
                 Status = VisitorStatus.CheckedOut
             },
             visitor.CompanyId);
-        Console.WriteLine("Made notification");
+
+        await _context.SaveChangesAsync();
     }
 
     public async Task<List<Visitor>> GetAllVisitors(int companyID)
