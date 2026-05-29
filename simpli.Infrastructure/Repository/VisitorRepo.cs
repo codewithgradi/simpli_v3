@@ -1,15 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using simpli.Application.Dtos;
 using simpli.Domain;
 
 public class VisitorRepo : IVisitorRepo
 {
     private readonly AppDbContext _context;
     private readonly IEmailService _emailService;
+    private readonly INotificationRepo _notiRepo;
 
-    public VisitorRepo(AppDbContext context, IEmailService service)
+    public VisitorRepo(AppDbContext context, IEmailService service, INotificationRepo notirepo)
     {
         _context = context;
         _emailService = service;
+        _notiRepo = notirepo;
     }
     public async Task<Visitor> CheckIn(Visitor visitor, int companyId, int roomId)
     {
@@ -61,6 +64,16 @@ public class VisitorRepo : IVisitorRepo
         visitor.Status = VisitorStatus.CheckedOut;
         visitor.CheckOutTime = DateTime.Now;
         room.Status = RoomStatus.Available;
+
+        var notifcation = _notiRepo
+        .CreateNotification(
+            new Notification
+            {
+                CompanyId = visitor.CompanyId,
+                VisitorName = visitor.FirstName,
+                Status = VisitorStatus.CheckedOut
+            },
+            visitor.CompanyId);
     }
 
     public async Task<List<Visitor>> GetAllVisitors(int companyID)
