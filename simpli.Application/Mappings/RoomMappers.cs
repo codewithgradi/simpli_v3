@@ -2,6 +2,7 @@ namespace simpli.Application.Dtos;
 
 using Riok.Mapperly.Abstractions;
 using simpli.Domain;
+using simpli.Domain.Dtos;
 using simpli.Domain.Entities;
 
 [Mapper]

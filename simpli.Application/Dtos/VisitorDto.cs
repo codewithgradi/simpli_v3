@@ -17,5 +17,5 @@ public class VisitorDto
   public string? PassCode { get; set; }
 
   public int CompanyId { get; set; }
-  public int RoomID { get; set; }
+  public int RoomId { get; set; }
 }

@@ -24,7 +24,7 @@ namespace simpli.Api.Controllers
     [HttpPost("check-in")]
     public async Task<IActionResult> CheckIn(
       [FromBody] CheckInDto inDto,
-      [FromBody] RoomQuery query)
+      [FromQuery] RoomQuery query)
     {
       var companyIdString = User.FindFirstValue("CompanyId");
       if (int.TryParse(companyIdString, out int companyId))
@@ -56,11 +56,8 @@ namespace simpli.Api.Controllers
     [HttpPatch("check-out")]
     public async Task<IActionResult> CheckOut([FromBody] CheckOutDto outDto)
     {
-
       await _visitorService.CheckOut(outDto);
       return Ok("Checked out successfully");
-
-
     }
     [Authorize]
     [HttpGet("{id:int}", Name = "GetVisitor")]

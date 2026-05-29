@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using simpli.Application.Dtos;
 using simpli.Domain;
+using simpli.Domain.Exceptions;
 
 public class VisitorRepo : IVisitorRepo
 {
@@ -18,7 +19,9 @@ public class VisitorRepo : IVisitorRepo
     {
         visitor.CompanyId = companyId;
         visitor.RoomID = roomId;
-        visitor.PassCode = Utils.GeneratePasscode();
+        string qrCodeData = Utils.GeneratePasscode(roomId);
+        string passcode = Utils.GetPassCodeUtility(qrCodeData);
+        visitor.PassCode = passcode;
 
         var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == roomId);
         if (room == null)
@@ -54,12 +57,20 @@ public class VisitorRepo : IVisitorRepo
 
     public async Task CheckOut(Visitor checkout)
     {
-        var visitor = await _context.Visitors.FirstOrDefaultAsync(x => x.PassCode == checkout.PassCode);
-        if (visitor == null || checkout == null) return;
+        var visitor = await _context.Visitors.FirstOrDefaultAsync(
+            x => x.PassCode == checkout.PassCode
+            && x.PassCode != null);
+
+        if (checkout == null) return;
+        if (visitor == null)
+        {
+            throw new ResourceNotFoundException("No visitor was found");
+        }
 
         var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == checkout.RoomID);
         if (room == null) return;
         if (visitor.PassCode != checkout.PassCode) return;
+        Console.WriteLine("Changed tocheck out and available");
 
         visitor.Status = VisitorStatus.CheckedOut;
         visitor.CheckOutTime = DateTime.Now;
@@ -74,6 +85,7 @@ public class VisitorRepo : IVisitorRepo
                 Status = VisitorStatus.CheckedOut
             },
             visitor.CompanyId);
+        Console.WriteLine("Made notification");
     }
 
     public async Task<List<Visitor>> GetAllVisitors(int companyID)

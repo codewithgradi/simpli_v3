@@ -22,6 +22,11 @@ public class VisitorService
   }
   public async Task CheckOut(CheckOutDto dto)
   {
+    if (dto == null)
+    {
+      Console.WriteLine("Passcode androom Id missing");
+      return;
+    }
     var entity = _mapper.MapToEntityFromCheckOut(dto);
     await _visitorRepo.CheckOut(entity);
   }

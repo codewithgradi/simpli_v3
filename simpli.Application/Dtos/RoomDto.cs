@@ -1,12 +1,12 @@
-namespace simpli.Domain.Entities;
+namespace simpli.Domain.Dtos;
 
 public class RoomDto
 {
   public int Id { get; set; }
   public string? RoomNumber { get; set; }
   public int Floor { get; set; }
-  public RoomType RoomType { get; set; } = RoomType.Standard;
-  public RoomStatus Status = RoomStatus.Available;
+  public RoomType RoomType { get; set; }
+  public RoomStatus Status;
   public int NumberOfTimesBooked { get; set; } = 0;
   public int CompanyId { get; set; }
 

@@ -31,11 +31,11 @@ public class EmailService : IEmailService
       throw new InvalidOperationException("OtherSettings:AppPassword is null or empty! Check your environment variables.");
     }
   }
-  public async Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string passCode)
+  public async Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string data)
   {
     // 1. Generate the QR Code with specific colors 
     using var qrGenerator = new QRCodeGenerator();
-    using var qrCodeData = qrGenerator.CreateQrCode(passCode, QRCodeGenerator.ECCLevel.Q);
+    using var qrCodeData = qrGenerator.CreateQrCode(data, QRCodeGenerator.ECCLevel.Q);
 
     // PngByteQRCode works everywhere 
     using var qrCode = new PngByteQRCode(qrCodeData);
@@ -65,7 +65,7 @@ public class EmailService : IEmailService
                     <img src=""cid:{image.ContentId}"" width=""200"" height=""200"" />
                 </div>
                 <p style=""font-size: 14px; color: #E8EDF0;"">Passcode: <br/> 
-                   <span style=""font-family: monospace; font-size: 18px; color: #00ED64;"">{passCode}</span>
+                   <span style=""font-family: monospace; font-size: 18px; color: #00ED64;"">{Utils.GetPassCodeUtility(data)}</span>
                 </p>
             </div>";
 
@@ -86,9 +86,20 @@ public class EmailService : IEmailService
 
 public static class Utils
 {
-  public static string GeneratePasscode()
+  public static string GetPassCodeUtility(string data)
+  {
+    int positionOfPeriod = data.IndexOf(',');
+    return data.Substring(0, positionOfPeriod - 1);
+  }
+  public static string GetRoomIdUtility(string data)
+  {
+    int positionOfPeriod = data.IndexOf('.');
+    return data.Substring(positionOfPeriod);
+  }
+  public static string GeneratePasscode(int roomId)
   {
     int passcode = RandomNumberGenerator.GetInt32(10000, 100000);
-    return passcode.ToString();
+    string result = $"{passcode.ToString()}.{roomId.ToString()}";
+    return result;
   }
 }
