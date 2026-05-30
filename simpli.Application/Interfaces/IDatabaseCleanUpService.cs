@@ -1,4 +1,4 @@
-namespace simpli.Application.BackgroundTasks;
+namespace simpli.Application.Interfaces;
 
 public interface IDatabaseCleanUpService
 {
