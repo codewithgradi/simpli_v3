@@ -95,10 +95,62 @@ public class VisitorRepo : IVisitorRepo
         await _context.SaveChangesAsync();
     }
 
-    public async Task<List<Visitor>> GetAllVisitors(int companyID)
+    public async Task<List<Visitor>> GetAllVisitors(GetVisitorsQueryParameters query, int companyID)
     {
-        return await _context.Visitors.AsNoTracking()
-        .Where(x => x.CompanyId == companyID)
+        IQueryable<Visitor> visitors = _context.Visitors
+        .Where(x => x.CompanyId == companyID);
+
+        if (!string.IsNullOrEmpty(query.SearchItem))
+        {
+            visitors = visitors.Where(
+              v => v.FirstName.ToString()
+            .Contains(query.SearchItem.ToString()));
+        }
+        if (!string.IsNullOrEmpty(query.Name))
+        {
+            string searchItem = query.Name.ToString();
+            visitors = visitors.Where(v =>
+            v.FirstName.ToString().Contains(searchItem)
+            || v.LastName.ToString().Contains(searchItem));
+        }
+        if (query.Gender != null)
+        {
+            visitors = visitors.Where(v => v.Gender == query.Gender);
+        }
+        if (query.CheckedIn != null)
+        {
+            visitors = visitors.Where(v => v.Status == query.CheckedIn);
+        }
+
+        if (!string.IsNullOrEmpty(query.SortBy))
+        {
+            bool isDescending = query.SortOrder.Equals("desc", StringComparison.OrdinalIgnoreCase);
+            visitors = query.SortBy.ToLower() switch
+            {
+                "firstname" => isDescending ?
+                 visitors.OrderByDescending(v => v.FirstName)
+                 : visitors.OrderBy(v => v.FirstName),
+
+                "lastname" => isDescending ?
+                visitors.OrderByDescending(v => v.LastName)
+                : visitors.OrderBy(v => v.LastName),
+
+                "idnumber" => isDescending ?
+                visitors.OrderByDescending(v => v.IdNumber)
+                : visitors.OrderBy(v => v.IdNumber),
+
+                _ => visitors.OrderBy(v => v.Id)
+            };
+        }
+        else
+        {
+            visitors = visitors.OrderBy(v => v.Id);
+        }
+
+
+        return await visitors
+        .Skip(query.Size * (query.Page - 1))
+        .Take(query.Size)
         .ToListAsync();
     }
 

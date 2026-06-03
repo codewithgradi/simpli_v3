@@ -30,17 +30,27 @@ public class NotificationRepo : INotificationRepo
         return notif;
     }
 
-    public async Task<List<Notification>> GetAllNotifications(int companyID, int pageNumber, int pageSize)
+    public async Task<List<Notification>> GetAllNotifications(int companyID, QueryParameters query)
     {
-        if (pageNumber < 1) { pageNumber = 1; }
-        if (pageSize < 1 || pageSize > 20) { pageSize = 10; }
-        return await
-            _context.Notifications
-            .AsNoTracking()
-            .OrderByDescending(x => x.CreatedAt)
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
-            .Where(x => x.CompanyId == companyID)
+        IQueryable<Notification> notificationsQuery = _context.Notifications
+             .Where(x => x.CompanyId == companyID);
+
+        if (string.IsNullOrEmpty(query.SortBy))
+        {
+            bool fromLattest = query.SortBy.Equals("desc", StringComparison.OrdinalIgnoreCase);
+            notificationsQuery = fromLattest ?
+            notificationsQuery.OrderByDescending(v => v.CreatedAt)
+            : notificationsQuery.OrderBy(v => v.CreatedAt);
+        }
+        else
+        {
+            notificationsQuery = notificationsQuery.OrderBy(v => v.Id);
+        }
+
+
+        return await notificationsQuery
+            .Skip(query.Size * (query.Page - 1))
+            .Take(query.Size)
             .ToListAsync();
     }
 

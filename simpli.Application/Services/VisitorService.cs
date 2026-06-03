@@ -1,4 +1,5 @@
 using simpli.Application.Dtos;
+using simpli.Domain;
 using simpli.Domain.Entities;
 
 namespace simpli.Application.Services;
@@ -35,9 +36,9 @@ public class VisitorService
     var entity = await _visitorRepo.GetVisitor(id);
     return _mapper.MapToDto(entity);
   }
-  public async Task<List<VisitorDto>> GetAllVisitors(int companyID)
+  public async Task<List<VisitorDto>> GetAllVisitors(GetVisitorsQueryParameters query, int companyID)
   {
-    var visitors = await _visitorRepo.GetAllVisitors(companyID);
+    var visitors = await _visitorRepo.GetAllVisitors(query, companyID);
     return visitors.Select(v => _mapper.MapToDto(v)).ToList();
   }
 }

@@ -6,7 +6,7 @@ public interface IRoomRepo
 {
     Task<Room> CreateRoom(Room room, int companyId);
     Task<Room> UpdateRoom(Room room, int roomId, int companyId);
-    Task<List<Room>> GetAllRooms(int companyId);
+    Task<List<Room>> GetAllRooms(int companyId, QueryParameters query);
     Task<Room> GetRoom(int companyId, string roomNo);
     Task<bool> RoomExists(int companyId, int roomId);
     Task<int?> GetRoomIdByRoomNumber(int companyId, string roomNum);

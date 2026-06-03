@@ -22,12 +22,15 @@ public class RoomRepo : IRoomRepo
         return room;
     }
 
-    public async Task<List<Room>> GetAllRooms(int companyId)
+    public async Task<List<Room>> GetAllRooms(int companyId, QueryParameters query)
     {
-        return await
-            _context.Rooms.AsNoTracking()
-            .Where(x => x.CompanyId == companyId)
+        IQueryable<Room> roomsQuery = _context.Rooms.Where(x => x.CompanyId == companyId);
+
+        return await roomsQuery
+        .Skip(query.Size * (query.Page - 1))
+        .Take(query.Size)
         .ToListAsync();
+
     }
     public async Task<int?> GetRoomIdByRoomNumber(int companyId, string roomNo)
     {

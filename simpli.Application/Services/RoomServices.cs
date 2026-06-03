@@ -31,9 +31,9 @@ public class RoomServices
     var room = await _roomRepo.UpdateRoom(entity, roomId, companyID);
     return _mapper.MapToDto(room);
   }
-  public async Task<List<RoomDto>> GetAllRooms(int companyID)
+  public async Task<List<RoomDto>> GetAllRooms(int companyID, QueryParameters query)
   {
-    var rooms = await _roomRepo.GetAllRooms(companyID);
+    var rooms = await _roomRepo.GetAllRooms(companyID, query);
     var roomsDto = rooms
     .Select(r => _mapper.MapToDto(r))
     .ToList();

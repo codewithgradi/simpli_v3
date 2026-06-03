@@ -71,14 +71,14 @@ namespace simpli.Api.Controllers
       return Ok(visitor);
     }
     [HttpGet]
-    public async Task<IActionResult> GettAllVisitors()
+    public async Task<IActionResult> GettAllVisitors([FromQuery] GetVisitorsQueryParameters query)
     {
       var companyIdStr = User.FindFirstValue("CompanyId");
       if (string.IsNullOrEmpty(companyIdStr) || !int.TryParse(companyIdStr, out int companyId))
       {
         return Unauthorized("Invalid session.");
       }
-      var visitors = await _visitorService.GetAllVisitors(companyId);
+      var visitors = await _visitorService.GetAllVisitors(query, companyId);
       if (visitors == null) return null;
       return Ok(visitors);
     }

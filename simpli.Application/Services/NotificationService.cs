@@ -13,9 +13,9 @@ public class NotificationService
     _mapper = mapper;
     _notiRepo = notificationRepo;
   }
-  public async Task<List<NotificationDto>> GetAllNotifications(int companyId, int pageNumber, int pageSize)
+  public async Task<List<NotificationDto>> GetAllNotifications(int companyId, QueryParameters query)
   {
-    var notifications = await _notiRepo.GetAllNotifications(companyId, pageNumber, pageSize);
+    var notifications = await _notiRepo.GetAllNotifications(companyId, query);
     return notifications.Select(n => _mapper.MapToDto(n)).ToList();
   }
 
