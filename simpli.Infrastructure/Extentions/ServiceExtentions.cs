@@ -4,10 +4,27 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using simpli.Application.Dtos;
 using simpli.Application.Services;
+using Asp.Versioning;
+
 namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
 {
+  public static IServiceCollection AddApiVersionForBackend(this IServiceCollection services)
+  {
+    services.AddApiVersioning(opt =>
+    {
+      //Default when not specified
+      opt.AssumeDefaultVersionWhenUnspecified = true;
+      opt.DefaultApiVersion = new ApiVersion(1, 0);
+
+      opt.ReportApiVersions = true;
+
+      //Tells .Net to look for querystring api-version
+      opt.ApiVersionReader = new QueryStringApiVersionReader("api-version");
+    });
+    return services;
+  }
 
   public static IServiceCollection LoadEnvironment(this IServiceCollection services, IConfiguration configuration)
   {

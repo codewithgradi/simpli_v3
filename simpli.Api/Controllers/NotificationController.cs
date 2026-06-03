@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application.Dtos;
@@ -7,6 +8,8 @@ namespace simpli.Api
 {
   [Route("api/[controller]")]
   [ApiController]
+  [ApiVersion("1.0")]
+
   public class NotificationController : ControllerBase
   {
     private readonly NotificationService _notiService;

@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application.Services;
@@ -8,6 +9,7 @@ namespace simpli.Api.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
+  [ApiVersion("1.0")]
   public class CompanyController : ControllerBase
   {
     private readonly CompanyService _companyService;

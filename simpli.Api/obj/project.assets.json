@@ -2,6 +2,70 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "Asp.Versioning.Abstractions/10.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Asp.Versioning.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Asp.Versioning.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Asp.Versioning.Http/10.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Asp.Versioning.Abstractions": "10.0.0"
+        },
+        "compile": {
+          "lib/net10.0/Asp.Versioning.Http.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Asp.Versioning.Http.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Asp.Versioning.Mvc/10.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Asp.Versioning.Http": "10.0.0"
+        },
+        "compile": {
+          "lib/net10.0/Asp.Versioning.Mvc.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Asp.Versioning.Mvc.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Asp.Versioning.Mvc.ApiExplorer/10.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Asp.Versioning.Mvc": "10.0.0"
+        },
+        "compile": {
+          "lib/net10.0/Asp.Versioning.Mvc.ApiExplorer.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Asp.Versioning.Mvc.ApiExplorer.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Azure.Core/1.47.1": {
         "type": "package",
         "dependencies": {
@@ -66,10 +130,14 @@
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Humanizer.dll": {}
+          "lib/net6.0/Humanizer.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Humanizer.dll": {}
+          "lib/net6.0/Humanizer.dll": {
+            "related": ".xml"
+          }
         }
       },
       "MailKit/4.16.0": {
@@ -240,12 +308,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -362,12 +430,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -426,13 +494,13 @@
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -583,14 +651,10 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "10.0.5"
         },
         "compile": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
-            "related": ".xml"
-          }
+          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {}
         },
         "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
-            "related": ".xml"
-          }
+          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {}
         },
         "build": {
           "buildTransitive/net10.0/Microsoft.EntityFrameworkCore.props": {}
@@ -599,14 +663,10 @@
       "Microsoft.EntityFrameworkCore.Abstractions/10.0.5": {
         "type": "package",
         "compile": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "related": ".xml"
-          }
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
         },
         "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "related": ".xml"
-          }
+          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {}
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/10.0.5": {
@@ -1056,14 +1116,10 @@
           "System.Composition.Runtime": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.Hosting.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Hosting.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Hosting.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Hosting.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1072,14 +1128,10 @@
       "System.Composition.Runtime/9.0.0": {
         "type": "package",
         "compile": {
-          "lib/net9.0/System.Composition.Runtime.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Runtime.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.Runtime.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.Runtime.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1093,14 +1145,10 @@
           "System.Composition.Runtime": "9.0.0"
         },
         "compile": {
-          "lib/net9.0/System.Composition.TypedParts.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.TypedParts.dll": {}
         },
         "runtime": {
-          "lib/net9.0/System.Composition.TypedParts.dll": {
-            "related": ".xml"
-          }
+          "lib/net9.0/System.Composition.TypedParts.dll": {}
         },
         "build": {
           "buildTransitive/net8.0/_._": {}
@@ -1253,6 +1301,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "Asp.Versioning.Mvc": "10.0.0",
+          "Asp.Versioning.Mvc.ApiExplorer": "10.0.0",
           "DotNetEnv": "3.2.0",
           "MailKit": "4.16.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.5",
@@ -1273,6 +1323,74 @@
     }
   },
   "libraries": {
+    "Asp.Versioning.Abstractions/10.0.0": {
+      "sha512": "cMRE5nvNMfBgfkb0XFWst/7UtyXCjoAXnV0L4Scx4P9fcf0idgrj1Z0c+3ylsy01K4cOib7dKhCBfpg5z3r0Kg==",
+      "type": "package",
+      "path": "asp.versioning.abstractions/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "asp.versioning.abstractions.10.0.0.nupkg.sha512",
+        "asp.versioning.abstractions.nuspec",
+        "icon.png",
+        "lib/net10.0/Asp.Versioning.Abstractions.dll",
+        "lib/net10.0/Asp.Versioning.Abstractions.xml",
+        "lib/netstandard1.0/Asp.Versioning.Abstractions.dll",
+        "lib/netstandard1.0/Asp.Versioning.Abstractions.xml",
+        "lib/netstandard2.0/Asp.Versioning.Abstractions.dll",
+        "lib/netstandard2.0/Asp.Versioning.Abstractions.xml"
+      ]
+    },
+    "Asp.Versioning.Http/10.0.0": {
+      "sha512": "xmNm9FM2d20NKy7i1osEQysf7pJ4iJjWnM6e8CoeIhUREqG8nugsfC82pGpmzlatjAJL5T52ieSpyW+GFdSsSQ==",
+      "type": "package",
+      "path": "asp.versioning.http/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "asp.versioning.http.10.0.0.nupkg.sha512",
+        "asp.versioning.http.nuspec",
+        "icon.png",
+        "lib/net10.0/Asp.Versioning.Http.dll",
+        "lib/net10.0/Asp.Versioning.Http.xml"
+      ]
+    },
+    "Asp.Versioning.Mvc/10.0.0": {
+      "sha512": "W0wZ+0uZ0UK4KstjvEkNBZ0xxhBmxunwNg8582SVyyW7txQmSXibtm8fC4o82LaemPquYskms67bIbJOSrnlug==",
+      "type": "package",
+      "path": "asp.versioning.mvc/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "asp.versioning.mvc.10.0.0.nupkg.sha512",
+        "asp.versioning.mvc.nuspec",
+        "icon.png",
+        "lib/net10.0/Asp.Versioning.Mvc.dll",
+        "lib/net10.0/Asp.Versioning.Mvc.xml"
+      ]
+    },
+    "Asp.Versioning.Mvc.ApiExplorer/10.0.0": {
+      "sha512": "H54UOpRoc4RmhQ4RA2lzDz43a/hAu/JN19Yyy/DNmH4XlRxhemfhifJyh9BaXNJOtGa2Dnu2xEeP4VSiTdUdAg==",
+      "type": "package",
+      "path": "asp.versioning.mvc.apiexplorer/10.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "README.md",
+        "asp.versioning.mvc.apiexplorer.10.0.0.nupkg.sha512",
+        "asp.versioning.mvc.apiexplorer.nuspec",
+        "icon.png",
+        "lib/net10.0/Asp.Versioning.Mvc.ApiExplorer.dll",
+        "lib/net10.0/Asp.Versioning.Mvc.ApiExplorer.xml"
+      ]
+    },
     "Azure.Core/1.47.1": {
       "sha512": "oPcncSsDHuxB8SC522z47xbp2+ttkcKv2YZ90KXhRKN0YQd2+7l1UURT9EBzUNEXtkLZUOAB5xbByMTrYRh3yA==",
       "type": "package",

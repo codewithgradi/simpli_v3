@@ -1,5 +1,6 @@
 
 using System.Security.Claims;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using simpli.Application.Dtos;
@@ -10,6 +11,8 @@ namespace simpli.Api.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
+  [ApiVersion("1.0")]
+
   public class VisitorController : ControllerBase
   {
     private readonly VisitorService _visitorService;

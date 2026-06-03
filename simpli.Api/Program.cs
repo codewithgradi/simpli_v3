@@ -18,6 +18,7 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 });
 
 builder.Services
+.AddApiVersionForBackend()
 .LoadEnvironment(builder.Configuration)
 .ConfigureSqlDB(builder.Configuration)
 .AddInfrastructureServices(builder.Configuration)
