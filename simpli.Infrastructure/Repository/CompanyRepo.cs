@@ -58,6 +58,7 @@ public class CompanyRepo : ICompanyRepo
         company.RegistrationNumber = updatedCompany.RegistrationNumber;
         company.Website = updatedCompany.Website;
         company.Address = updatedCompany.Address;
+        company.isProfileComplete = true;
         await _context.SaveChangesAsync();
         return company;
     }

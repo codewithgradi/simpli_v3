@@ -10,5 +10,6 @@ public interface IRoomRepo
     Task<Room> GetRoom(int companyId, string roomNo);
     Task<bool> RoomExists(int companyId, int roomId);
     Task<int?> GetRoomIdByRoomNumber(int companyId, string roomNum);
+    Task<string> UpdateRoomTocheckIn(int roomId);
 
 }

@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using simpli.Application;
-using simpli.Application.Dtos;
 using simpli.Domain;
-using simpli.Domain.Entities;
+using simpli.Domain.Exceptions;
+
 
 public class RoomRepo : IRoomRepo
 {
@@ -73,5 +72,22 @@ public class RoomRepo : IRoomRepo
         return room;
     }
 
+    public async Task<string> UpdateRoomTocheckIn(int roomId)
+    {
+        var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
+        if (room == null)
+        {
+            throw new ResourceNotFoundException("Room was not found");
+        }
+        if (room.Status != RoomStatus.Available)
+        {
+            throw new BusinessRuleException("Room is already booked");
+        }
+        room.Status = RoomStatus.Occupied;
+        room.NumberOfTimesBooked++;
 
+        await _context.SaveChangesAsync();
+
+        return room.RoomNumber!;
+    }
 }

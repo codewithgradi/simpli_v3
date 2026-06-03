@@ -8,12 +8,14 @@ public class VisitorRepo : IVisitorRepo
     private readonly AppDbContext _context;
     private readonly IEmailService _emailService;
     private readonly INotificationRepo _notiRepo;
+    private readonly IRoomRepo _roomRepo;
 
-    public VisitorRepo(AppDbContext context, IEmailService service, INotificationRepo notirepo)
+    public VisitorRepo(AppDbContext context, IEmailService service, INotificationRepo notirepo, IRoomRepo roomRepo)
     {
         _context = context;
         _emailService = service;
         _notiRepo = notirepo;
+        _roomRepo = roomRepo;
     }
     public async Task<Visitor> CheckIn(Visitor visitor, int companyId, int roomId)
     {
@@ -22,37 +24,32 @@ public class VisitorRepo : IVisitorRepo
         string qrCodeData = Utils.GeneratePasscode(roomId);
         string passcode = Utils.GetPassCodeUtility(qrCodeData);
         visitor.PassCode = passcode;
+        visitor.CheckInTime = DateTime.Now;
 
-        var room = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == roomId);
+        //Updating room
+        var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
         if (room == null)
         {
-            throw new Exception($"Check-in failed: Room with ID {roomId} does not exist.");
+            throw new ResourceNotFoundException("Room was not found");
         }
-
         if (room.Status != RoomStatus.Available)
         {
-            throw new Exception("Room is not avaliable");
+            throw new BusinessRuleException("Room is already booked");
         }
-
-        visitor.CheckInTime = DateTime.Now;
-        _context.Visitors.Add(visitor);
         room.Status = RoomStatus.Occupied;
         room.NumberOfTimesBooked++;
 
+        _context.Visitors.Add(visitor);
 
+        await _context.SaveChangesAsync();
 
         await _emailService.SendVisitorEmailAsync(
             visitor.Email!,
             visitor.FirstName!,
             room.RoomNumber!,
-            visitor.PassCode);
+            qrCodeData);
 
-
-
-        await _context.SaveChangesAsync();
         return visitor;
-
-
     }
 
     public async Task CheckOut(Visitor checkout)
