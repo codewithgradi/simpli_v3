@@ -9,4 +9,5 @@ public interface ICompanyRepo
     Task ReactivateProfile(int companyId);
     Task<bool> CompanyExists(int companyId);
     Task<int> GetCompanyId(string AppUserId);
+    Task<bool> isActivate(int companyId);
 }

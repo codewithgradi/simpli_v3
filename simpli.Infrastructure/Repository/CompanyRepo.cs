@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using simpli.Domain;
+using simpli.Domain.Exceptions;
 public class CompanyRepo : ICompanyRepo
 {
     private readonly AppDbContext _context;
@@ -69,5 +70,25 @@ public class CompanyRepo : ICompanyRepo
         .Where(x => x.AppUserId == AppUserId)
         .Select(x => x.Id)
         .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> isActivate(int companyId)
+    {
+        var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == companyId);
+        if (company == null)
+        {
+            throw new ResourceNotFoundException("Company was not found");
+        }
+        ;
+        if (company.isDeleted)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
     }
 }
