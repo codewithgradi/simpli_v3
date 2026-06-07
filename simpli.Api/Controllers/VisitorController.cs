@@ -29,6 +29,8 @@ namespace simpli.Api.Controllers
       [FromBody] CheckInDto inDto,
       [FromQuery] RoomQuery query)
     {
+      if (!ModelState.IsValid) return BadRequest(ModelState);
+
       var companyIdString = User.FindFirstValue("CompanyId");
       if (int.TryParse(companyIdString, out int companyId))
       {
@@ -59,6 +61,7 @@ namespace simpli.Api.Controllers
     [HttpPatch("check-out")]
     public async Task<IActionResult> CheckOut([FromBody] CheckOutDto outDto)
     {
+      if (!ModelState.IsValid) return BadRequest(ModelState);
       await _visitorService.CheckOut(outDto);
       return Ok("Checked out successfully");
     }

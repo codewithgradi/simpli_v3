@@ -9,10 +9,10 @@ public class Visitor
   public string? PhoneNumber { get; set; }
   public string? Email { get; set; }
   public ReasonForVisit ReasonForVisit { get; set; }
-  public DateTime CheckInTime { get; set; } = DateTime.Now;
+  public DateTime CheckInTime { get; set; } = DateTime.UtcNow;
   public DateTime CheckOutTime { get; set; }
   public VisitorStatus Status { get; set; } = VisitorStatus.CheckedIn;
-  public DateTime CreatedAt { get; set; } = DateTime.Now;
+  public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
   public Gender Gender { get; set; }
   public string? PassCode { get; set; }
 

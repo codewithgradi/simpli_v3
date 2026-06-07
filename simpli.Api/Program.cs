@@ -5,7 +5,7 @@ using simpli.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-DotNetEnv.Env.Load();
+DotNetEnv.Env.Load(Path.Combine(Directory.GetCurrentDirectory(), "../.env"));
 
 builder.Configuration.AddEnvironmentVariables();
 

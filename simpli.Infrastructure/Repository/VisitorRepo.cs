@@ -24,8 +24,6 @@ public class VisitorRepo : IVisitorRepo
         string qrCodeData = Utils.GeneratePasscode(roomId);
         string passcode = Utils.GetPassCodeUtility(qrCodeData);
         visitor.PassCode = passcode;
-        visitor.CheckInTime = DateTime.Now;
-
         //Updating room
         var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
         if (room == null)

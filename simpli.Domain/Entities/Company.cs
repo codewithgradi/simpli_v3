@@ -4,15 +4,13 @@ public class Company
 {
   public int Id { get; set; }
   public string? CompanyName { get; set; }
-  public string? Email { get; set; }
-  public string? Password { get; set; }
   public string? RegistrationNumber { get; set; }
   public string? ContactNumber { get; set; }
   public bool isProfileComplete { get; set; }
   public bool isDeleted { get; set; }
   public List<Notification>? Notifications { get; set; }
   public AddressContent? Address { get; set; }
-  public DateTime CreatedAt { get; set; } = DateTime.Now;
+  public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
   public string? Website { get; set; }
   public string? AppUserId { get; set; }
 

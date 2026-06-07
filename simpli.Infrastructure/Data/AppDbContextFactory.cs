@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using System;
 using System.IO;
 
 namespace simpli.Infrastructure;
@@ -8,22 +9,29 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
     public AppDbContext CreateDbContext(string[] args)
     {
-        // 1. Get the execution directory (which EF Core sets to simpli.Api)
+        // 1. Get the starting directory where the EF Core command was run
         var currentDir = Directory.GetCurrentDirectory();
-        var rootDirectory = currentDir;
+        var directoryInfo = new DirectoryInfo(currentDir);
+        string rootDirectory = null;
 
-        // 2. If we are inside the simpli.Api folder, step up to the root folder
-        if (currentDir.EndsWith("simpli.Api") || currentDir.EndsWith("simpli.Api/"))
+        // 2. Walk up the directory tree until we find the solution root (simpli_v3)
+        while (directoryInfo != null)
         {
-            rootDirectory = Path.GetFullPath(Path.Combine(currentDir, ".."));
-        }
-        // If we are inside the infrastructure folder, step up as well
-        else if (currentDir.EndsWith("simpli.Infrastructure") || currentDir.EndsWith("simpli.Infrastructure/"))
-        {
-            rootDirectory = Path.GetFullPath(Path.Combine(currentDir, ".."));
+            if (directoryInfo.Name.Equals("simpli_v3", StringComparison.OrdinalIgnoreCase))
+            {
+                rootDirectory = directoryInfo.FullName;
+                break;
+            }
+            directoryInfo = directoryInfo.Parent;
         }
 
-        // 3. Target the .env file straight in the root workspace folder
+        // Fallback: If we couldn't find the specific root folder name, use current directory
+        if (string.IsNullOrEmpty(rootDirectory))
+        {
+            rootDirectory = currentDir;
+        }
+
+        // 3. Locate and load the .env file
         var envFilePath = Path.Combine(rootDirectory, ".env");
 
         if (File.Exists(envFilePath))
@@ -36,11 +44,12 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
                 $"[EF Factory Error]: Still looking for the .env file!\n" +
                 $"Checked path: '{envFilePath}'\n" +
                 $"Current Working Directory was: '{currentDir}'\n" +
-                $"Please verify your .env file is located at the root of 'simpli_v3'.");
+                $"Please verify your .env file is located at the root of your workspace.");
         }
 
-        // 4. Read your DevDB connection string from the environment configuration
-        var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DevDB");
+        // 4. Read your DevDB connection string and safely trim any literal quotes
+        var rawConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DevDB");
+        var connectionString = rawConnectionString?.Trim('"', '\'');
 
         // 5. Guard clause validation check
         if (string.IsNullOrWhiteSpace(connectionString))
@@ -50,7 +59,7 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
         }
 
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
 
         return new AppDbContext(optionsBuilder.Options);
     }

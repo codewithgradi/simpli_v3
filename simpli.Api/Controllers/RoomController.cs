@@ -48,7 +48,7 @@ namespace simpli.Api.Controllers
     public async Task<IActionResult> CreateRoom(
       [FromBody] CreateRoomDto roomDto)
     {
-
+      if (!ModelState.IsValid) return BadRequest(ModelState);
       var companyIdClaimString = User.FindFirstValue("CompanyID");
       if (string.IsNullOrEmpty(companyIdClaimString) || !int.TryParse(companyIdClaimString, out int companyId))
       {
@@ -69,6 +69,8 @@ namespace simpli.Api.Controllers
       [FromQuery] UpdateRoomQuery query
     )
     {
+      if (!ModelState.IsValid) return BadRequest(ModelState);
+
       var companyIdStr = User.FindFirstValue("CompanyId");
       if (string.IsNullOrEmpty(companyIdStr) || !int.TryParse(companyIdStr, out int companyId))
       {

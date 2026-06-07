@@ -37,9 +37,10 @@ namespace simpli.Api.Controllers
     }
 
     [Authorize]
-    [HttpPost("save-company")]
+    [HttpPost]
     public async Task<IActionResult> CreateCompany(CreateCompanyDto createCompany)
     {
+      if (!ModelState.IsValid) return BadRequest(ModelState);
       var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
       if (userId == null) return Unauthorized();
       var companydto = await _companyService.CreateCompany(createCompany, userId);
@@ -57,6 +58,7 @@ namespace simpli.Api.Controllers
     [HttpPut("update-profile")]
     public async Task<IActionResult> UpdateProfile([FromBody] UpdateCompanyProfileDto dto)
     {
+      if (!ModelState.IsValid) return BadRequest(ModelState);
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);
       if (companyId == null) return Unauthorized("Invalid Session");
 
@@ -74,7 +76,7 @@ namespace simpli.Api.Controllers
       return NoContent();
     }
     [Authorize]
-    [HttpPut("reactivate")]
+    [HttpPatch("reactivate")]
     public async Task<IActionResult> ReactivateProfile()
     {
       var companyId = Convert.ToInt32(User.FindFirst("CompanyId").Value);

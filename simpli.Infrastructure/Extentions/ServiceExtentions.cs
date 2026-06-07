@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using simpli.Application.Dtos;
 using simpli.Application.Services;
 using Asp.Versioning;
-
 namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
@@ -45,13 +44,13 @@ public static class ServiceExtentions
       {
         var devCs = config["ConnectionStrings:DevDB"];
         if (string.IsNullOrEmpty(devCs)) throw new InvalidOperationException("DevDB connection string is missing.");
-        opt.UseSqlServer(devCs);
+        opt.UseNpgsql(devCs).UseSnakeCaseNamingConvention();
       }
       else if (envType == "prod")
       {
         var prodCs = config["ConnectionStrings:ProdDB"];
         if (string.IsNullOrEmpty(prodCs)) throw new InvalidOperationException("ProdDB connection string is missing.");
-        opt.UseSqlServer(prodCs);
+        opt.UseNpgsql(prodCs).UseSnakeCaseNamingConvention();
       }
       else
       {
