@@ -383,12 +383,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -443,12 +443,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -507,13 +507,13 @@
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -974,10 +974,14 @@
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Npgsql/10.0.3": {
@@ -1091,14 +1095,10 @@
       "System.CodeDom/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.CodeDom.dll": {}
         },
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.CodeDom.dll": {}
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -1353,7 +1353,7 @@
           "bin/placeholder/simpli.Domain.dll": {}
         }
       },
-      "simpli.infrastructure/1.0.0": {
+      "simpli.Infrastructure/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
@@ -1372,10 +1372,10 @@
           "simpli.Application": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/simpli.infrastructure.dll": {}
+          "bin/placeholder/simpli.Infrastructure.dll": {}
         },
         "runtime": {
-          "bin/placeholder/simpli.infrastructure.dll": {}
+          "bin/placeholder/simpli.Infrastructure.dll": {}
         }
       }
     }
@@ -3807,10 +3807,10 @@
       "path": "../simpli.Domain/simpli.Domain.csproj",
       "msbuildProject": "../simpli.Domain/simpli.Domain.csproj"
     },
-    "simpli.infrastructure/1.0.0": {
+    "simpli.Infrastructure/1.0.0": {
       "type": "project",
-      "path": "../simpli.infrastructure/simpli.infrastructure.csproj",
-      "msbuildProject": "../simpli.infrastructure/simpli.infrastructure.csproj"
+      "path": "../simpli.Infrastructure/simpli.Infrastructure.csproj",
+      "msbuildProject": "../simpli.Infrastructure/simpli.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3818,7 +3818,7 @@
       "Microsoft.AspNetCore.OpenApi >= 10.0.1",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.5",
       "simpli.Application >= 1.0.0",
-      "simpli.infrastructure >= 1.0.0"
+      "simpli.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3827,11 +3827,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.api\\simpli.Api.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Api\\simpli.Api.csproj",
       "projectName": "simpli.Api",
-      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.api\\simpli.Api.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Api\\simpli.Api.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.api\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\Desktop\\simpli_v3\\NuGet.Config",
@@ -3852,8 +3852,8 @@
             "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj": {
               "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Application\\simpli.Application.csproj"
             },
-            "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj": {
-              "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj"
+            "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj"
             }
           }
         }

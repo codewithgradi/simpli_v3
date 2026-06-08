@@ -4,6 +4,7 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Utils;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
 public interface IEmailService
 {
@@ -12,10 +13,12 @@ public interface IEmailService
 public class EmailService : IEmailService
 {
   private readonly OtherSettings _setings;
+  private readonly ILogger<EmailService> _logger;
 
-  public EmailService(IOptions<OtherSettings> settings)
+  public EmailService(IOptions<OtherSettings> settings, ILogger<EmailService> logger)
   {
     _setings = settings.Value;
+    _logger = logger;
 
     if (_setings == null)
     {

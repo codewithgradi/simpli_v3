@@ -397,12 +397,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -457,12 +457,12 @@
         },
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.dll": {
-            "related": ".pdb"
+            "related": ".pdb;.xml"
           }
         },
         "resource": {
@@ -526,13 +526,13 @@
         "compile": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "runtime": {
           "lib/net9.0/Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll": {},
           "lib/net9.0/Microsoft.CodeAnalysis.Workspaces.MSBuild.dll": {
-            "related": ".pdb;.xml"
+            "related": ".pdb"
           }
         },
         "resource": {
@@ -1305,10 +1305,14 @@
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net6.0/Newtonsoft.Json.dll": {}
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Npgsql/10.0.3": {
@@ -1426,14 +1430,10 @@
       "System.CodeDom/6.0.0": {
         "type": "package",
         "compile": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.CodeDom.dll": {}
         },
         "runtime": {
-          "lib/net6.0/System.CodeDom.dll": {
-            "related": ".xml"
-          }
+          "lib/net6.0/System.CodeDom.dll": {}
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
@@ -4791,11 +4791,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj",
-      "projectName": "simpli.infrastructure",
-      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\simpli.infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
+      "projectName": "simpli.Infrastructure",
+      "projectPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\simpli.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\simpli_v3\\simpli.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\Desktop\\simpli_v3\\NuGet.Config",
