@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using simpli.Application.Dtos;
 using simpli.Application.Services;
 using Asp.Versioning;
+using simpli.Domain.Exceptions;
 namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
@@ -98,13 +99,20 @@ public static class ServiceExtentions
 
     return services;
   }
-  public static IServiceCollection AllowCors(this IServiceCollection services)
+  public static IServiceCollection AllowCors(this IServiceCollection services, IConfiguration configuration)
   {
     services.AddCors(opt =>
     {
       opt.AddPolicy("AllowNextJs", builder =>
       {
-        builder.WithOrigins(["http://localhost:3000", "Prod frontend here"])
+        var frontendUrlDev = configuration["OtherSettings:FrontEndUrl"]?.ToLower().Trim(' ', '"');
+        var frontendUrlProd = configuration["OtherSettings:FrontEndUrlProd"]?.ToLower().Trim(' ', '"');
+        if (string.IsNullOrEmpty(frontendUrlDev) || string.IsNullOrEmpty(frontendUrlProd))
+        {
+          throw new ResourceNotFoundException("There are no front-end urls.");
+        }
+
+        builder.WithOrigins([frontendUrlDev, frontendUrlProd])
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials();
