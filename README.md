@@ -306,13 +306,13 @@ Create a `.env` file in the root directory.
 ## Run Database Migrations
 
 ```bash
-dotnet ef database update
+dotnet ef database update --project simpli.api --startup-project simpli.infrastructure
 ```
 
 ## Run the API
 
 ```bash
-dotnet run
+dotnet run --project simpli.api --startup-project simpli.infrastructure
 ```
 
 ---
