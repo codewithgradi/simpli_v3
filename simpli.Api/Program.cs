@@ -23,7 +23,7 @@ builder.Services
 .ConfigureSqlDB(builder.Configuration)
 .AddInfrastructureServices(builder.Configuration)
 .IdentityConfigurationsScope()
-.AllowCors()
+.AllowCors(builder.Configuration)
 .AddMappers();
 
 
