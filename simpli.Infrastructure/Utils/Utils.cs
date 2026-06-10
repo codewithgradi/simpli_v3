@@ -6,10 +6,7 @@ using MimeKit.Utils;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 
-public interface IEmailService
-{
-  Task SendVisitorEmailAsync(string email, string firstName, string roomNumber, string passCode);
-}
+
 public class EmailService : IEmailService
 {
   private readonly OtherSettings _setings;

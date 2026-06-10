@@ -8,18 +8,36 @@ public class VisitorService
 {
   private readonly IVisitorRepo _visitorRepo;
   private readonly VisitorMappers _mapper;
+  private readonly IEmailService _emailService;
 
-  public VisitorService(IVisitorRepo visitorRepo, VisitorMappers mapper)
+  public VisitorService(IVisitorRepo visitorRepo, VisitorMappers mapper, IEmailService service)
   {
     _visitorRepo = visitorRepo;
     _mapper = mapper;
-
+    _emailService = service;
   }
   public async Task<VisitorDto> CheckIn(CheckInDto visitorDto, int companyID, int roomId)
   {
     var visitor = _mapper.MapToEntityFromCheckIn(visitorDto);
-    await _visitorRepo.CheckIn(visitor, companyID, roomId);
-    return _mapper.MapToDto(visitor);
+    VisitorAndQrCodeDataDto dataResult = await _visitorRepo.CheckIn(visitor, companyID, roomId);
+
+    _ = Task.Run(async () =>
+    {
+      try
+      {
+        await _emailService.SendVisitorEmailAsync(
+                visitor.Email!,
+                visitor.FirstName!,
+                visitorDto.RoomNumber!,
+                dataResult.QrCodeData);
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine($" did not send email{e}");
+      }
+    });
+
+    return _mapper.MapToDto(dataResult.Visitor);
   }
   public async Task CheckOut(CheckOutDto dto)
   {

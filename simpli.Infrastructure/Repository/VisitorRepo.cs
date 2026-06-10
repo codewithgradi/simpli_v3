@@ -1,23 +1,18 @@
 using Microsoft.EntityFrameworkCore;
-using simpli.Application.Dtos;
 using simpli.Domain;
 using simpli.Domain.Exceptions;
 
 public class VisitorRepo : IVisitorRepo
 {
     private readonly AppDbContext _context;
-    private readonly IEmailService _emailService;
     private readonly INotificationRepo _notiRepo;
-    private readonly IRoomRepo _roomRepo;
 
-    public VisitorRepo(AppDbContext context, IEmailService service, INotificationRepo notirepo, IRoomRepo roomRepo)
+    public VisitorRepo(AppDbContext context, INotificationRepo notirepo, IRoomRepo roomRepo)
     {
         _context = context;
-        _emailService = service;
         _notiRepo = notirepo;
-        _roomRepo = roomRepo;
     }
-    public async Task<Visitor> CheckIn(Visitor visitor, int companyId, int roomId)
+    public async Task<VisitorAndQrCodeDataDto> CheckIn(Visitor visitor, int companyId, int roomId)
     {
         visitor.CompanyId = companyId;
         visitor.RoomId = roomId;
@@ -41,13 +36,11 @@ public class VisitorRepo : IVisitorRepo
 
         await _context.SaveChangesAsync();
 
-        await _emailService.SendVisitorEmailAsync(
-            visitor.Email!,
-            visitor.FirstName!,
-            room.RoomNumber!,
-            qrCodeData);
-
-        return visitor;
+        return new VisitorAndQrCodeDataDto
+        {
+            Visitor = visitor,
+            QrCodeData = qrCodeData
+        };
     }
 
     public async Task CheckOut(Visitor checkout)
