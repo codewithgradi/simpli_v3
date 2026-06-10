@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\simpli.Application\simpli.Application.csproj" />
-    <ProjectReference Include="..\simpli.Infrastructure\simpli.infrastructure.csproj" />
+    <ProjectReference Include="..\simpli.Infrastructure\simpli.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
