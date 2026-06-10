@@ -55,7 +55,7 @@ namespace simpli.Api.Controllers
 
 
     [Authorize]
-    [HttpPut("update-profile")]
+    [HttpPut]
     public async Task<IActionResult> UpdateProfile([FromBody] UpdateCompanyProfileDto dto)
     {
       if (!ModelState.IsValid) return BadRequest(ModelState);
