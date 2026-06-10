@@ -77,7 +77,7 @@ public class EmailService : IEmailService
       "smtp.gmail.com",
       587,
       MailKit.Security.SecureSocketOptions
-      .StartTlsWhenAvailable);
+      .StartTls);
     await client.AuthenticateAsync(_setings.SystemEmail!, _setings.AppPassword!);
     await client.SendAsync(message);
     await client.DisconnectAsync(true);
