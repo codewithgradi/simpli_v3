@@ -2,9 +2,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copy the NuGet configuration file (since it exists in your root)
-COPY ["nuget.config", "./"]
-
 # Copy the .csproj files using your exact folder names
 COPY ["simpli.Api/simpli.Api.csproj", "simpli.Api/"]
 COPY ["simpli.Application/simpli.Application.csproj", "simpli.Application/"]
