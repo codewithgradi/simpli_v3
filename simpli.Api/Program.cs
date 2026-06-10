@@ -29,15 +29,15 @@ builder.Services
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.MapOpenApi();
+
+//This maps all endpoints on scalar for visualisation on dev or prod env
+app.MapScalarApiReference(opt =>
 {
-    app.MapOpenApi();
-    //This maps all endpoints on scalar for visualisation
-    app.MapScalarApiReference(opt =>
-    {
-        opt.WithOpenApiRoutePattern("/openapi/v1.json");
-    });
-}
+    opt.WithOpenApiRoutePattern("/openapi/v1.json");
+});
+
+
 
 app.UseHttpsRedirection();
 
