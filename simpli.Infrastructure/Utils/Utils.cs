@@ -71,13 +71,14 @@ public class EmailService : IEmailService
 
     message.Body = bodyBuilder.ToMessageBody();
 
-    // 3. Send via  SMTP
+    // 3. Send via SMTP using Port 465
     using var client = new SmtpClient();
+
     await client.ConnectAsync(
-      "smtp.gmail.com",
-      587,
-      MailKit.Security.SecureSocketOptions
-      .StartTls);
+        "smtp.gmail.com",
+        465,
+        MailKit.Security.SecureSocketOptions.SslOnConnect);
+
     await client.AuthenticateAsync(_setings.SystemEmail!, _setings.AppPassword!);
     await client.SendAsync(message);
     await client.DisconnectAsync(true);
