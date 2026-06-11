@@ -18,9 +18,11 @@ public class VisitorRepo : IVisitorRepo
     {
         visitor.CompanyId = companyId;
         visitor.RoomId = roomId;
+
         string qrCodeData = Utils.GeneratePasscode(roomId);
         string passcode = Utils.GetPassCodeUtility(qrCodeData);
         visitor.PassCode = passcode;
+
         //Updating room
         var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
         if (room == null)
@@ -31,13 +33,15 @@ public class VisitorRepo : IVisitorRepo
         {
             throw new BusinessRuleException("Room is already booked");
         }
-        var roomIdExtracted = await _roomRepo.GetRoomIdByRoomNumber(companyId, visitor.Room.RoomNumber);
-        if (roomIdExtracted == roomId)
+        var roomIdExtracted = await _roomRepo.GetRoomIdByRoomNumber(companyId, room.RoomNumber);
+        if (roomIdExtracted != roomId)
         {
             Console.WriteLine($"Comparing {roomIdExtracted} and {roomId}");
-            throw new BusinessRuleException("Room number does not match the room Id.");
+            throw new ResourceConflictException("Room number does not match the room Id.");
         }
         ;
+
+
         room.Status = RoomStatus.Occupied;
         room.NumberOfTimesBooked++;
 
