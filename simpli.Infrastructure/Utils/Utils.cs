@@ -5,17 +5,20 @@ using MimeKit;
 using MimeKit.Utils;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
+using System.Net.Http.Json;
 
 
 public class EmailService : IEmailService
 {
   private readonly OtherSettings _setings;
   private readonly ILogger<EmailService> _logger;
+  private readonly HttpClient _httpClient;
 
-  public EmailService(IOptions<OtherSettings> settings, ILogger<EmailService> logger)
+  public EmailService(IOptions<OtherSettings> settings, ILogger<EmailService> logger, HttpClient? httpClient)
   {
     _setings = settings.Value;
     _logger = logger;
+    _httpClient = httpClient;
 
     if (_setings == null)
     {
@@ -45,48 +48,31 @@ public class EmailService : IEmailService
 
     byte[] qrCodeBytes = qrCode.GetGraphic(20, darkColor, lightColor, true);
 
-    // 2. Build the Email
-    var message = new MimeMessage();
-    message.From.Add(new MailboxAddress("Check-in System", _setings.SystemEmail!));
-    message.To.Add(new MailboxAddress(firstName, email));
-    message.Subject = $"Your Exit Pass - {firstName}";
+    //New 
+    var emailPayload = new
+    {
+      sender = new { name = "Check-in System", email = _setings.SystemEmail },
+      to = new[] { new { email = email, name = firstName } },
+      subject = $"Your Exit Pass - {firstName}",
+      htmlContent = $@"
+                <div style='background-color: #001E2B; color: #ffffff; padding: 40px; text-align: center;'>
+                    <h1>Check-in Successful</h1>
+                    <p>Welcome to Room {roomNumber}, {firstName}.</p>
+                    <img src='data:image/png;base64,{qrCodeBytes}' width='200' height='200' />
+                    <p>Passcode: {Utils.GetPassCodeUtility(data)}</p>
+                </div>"
+    };
 
-    var bodyBuilder = new BodyBuilder();
+    _httpClient.DefaultRequestHeaders.Clear();
+    _httpClient.DefaultRequestHeaders.Add(_setings.ApiKey!, _setings.AppPassword); // Use Brevo API Key here
 
-    // Attach the QR code and link it to the HTML via Content ID (CID)
-    var image = bodyBuilder.Attachments.Add("exit-pass.png", qrCodeBytes);
-    image.ContentId = MimeUtils.GenerateMessageId();
+    var response = await _httpClient.PostAsJsonAsync(_setings.BrevoLink, emailPayload);
 
-    bodyBuilder.HtmlBody = $@"
-            <div style=""background-color: #001E2B; color: #ffffff; padding: 40px; font-family: sans-serif; text-align: center; border-radius: 15px;"">
-                <h1 style=""color: #00ED64; margin-bottom: 5px;"">Check-in Successful</h1>
-                <p style=""color: #8899A6; margin-bottom: 30px;"">Welcome to Room {roomNumber}, {firstName}.</p>
-                <div style=""background: #ffffff; padding: 20px; display: inline-block; border-radius: 12px; margin-bottom: 20px;"">
-                    <img src=""cid:{image.ContentId}"" width=""200"" height=""200"" />
-                </div>
-                <p style=""font-size: 14px; color: #E8EDF0;"">Passcode: <br/> 
-                   <span style=""font-family: monospace; font-size: 18px; color: #00ED64;"">{Utils.GetPassCodeUtility(data)}</span>
-                </p>
-            </div>";
-
-    message.Body = bodyBuilder.ToMessageBody();
-    using var client = new SmtpClient();
-
-    // 1. Set a strict timeout so your API never hangs on Render
-    client.Timeout = 10000;
-
-    // 2. Render proxy fix: bypass strict SSL checks if the host environment intercepts it
-    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-
-    // 3. Connect using Port 587 with explicit STARTTLS
-    await client.ConnectAsync(
-        "smtp.gmail.com",
-        587,
-        MailKit.Security.SecureSocketOptions.StartTls);
-
-    await client.AuthenticateAsync(_setings.SystemEmail!, _setings.AppPassword!);
-    await client.SendAsync(message);
-    await client.DisconnectAsync(true);
+    if (!response.IsSuccessStatusCode)
+    {
+      string errorContent = await response.Content.ReadAsStringAsync();
+      throw new Exception($"Brevo API error: {response.StatusCode} - {errorContent}");
+    }
   }
 }
 

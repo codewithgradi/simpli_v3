@@ -10,4 +10,6 @@ public class OtherSettings
     public string? PAT { get; set; }
     public string? AppPassword { get; set; }
     public string? SystemEmail { get; set; }
+    public string? ApiKey { get; set; }
+    public string? BrevoLink { get; set; }
 }

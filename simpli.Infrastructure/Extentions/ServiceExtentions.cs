@@ -95,7 +95,7 @@ public static class ServiceExtentions
     services.AddScoped<VisitorService>();
     services.AddScoped<RoomServices>();
 
-    services.AddTransient<IEmailService, EmailService>();
+    services.AddHttpClient<IEmailService, EmailService>();
 
     return services;
   }
