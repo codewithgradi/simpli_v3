@@ -108,7 +108,7 @@ public static class Utils
   }
   public static string GeneratePasscode(int roomId)
   {
-    int passcode = RandomNumberGenerator.GetInt32(10000, 100000);
+    int passcode = RandomNumberGenerator.GetInt32(1000, 10000);
     string result = $"{passcode.ToString()}.{roomId.ToString()}";
     return result;
   }
