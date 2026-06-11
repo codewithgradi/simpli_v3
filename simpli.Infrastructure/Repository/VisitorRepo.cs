@@ -6,11 +6,13 @@ public class VisitorRepo : IVisitorRepo
 {
     private readonly AppDbContext _context;
     private readonly INotificationRepo _notiRepo;
+    private readonly IRoomRepo _roomRepo;
 
     public VisitorRepo(AppDbContext context, INotificationRepo notirepo, IRoomRepo roomRepo)
     {
         _context = context;
         _notiRepo = notirepo;
+        _roomRepo = roomRepo;
     }
     public async Task<VisitorAndQrCodeDataDto> CheckIn(Visitor visitor, int companyId, int roomId)
     {
@@ -29,6 +31,12 @@ public class VisitorRepo : IVisitorRepo
         {
             throw new BusinessRuleException("Room is already booked");
         }
+        var roomIdExtracted = await _roomRepo.GetRoomIdByRoomNumber(companyId, visitor.Room.RoomNumber);
+        if (roomIdExtracted == roomId)
+        {
+            throw new BusinessRuleException("Room number does not match the room Id.");
+        }
+        ;
         room.Status = RoomStatus.Occupied;
         room.NumberOfTimesBooked++;
 
