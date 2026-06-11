@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using simpli.Application.Dtos;
 using simpli.Domain;
 using simpli.Domain.Entities;
@@ -9,33 +10,34 @@ public class VisitorService
   private readonly IVisitorRepo _visitorRepo;
   private readonly VisitorMappers _mapper;
   private readonly IEmailService _emailService;
+  private readonly ILogger<VisitorService> _logger;
 
-  public VisitorService(IVisitorRepo visitorRepo, VisitorMappers mapper, IEmailService service)
+  public VisitorService(IVisitorRepo visitorRepo, VisitorMappers mapper, IEmailService service, ILogger<VisitorService>? logger)
   {
     _visitorRepo = visitorRepo;
     _mapper = mapper;
     _emailService = service;
+    _logger = logger;
   }
   public async Task<VisitorDto> CheckIn(CheckInDto visitorDto, int companyID, int roomId)
   {
     var visitor = _mapper.MapToEntityFromCheckIn(visitorDto);
     VisitorAndQrCodeDataDto dataResult = await _visitorRepo.CheckIn(visitor, companyID, roomId);
 
-    _ = Task.Run(async () =>
+
+    try
     {
-      try
-      {
-        await _emailService.SendVisitorEmailAsync(
-                visitor.Email!,
-                visitor.FirstName!,
-                visitorDto.RoomNumber!,
-                dataResult.QrCodeData);
-      }
-      catch (Exception e)
-      {
-        Console.WriteLine($" did not send email{e.Message}");
-      }
-    });
+      await _emailService.SendVisitorEmailAsync(
+              visitor.Email!,
+              visitor.FirstName!,
+              visitorDto.RoomNumber!,
+              dataResult.QrCodeData);
+    }
+    catch (Exception e)
+    {
+      _logger.LogError(e, "Failed to send check-in email to {Email}", visitor.Email);
+    }
+    ;
 
     return _mapper.MapToDto(dataResult.Visitor);
   }
