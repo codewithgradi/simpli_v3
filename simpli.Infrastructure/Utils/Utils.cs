@@ -72,10 +72,17 @@ public class EmailService : IEmailService
     message.Body = bodyBuilder.ToMessageBody();
     using var client = new SmtpClient();
 
+    // 1. Set a strict timeout so your API never hangs on Render
+    client.Timeout = 10000;
+
+    // 2. Render proxy fix: bypass strict SSL checks if the host environment intercepts it
+    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+    // 3. Connect using Port 587 with explicit STARTTLS
     await client.ConnectAsync(
         "smtp.gmail.com",
         587,
-        MailKit.Security.SecureSocketOptions.StartTls); // Switch to StartTls for 587
+        MailKit.Security.SecureSocketOptions.StartTls);
 
     await client.AuthenticateAsync(_setings.SystemEmail!, _setings.AppPassword!);
     await client.SendAsync(message);
