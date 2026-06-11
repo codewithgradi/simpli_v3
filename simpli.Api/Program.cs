@@ -1,10 +1,8 @@
 using Hangfire;
 using Hangfire.MemoryStorage;
-using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using simpli.Api.Middlewares;
 using simpli.Infrastructure;
-
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
     Args = args
@@ -20,7 +18,7 @@ DotNetEnv.Env.Load(Path.Combine(Directory.GetCurrentDirectory(), "../.env"));
 
 builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.AddOpenApi("v1");
+builder.Services.AddOpenApi();
 builder.Services.AddRouting(opt => { opt.LowercaseUrls = true; });
 builder.Services.AddTransient<GlobalExceptionMiddleware>();
 builder.Services.AddControllers().AddJsonOptions(opt =>
@@ -48,10 +46,14 @@ app.MapOpenApi();
 //This maps all endpoints on scalar for visualisation on dev or prod env
 app.MapScalarApiReference(opt =>
 {
-    opt.WithOpenApiRoutePattern("/openapi/v1.json");
+    opt.WithTitle("Simpli API Docs")
+       .WithTheme(ScalarTheme.DeepSpace)
+       .WithPreferredScheme("Bearer")
+       .WithOpenApiRoutePattern("/openapi/v1.json");
+
+    // FIX: Inject your production server directly into Scalar's configuration properties
+    opt.Servers = [new ScalarServer("https://simpli-api.onrender.com")];
 });
-
-
 
 app.UseHttpsRedirection();
 
