@@ -99,7 +99,7 @@ public static class Utils
   public static string GetPassCodeUtility(string data)
   {
     int positionOfPeriod = data.IndexOf('.');
-    return data.Substring(0, positionOfPeriod - 1);
+    return data.Substring(0, positionOfPeriod);
   }
   public static string GetRoomIdUtility(string data)
   {
