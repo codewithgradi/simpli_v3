@@ -1,6 +1,7 @@
 using simpli.Application.Dtos;
 using simpli.Domain.Dtos;
 using simpli.Domain.Entities;
+using simpli.Domain.Exceptions;
 namespace simpli.Application.Services;
 
 public class RoomServices
@@ -19,7 +20,7 @@ public class RoomServices
     var existingRoomByRoomNumber = await _roomRepo.GetRoomIdByRoomNumber(companyID, roomDto.RoomNumber!);
     if (existingRoomByRoomNumber != null)
     {
-      throw new Exception($"Duplicate room number : room with room number {roomDto.RoomNumber} exists.");
+      throw new BusinessRuleException($"Duplicate room number : room with room number {roomDto.RoomNumber} exists.");
     }
     var created = await _roomRepo.CreateRoom(room, companyID);
     return _mapper.MapToDto(created);
