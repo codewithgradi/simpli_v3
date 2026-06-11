@@ -5,11 +5,15 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     
-    <DisableOpenApiSourceGenerator>true</DisableOpenApiSourceGenerator>
-    
     <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
     <DisableOpenApiAnalyzers>true</DisableOpenApiAnalyzers>
   </PropertyGroup>
+
+  <Target Name="BypassOpenApiGenerator" BeforeTargets="BeforeCompile">
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" Condition="'%(FileName)' == 'Microsoft.AspNetCore.OpenApi.SourceGenerators'" />
+    </ItemGroup>
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
