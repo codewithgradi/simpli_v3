@@ -16,7 +16,7 @@ COPY . .
 
 # Build the app
 WORKDIR "/src/simpli.Api"
-RUN dotnet publish "simpli.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false /p:DisableOpenApiAnalyzers=true
+RUN dotnet publish "simpli.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false /p:DisableOpenApiAnalyzers=true /p:OpenApiGenerateDocuments=false
 # Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
