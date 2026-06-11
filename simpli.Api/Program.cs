@@ -53,7 +53,6 @@ app.MapScalarApiReference(opt =>
        .WithOpenApiRoutePattern("/openapi/{documentName}.json");
 
     opt.AddPreferredSecuritySchemes("Bearer");
-    opt.Servers = [new ScalarServer("https://simpli-api.onrender.com")];
 });
 
 app.UseHttpsRedirection();
