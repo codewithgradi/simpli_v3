@@ -46,59 +46,70 @@ public class EmailService : IEmailService
     byte[] lightColor = new byte[] { 0x00, 0x1E, 0x2B };
     byte[] qrCodeBytes = qrCode.GetGraphic(20, darkColor, lightColor, true);
 
-    // 1. Base64 representation of the QR graphic bytes
+    // FIX: Convert the raw bytes to a proper Base64 encoded string text string
     string base64QrCode = Convert.ToBase64String(qrCodeBytes);
 
-    // 2. Build the exact payload schema required by Brevo V3
+    // 2. Prepare the payload for Brevo's API with an inline attachment mapping
     var emailPayload = new
     {
       sender = new { name = "Check-in System", email = _setings.SystemEmail },
       to = new[] { new { email = email, name = firstName } },
       subject = $"Your Exit Pass - {firstName}",
 
-      // HTML references the Content ID (CID) namespace
+      // FIX: Point the image source directly to the filename of your attachment
       htmlContent = $@"
-    <div style='background-color: #001E2B; color: #ffffff; padding: 40px; text-align: center; font-family: sans-serif; border-radius: 15px;'>
-        <h1 style='color: #00ED64; margin-bottom: 5px;'>Check-in Successful</h1>
-        <p style='color: #8899A6; margin-bottom: 30px;'>Welcome to Room {roomNumber}, {firstName}.</p>
-        <div style='background: #ffffff; padding: 20px; display: inline-block; border-radius: 12px; margin-bottom: 20px;'>
-            <img src='cid:qrcode_pass' width='200' height='200' alt='QR Code Pass' />
-        </div>
-        <p style='font-size: 14px; color: #E8EDF0;'>Passcode: <br/> 
-           <span style='font-family: monospace; font-size: 18px; color: #00ED64;'>{Utils.GetPassCodeUtility(data)}</span>
-        </p>
-    </div>",
+        <div style='background-color: #001E2B; color: #ffffff; padding: 40px; text-align: center; font-family: sans-serif; border-radius: 15px;'>
+            <h1 style='color: #00ED64;'>Check-in Successful</h1>
+            <p style='color: #8899A6;'>Welcome to Room {roomNumber}, {firstName}.</p>
+            <p style='color: #8899A6;'>See attached image for exit pass.</p>
+            <p style='font-size: 14px;'>Passcode: <br/> 
+               <span style='font-family: monospace; font-size: 18px; color: #00ED64;'>{Utils.GetPassCodeUtility(data)}</span>
+            </p>
+        </div>",
 
-      // FIX: Changed from 'attachment' to 'inlineAttachments'
-      inlineAttachments = new[]
+      // Add the file mapping to Brevo's attachment array metadata
+      attachment = new[]
         {
-        new
-        {
-            content = base64QrCode,
-            name = "exit-pass.png",
-            cid = "qrcode_pass" // Binds directly to src='cid:qrcode_pass'
+            new
+            {
+                content = base64QrCode,
+                name = "exit-pass.png"
+            }
         }
-    }
     };
-  }
 
-  public static class Utils
+    // 3. Dispatch the explicit HttpRequestMessage wrapper
+    var request = new HttpRequestMessage(HttpMethod.Post, _setings.BrevoLink);
+    request.Content = JsonContent.Create(emailPayload);
+
+    request.Headers.Add("api-key", _setings.ApiKey!.Trim());
+
+    var response = await _httpClient.SendAsync(request);
+
+    if (!response.IsSuccessStatusCode)
+    {
+      string errorLog = await response.Content.ReadAsStringAsync();
+      throw new Exception($"Brevo submission failed: {response.StatusCode} - {errorLog}");
+    }
+  }
+}
+
+public static class Utils
+{
+  public static string GetPassCodeUtility(string data)
   {
-    public static string GetPassCodeUtility(string data)
-    {
-      int positionOfPeriod = data.IndexOf('.');
-      return data.Substring(0, positionOfPeriod - 1);
-    }
-    public static string GetRoomIdUtility(string data)
-    {
-      int positionOfPeriod = data.IndexOf('.');
-      return data.Substring(positionOfPeriod);
-    }
-    public static string GeneratePasscode(int roomId)
-    {
-      int passcode = RandomNumberGenerator.GetInt32(10000, 100000);
-      string result = $"{passcode.ToString()}.{roomId.ToString()}";
-      return result;
-    }
+    int positionOfPeriod = data.IndexOf('.');
+    return data.Substring(0, positionOfPeriod - 1);
+  }
+  public static string GetRoomIdUtility(string data)
+  {
+    int positionOfPeriod = data.IndexOf('.');
+    return data.Substring(positionOfPeriod);
+  }
+  public static string GeneratePasscode(int roomId)
+  {
+    int passcode = RandomNumberGenerator.GetInt32(10000, 100000);
+    string result = $"{passcode.ToString()}.{roomId.ToString()}";
+    return result;
   }
 }
