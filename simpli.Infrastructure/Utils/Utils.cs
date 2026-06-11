@@ -47,32 +47,29 @@ public class EmailService : IEmailService
     byte[] lightColor = new byte[] { 0x00, 0x1E, 0x2B };
 
     byte[] qrCodeBytes = qrCode.GetGraphic(20, darkColor, lightColor, true);
-
-    //New 
+    // Prepare the payload for Brevo's API
     var emailPayload = new
     {
-      sender = new { name = "Check-in System", email = _setings.SystemEmail },
+      sender = new { name = "Check-in System", email = _setings.SystemEmail }, // Watch out for 'setings' vs 'settings' spelling
       to = new[] { new { email = email, name = firstName } },
       subject = $"Your Exit Pass - {firstName}",
       htmlContent = $@"
-                <div style='background-color: #001E2B; color: #ffffff; padding: 40px; text-align: center;'>
-                    <h1>Check-in Successful</h1>
-                    <p>Welcome to Room {roomNumber}, {firstName}.</p>
-                    <img src='data:image/png;base64,{qrCodeBytes}' width='200' height='200' />
-                    <p>Passcode: {Utils.GetPassCodeUtility(data)}</p>
-                </div>"
+        <div style='background-color: #001E2B; color: #ffffff; padding: 40px; text-align: center;'>
+            <h1>Check-in Successful</h1>
+            <p>Welcome to Room {roomNumber}, {firstName}.</p>
+            <img src='data:image/png;base64,{qrCodeBytes}' width='200' height='200' />
+            <p>Passcode: {Utils.GetPassCodeUtility(data)}</p>
+        </div>"
     };
 
-    _httpClient.DefaultRequestHeaders.Clear();
-    _httpClient.DefaultRequestHeaders.Add(_setings.ApiKey!, _setings.AppPassword); // Use Brevo API Key here
+    // Create an explicit HttpRequestMessage wrapper
+    var request = new HttpRequestMessage(HttpMethod.Post, _setings.BrevoLink);
+    request.Content = JsonContent.Create(emailPayload);
 
-    var response = await _httpClient.PostAsJsonAsync(_setings.BrevoLink, emailPayload);
+    // Force the header directly onto this specific request transaction
+    request.Headers.Add("api-key", _setings.ApiKey!.Trim());
 
-    if (!response.IsSuccessStatusCode)
-    {
-      string errorContent = await response.Content.ReadAsStringAsync();
-      throw new Exception($"Brevo API error: {response.StatusCode} - {errorContent}");
-    }
+    var response = await _httpClient.SendAsync(request);
   }
 }
 
