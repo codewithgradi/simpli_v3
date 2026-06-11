@@ -33,7 +33,7 @@ public class VisitorService
       }
       catch (Exception e)
       {
-        Console.WriteLine($" did not send email{e}");
+        Console.WriteLine($" did not send email{e.Message}");
       }
     });
 

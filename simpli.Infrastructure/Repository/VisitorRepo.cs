@@ -36,7 +36,6 @@ public class VisitorRepo : IVisitorRepo
         var roomIdExtracted = await _roomRepo.GetRoomIdByRoomNumber(companyId, room.RoomNumber);
         if (roomIdExtracted != roomId)
         {
-            Console.WriteLine($"Comparing {roomIdExtracted} and {roomId}");
             throw new ResourceConflictException("Room number does not match the room Id.");
         }
         ;
