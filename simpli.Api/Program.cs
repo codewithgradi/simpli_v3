@@ -47,12 +47,12 @@ app.MapScalarApiReference(opt =>
 {
     opt.WithTitle("Simpli API Docs")
        .WithTheme(ScalarTheme.DeepSpace)
-       .WithOpenApiRoutePattern("/openapi/v1.json");
 
-    // FIX: Replaced obsolete .WithPreferredScheme("Bearer")
+       // FIX: Use the standard pattern template. 
+       // Scalar will automatically replace '{documentName}' with 'v1' internally.
+       .WithOpenApiRoutePattern("/openapi/{documentName}.json");
+
     opt.AddPreferredSecuritySchemes("Bearer");
-
-    // Fallback URL injection override matching your previous configuration layout
     opt.Servers = [new ScalarServer("https://simpli-api.onrender.com")];
 });
 
