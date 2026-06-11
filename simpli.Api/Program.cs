@@ -5,8 +5,17 @@ using Scalar.AspNetCore;
 using simpli.Api.Middlewares;
 using simpli.Infrastructure;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args
+});
 
+// CRITICAL FIX: Disable file system watchers for JSON configuration on cloud hosts
+builder.Configuration.Sources.Clear();
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: false);
 DotNetEnv.Env.Load(Path.Combine(Directory.GetCurrentDirectory(), "../.env"));
 
 builder.Configuration.AddEnvironmentVariables();

@@ -82,7 +82,7 @@ namespace simpli.Api.Controllers
         return Unauthorized("Invalid session.");
       }
       var visitors = await _visitorService.GetAllVisitors(query, companyId);
-      if (visitors == null) return null;
+      if (visitors == null) return NotFound("Visitor not found");
       return Ok(visitors);
     }
 
