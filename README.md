@@ -19,7 +19,7 @@ The API provides a structured foundation for building enterprise-level applicati
 
 ## Database
 
-* MySQL
+* Postgres
 
 ## Authentication
 
