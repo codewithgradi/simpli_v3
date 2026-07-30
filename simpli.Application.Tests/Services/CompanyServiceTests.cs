@@ -12,7 +12,6 @@ public class CompanyServiceTests:TestBase
     private readonly Mock<ICompanyRepo> _mockRepo=new ();
     private readonly CompanyService _serviceUnderTest;
     private readonly CompanyMappers _companyMappers = new ();
-    private readonly Fixture _fixture = new();
     public CompanyServiceTests()
     {
         _serviceUnderTest = new CompanyService(_mockRepo.Object, _companyMappers);
@@ -22,7 +21,7 @@ public class CompanyServiceTests:TestBase
     public async Task GetCompanyProfile_IfCompanyExists_ReturnsCompanyDto()
     {
         //Arrage
-        var entity = _fixture.Create<Company>();
+        var entity = Fixture.Create<Company>();
         _mockRepo.Setup(repo=>repo.GetCompanyProfile(entity.Id)).ReturnsAsync(entity);
 
         //Act
@@ -34,5 +33,22 @@ public class CompanyServiceTests:TestBase
         
     }
     [Fact] 
+    public async Task UpdateCompanyProfile_ChangesProfileToUpdatedInfo_ReturnsUpdatedCompanyDto()
+    {
+        var companyId = Fixture.Create<int>();
+        var updateDto = Fixture.Create<UpdateCompanyProfileDto>();
+        var updateCompanyEntity = Fixture.Build<Company>().With(x=>x.Id, companyId).Create();
+
+        _mockRepo.Setup(r=>r.UpdateCompanyProfile(companyId, It.IsAny<Company>())).ReturnsAsync(updateCompanyEntity);
+        
+        var result = await _serviceUnderTest.UpdateCompanyProfile(companyId, updateDto);
+
+        Assert.NotNull(result);
+        Assert.Equal(companyId, result.Id);
+        _mockRepo.Verify(r=>
+           r.UpdateCompanyProfile(companyId, It.IsAny<Company>())
+           ,Times.Once());
+
+    }
     
 }

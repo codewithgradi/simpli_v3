@@ -3,13 +3,13 @@ using AutoFixture;
 namespace simpli.Application.Tests.Helpers;
 public class TestBase
 {
-    private readonly Fixture _fixture ;
-    public TestBase()
+    protected readonly Fixture Fixture ;
+    protected TestBase()
     {
-        _fixture = new Fixture();
-        _fixture.Behaviors.OfType<ThrowingRecursionBehavior>()
+        Fixture = new Fixture();
+        Fixture.Behaviors.OfType<ThrowingRecursionBehavior>()
             .ToList()
-            .ForEach(b => _fixture.Behaviors.Remove(b));
-        _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+            .ForEach(b => Fixture.Behaviors.Remove(b));
+        Fixture.Behaviors.Add(new OmitOnRecursionBehavior());
     }
 }
