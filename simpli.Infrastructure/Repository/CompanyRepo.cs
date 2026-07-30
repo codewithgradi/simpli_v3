@@ -80,15 +80,6 @@ public class CompanyRepo : ICompanyRepo
             throw new ResourceNotFoundException("Company was not found");
         }
         ;
-        if (company.isDeleted)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-
-
+        return company.isDeleted;
     }
 }
