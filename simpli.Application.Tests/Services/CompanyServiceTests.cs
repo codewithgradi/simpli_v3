@@ -32,6 +32,7 @@ public class CompanyServiceTests:TestBase
         Assert.Equal(entity.Id, result.Id);
         _mockRepo.Verify(repo=>repo.GetCompanyProfile(entity.Id),Times.Once());
         
-    } 
+    }
+    [Fact] 
     
 }
