@@ -147,7 +147,7 @@ public static class ServiceExtentions
   }
   public static IServiceCollection AddOpenAI(this IServiceCollection services, IConfiguration configuration)
   {
-    string apiKey = configuration["OpenAI:ApiKey"]
+    string apiKey = configuration["OpenAi:ApiKey"]
         ?? throw new InvalidOperationException("Missing OpenAI api key in configuration.");
 
     // Point OpenAIClient to OpenRouter's base URL
