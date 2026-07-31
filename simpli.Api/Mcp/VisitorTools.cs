@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using ModelContextProtocol.Server;
+using simpli.Application.Services;
 using simpli.Domain.Entities;
 
 namespace simpli.Api.Mcp
@@ -22,6 +23,15 @@ namespace simpli.Api.Mcp
             var service = scope.ServiceProvider.GetRequiredService<VisitorTools>();
             var visitors = await service.GetAllVisitors(companyId);
             return visitors;
+        }
+        
+        [McpServerTool(Name="get_one_visitor"), Description("Returns on visitor from visitors table")]
+        public async Task<VisitorDto> GetVisitor([Description("This is visitor id")]int id)
+        {
+            using var scope = _provider.CreateAsyncScope();
+            var service = scope.ServiceProvider.GetRequiredService<VisitorService>();
+            var visitor = await service.GetVisitor(id);
+            return visitor;
         }
     }
 }
