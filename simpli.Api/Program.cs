@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 
 // CRITICAL FIX: Disable file system watchers for JSON configuration on cloud hosts
 builder.Configuration.Sources.Clear();
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
@@ -38,13 +39,14 @@ builder.Services
 .IdentityConfigurationsScope()
 .AllowCors(builder.Configuration)
 .AddMappers()
-.ConfigureMcp();
+.ConfigureMcp()
+.AddOpenAI(builder.Configuration);
 
-builder.Services.AddSingleton<CompanyTools>();
-builder.Services.AddSingleton<NotificationTools>();
-builder.Services.AddSingleton<RoomTools>();
-builder.Services.AddSingleton<VisitorTools>();
-builder.Services.AddSingleton<McpToolRegistery>();
+builder.Services.AddScoped<CompanyTools>();
+builder.Services.AddScoped<NotificationTools>();
+builder.Services.AddScoped<RoomTools>();
+builder.Services.AddScoped<VisitorTools>();
+builder.Services.AddScoped<McpToolRegistery>();
 
 var app = builder.Build();
 

@@ -1,12 +1,10 @@
-using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.AI;
-using simpli.Api.Mcp;
 using simpli.Application.Dtos;
 
 namespace simpli.Api.Controllers;
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ChatController:ControllerBase
 {
     private readonly IChatClient _chatClient;
