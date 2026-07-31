@@ -41,6 +41,9 @@ builder.Services
 .ConfigureMcp();
 
 builder.Services.AddSingleton<CompanyTools>();
+builder.Services.AddSingleton<NotificationTools>();
+builder.Services.AddSingleton<RoomTools>();
+builder.Services.AddSingleton<VisitorTools>();
 
 var app = builder.Build();
 
