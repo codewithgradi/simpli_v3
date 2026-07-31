@@ -84,15 +84,13 @@ public static class ServiceExtentions
 }
   public static IServiceCollection IdentityConfigurationsScope(this IServiceCollection services)
   {
-    services.AddIdentityCore<AppUser>(options =>
+    services.AddIdentityApiEndpoints<AppUser>(options =>
     {
       options.User.RequireUniqueEmail = true;
+      options.SignIn.RequireConfirmedAccount = false;
     })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-
-    services.AddIdentityApiEndpoints<AppUser>()
-        .AddEntityFrameworkStores<AppDbContext>();
 
     services.AddAuthorization();
 
@@ -101,9 +99,6 @@ public static class ServiceExtentions
   public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
   {
     services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, AdditionalUserClaimsPrincipalFactory>();
-    // services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
-    // services.Configure<OtherSettings>(configuration.GetSection("OtherSettings"));
-
     services.AddScoped<ICompanyRepo, CompanyRepo>();
     services.AddScoped<INotificationRepo, NotificationRepo>();
     services.AddScoped<IRoomRepo, RoomRepo>();

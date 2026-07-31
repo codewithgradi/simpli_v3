@@ -21,10 +21,12 @@ public class ChatController:ControllerBase
        _toolRegistery=registery;
         _logger = logger;
     }
-    [HttpPost]
-    public async Task<IActionResult> Chat([FromBody] ChatRequestDto request, CancellationToken cancellationToken)
+    [HttpPost("{companyId:int}")]
+    public async Task<IActionResult> Chat(
+        [FromRoute] int companyId,
+        [FromBody] ChatRequestDto request, 
+        CancellationToken cancellationToken)
     {
-        // 1. Basic Request Validation
         if (string.IsNullOrWhiteSpace(request.message))
         {
             return BadRequest(new ChatResponseDto(
@@ -34,24 +36,26 @@ public class ChatController:ControllerBase
             ));
         }
 
-        _logger.LogInformation("Processing chat request with prompt: {Prompt}", request.message);
+        _logger.LogInformation("Processing chat request for company {CompanyId} with prompt: {Prompt}", companyId, request.message);
 
-        // 2. Define System Role & Conversation Context
         List<ChatMessage> conversation = new()
         {
-            new ChatMessage(ChatRole.System, """
+            new ChatMessage(ChatRole.System, $"""
                 You are the system's AI assistant integrated with personal MCP tools.
-                ALWAYS check and call your available
-                tools (like 
-                SoftDeleteCompanyProfile,
-                GetAllRooms,
-                CheckOut,
-                GetAllVisitors,
-                GetVisitor,
-                ClearNotification
-                ) 
-                to find information about what you need to do before answering questions.
-                Never state that you lack information without invoking your tools first.
+                ALWAYS check and call your available tools (like
+                SoftDeleteCompanyProfileMcp, 
+                GetAllRoomsMcp,
+                CheckOutMcp, 
+                GetAllVisitorsMcp, 
+                GetVisitorMcp, 
+                ClearNotificationMcp
+                ) before answering questions.
+                
+                CRITICAL INSTRUCTION:
+                The current active company ID is {companyId}.
+                Whenever you call any tool that accepts a companyId parameter, you MUST pass {companyId} as the companyId argument.
+                Never query data without scoping it to company ID {companyId}.
+                Do not mention what tool you used or the company id in your renspose.
                 """),
             new ChatMessage(ChatRole.User, request.message)
         };

@@ -1,5 +1,6 @@
 using Hangfire;
 using Hangfire.MemoryStorage;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using simpli.Api.Mcp;
 using simpli.Api.Middlewares;
@@ -79,9 +80,12 @@ app.UseHttpsRedirection();
 app.UseCors("AllowNextJs");
 app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseAuthentication();
+
 app.UseAuthorization();
 app.MapControllers();
-app.MapMcp("/mcp");
 app.MapIdentityApi<AppUser>();
-
+app.MapMcp("/mcp");
+using var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+Console.WriteLine($"==> CONNECTED DB: {dbContext.Database.GetDbConnection().ConnectionString}");
 app.Run();

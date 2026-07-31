@@ -15,7 +15,7 @@ namespace simpli.Api.Mcp
             _provider = provider;
         }
         [McpServerTool(Name="get_all_room"),Description("returns a list of all rooms")]
-        public async Task<List<RoomDto>> GetAllRooms([Description("This is company id")] int id)
+        public async Task<List<RoomDto>> GetAllRoomsMcp([Description("This is company id")] int id)
         {
             await using var scope = _provider.CreateAsyncScope();
             var service = scope.ServiceProvider.GetRequiredService<RoomServices>();

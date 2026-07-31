@@ -15,7 +15,7 @@ public class CompanyTools
     }
     [McpServerTool(Name="update_company_details"),
     Description("This will soft delete company profile by setting the isDeleted property to true")]
-    public async Task SoftDeleteCompanyProfile(
+    public async Task SoftDeleteCompanyProfileMcp(
         [Description("This is company id from database")]
         int companyId
     )
