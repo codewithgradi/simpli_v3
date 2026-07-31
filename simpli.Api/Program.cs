@@ -44,6 +44,7 @@ builder.Services.AddSingleton<CompanyTools>();
 builder.Services.AddSingleton<NotificationTools>();
 builder.Services.AddSingleton<RoomTools>();
 builder.Services.AddSingleton<VisitorTools>();
+builder.Services.AddSingleton<McpToolRegistery>();
 
 var app = builder.Build();
 

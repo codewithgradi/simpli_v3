@@ -13,7 +13,8 @@ public class CompanyTools
     {
         _provider = provider;
     }
-    [McpServerTool(Name="update_company_details"),Description("This will soft delete company profile by setting the isDeleted property to true")]
+    [McpServerTool(Name="update_company_details"),
+    Description("This will soft delete company profile by setting the isDeleted property to true")]
     public async Task SoftDeleteCompanyProfile(
         [Description("This is company id from database")]
         int companyId
