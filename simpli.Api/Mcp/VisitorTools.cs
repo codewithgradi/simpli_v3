@@ -33,5 +33,14 @@ namespace simpli.Api.Mcp
             var visitor = await service.GetVisitor(id);
             return visitor;
         }
+        [McpServerTool(Name="check_out_visitor"), Description("This function checks out a visitor.")]
+        public async Task CheckOut(
+            [Description("This has room id and passcode in the obeject being passed as variable")]
+             CheckOutDto dto)
+        {
+            await using var scope = _provider.CreateAsyncScope();
+            var service = scope.ServiceProvider.GetRequiredService<VisitorService>();
+            await service.CheckOut(dto);
+        }
     }
 }

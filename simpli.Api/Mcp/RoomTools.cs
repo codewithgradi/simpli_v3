@@ -19,10 +19,7 @@ namespace simpli.Api.Mcp
         {
             await using var scope = _provider.CreateAsyncScope();
             var service = scope.ServiceProvider.GetRequiredService<RoomServices>();
-            var query = new QueryParameters
-            {
-                
-            };
+            var query = new QueryParameters();
             var rooms =await service.GetAllRooms(id, query);
             return rooms;
         }
