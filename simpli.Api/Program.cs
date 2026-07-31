@@ -1,6 +1,7 @@
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Scalar.AspNetCore;
+using simpli.Api.Mcp;
 using simpli.Api.Middlewares;
 using simpli.Infrastructure;
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
@@ -36,8 +37,10 @@ builder.Services
 .AddInfrastructureServices(builder.Configuration)
 .IdentityConfigurationsScope()
 .AllowCors(builder.Configuration)
-.AddMappers();
+.AddMappers()
+.ConfigureMcp();
 
+builder.Services.AddSingleton<CompanyTools>();
 
 var app = builder.Build();
 
@@ -66,6 +69,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapMcp("/mcp");
 
 //Mapping from scalar UI
 app.MapIdentityApi<AppUser>();

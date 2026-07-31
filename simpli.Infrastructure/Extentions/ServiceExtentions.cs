@@ -10,6 +10,11 @@ namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
 {
+  public static IServiceCollection ConfigureMcp(this IServiceCollection services)
+  {
+    services.AddMcpServer().WithHttpTransport(opt=>opt.Stateless = true).WithToolsFromAssembly();
+    return services;
+  }
   public static IServiceCollection AddApiVersionForBackend(this IServiceCollection services)
   {
     services.AddApiVersioning(opt =>
