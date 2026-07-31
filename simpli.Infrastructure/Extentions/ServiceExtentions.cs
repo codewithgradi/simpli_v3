@@ -50,33 +50,38 @@ public static class ServiceExtentions
     return services;
   }
   public static IServiceCollection ConfigureSqlDB(this IServiceCollection services, IConfiguration config)
-  {
+{
     var envType = config["OtherSettings:CurrentEnviroment"]?.ToLower().Trim(' ', '"');
+
+    if (string.IsNullOrWhiteSpace(envType) || envType.Equals("placeholder", StringComparison.OrdinalIgnoreCase))
+    {
+        envType = "dev";
+    }
 
     services.AddDbContext<AppDbContext>(opt =>
     {
-      if (envType == "dev")
-      {
-        var devCs = config["ConnectionStrings:DevDB"];
-        if (string.IsNullOrEmpty(devCs)) throw new InvalidOperationException("DevDB connection string is missing.");
-        opt.UseNpgsql(devCs).UseSnakeCaseNamingConvention();
-      }
-      else if (envType == "prod")
-      {
-        var prodCs = config["ConnectionStrings:ProdDB"];
-        if (string.IsNullOrEmpty(prodCs)) throw new InvalidOperationException("ProdDB connection string is missing.");
-        opt.UseNpgsql(prodCs).UseSnakeCaseNamingConvention();
-      }
-      else
-      {
-        throw new InvalidOperationException(
-            $"SQL Server could not be configured. The environment target read as '{envType}'. " +
-            "Ensure builder.Configuration.AddEnvironmentVariables() is active.");
-      }
+        string? rawConnectionString = envType switch
+        {
+            "dev" => config["ConnectionStrings:DevDB"],
+            "prod" => config["ConnectionStrings:ProdDB"],
+            _ => throw new InvalidOperationException($"Invalid environment target '{envType}'.")
+        };
+
+        string? connectionString = rawConnectionString?.Trim(' ', '"', '\'');
+
+        if (string.IsNullOrWhiteSpace(connectionString) || 
+            connectionString.Equals("placeholder", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(
+                $"The connection string for '{envType}' is missing or still set to 'placeholder'. " +
+                $"Checked key 'ConnectionStrings:{(envType == "dev" ? "DevDB" : "ProdDB")}'.");
+        }
+
+        opt.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
     });
 
     return services;
-  }
+}
   public static IServiceCollection IdentityConfigurationsScope(this IServiceCollection services)
   {
     services.AddIdentityCore<AppUser>(options =>
@@ -96,8 +101,8 @@ public static class ServiceExtentions
   public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
   {
     services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, AdditionalUserClaimsPrincipalFactory>();
-    services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
-    services.Configure<OtherSettings>(configuration.GetSection("OtherSettings"));
+    // services.Configure<ConnnectionStrings>(configuration.GetSection("ConnectionStrings"));
+    // services.Configure<OtherSettings>(configuration.GetSection("OtherSettings"));
 
     services.AddScoped<ICompanyRepo, CompanyRepo>();
     services.AddScoped<INotificationRepo, NotificationRepo>();
@@ -146,15 +151,24 @@ public static class ServiceExtentions
     return services;
   }
   public static IServiceCollection AddOpenAI(this IServiceCollection services, IConfiguration configuration)
-  {
+{
     string apiKey = configuration["OpenAi:ApiKey"]
         ?? throw new InvalidOperationException("Missing OpenAI api key in configuration.");
 
-    // Point OpenAIClient to OpenRouter's base URL
-    var openRouter = configuration["OpenRouter"] ?? throw new InvalidOperationException("no open router link found");
+    // Retrieve OpenRouter URL from configuration (either top level or nested)
+    string? openRouterUrl = configuration["OpenAi:OpenRouter"] ?? configuration["OpenRouter"];
+
+    // Validate URI or fall back to standard OpenRouter base URL if missing or set to "Placeholder"
+    if (string.IsNullOrWhiteSpace(openRouterUrl) ||
+        openRouterUrl.Equals("Placeholder", StringComparison.OrdinalIgnoreCase) ||
+        !Uri.TryCreate(openRouterUrl, UriKind.Absolute, out var openRouterUri))
+    {
+        openRouterUri = new Uri("https://openrouter.ai/api/v1");
+    }
+
     var openAiOptions = new OpenAIClientOptions
     {
-      Endpoint = new Uri(openRouter)
+        Endpoint = openRouterUri
     };
 
     var openAiClient = new OpenAIClient(new ApiKeyCredential(apiKey), openAiOptions);
@@ -170,5 +184,5 @@ public static class ServiceExtentions
     services.AddSingleton<IChatClient>(chatClient);
 
     return services;
-  }
+}
 }
