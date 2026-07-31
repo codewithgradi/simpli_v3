@@ -1,4 +1,7 @@
+using System.ComponentModel;
 using ModelContextProtocol.Server;
+using simpli.Application.Services;
+using simpli.Domain.Dtos;
 
 namespace simpli.Api.Mcp
 {
@@ -11,7 +14,17 @@ namespace simpli.Api.Mcp
         {
             _provider = provider;
         }
-        [McpServerTool]
-        public async 
+        [McpServerTool(Name="get_all_room"),Description("returns a list of all rooms")]
+        public async Task<List<RoomDto>> GetAllRooms([Description("This is company id")] int id)
+        {
+            await using var scope = _provider.CreateAsyncScope();
+            var service = scope.ServiceProvider.GetRequiredService<RoomServices>();
+            var query = new QueryParameters
+            {
+                
+            };
+            var rooms =await service.GetAllRooms(id, query);
+            return rooms;
+        }
     }
 }
