@@ -6,6 +6,9 @@ using simpli.Application.Dtos;
 using simpli.Application.Services;
 using Asp.Versioning;
 using simpli.Domain.Exceptions;
+using Microsoft.Extensions.AI;
+using OpenAI;
+using System.ClientModel;
 namespace simpli.Infrastructure;
 
 public static class ServiceExtentions
@@ -140,6 +143,32 @@ public static class ServiceExtentions
     services.AddSingleton<CompanyMappers>();
     services.AddSingleton<NotificationMappers>();
     services.AddSingleton<RoomMappers>();
+    return services;
+  }
+  public static IServiceCollection AddOpenAI(this IServiceCollection services, IConfiguration configuration)
+  {
+    string apiKey = configuration["OpenAI:ApiKey"]
+        ?? throw new InvalidOperationException("Missing OpenAI api key in configuration.");
+
+    // Point OpenAIClient to OpenRouter's base URL
+    var openRouter = configuration["OpenRouter"] ?? throw new InvalidOperationException("no open router link found");
+    var openAiOptions = new OpenAIClientOptions
+    {
+      Endpoint = new Uri(openRouter)
+    };
+
+    var openAiClient = new OpenAIClient(new ApiKeyCredential(apiKey), openAiOptions);
+
+    IChatClient innerClient = openAiClient
+        .GetChatClient("openrouter/free")
+        .AsIChatClient();
+
+    IChatClient chatClient = new ChatClientBuilder(innerClient)
+        .UseFunctionInvocation()
+        .Build();
+
+    services.AddSingleton<IChatClient>(chatClient);
+
     return services;
   }
 }
