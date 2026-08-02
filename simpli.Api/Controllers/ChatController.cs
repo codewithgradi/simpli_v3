@@ -33,7 +33,7 @@ public class ChatController:ControllerBase
                 Success: false,
                 Reply: null,
                 Error: "Message prompt cannot be empty."
-            ));
+            )); 
         }
 
         _logger.LogInformation("Processing chat request for company {CompanyId} with prompt: {Prompt}", companyId, request.message);
